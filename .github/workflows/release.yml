@@ -28,7 +28,7 @@ jobs:
 
     - name: Download metadata
       run: |
-        git clone https://github.com/swerik-project/the-swedish-parliament-corpus.git
+        git clone https://github.com/swerik-project/riksdagen-politicians.git
         git cd riksdagen-politicians && git checkout main && cd ../
         mkdir metadata && mv riksdagen-politicians/data metadata/ && rm -R riksdagen-politicians
 
