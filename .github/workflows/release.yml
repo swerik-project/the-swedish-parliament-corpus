@@ -1,0 +1,43 @@
+name: Release new version
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          python-version: [3.8]
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false   # use GITHUB_TOKEN
+        fetch-depth: 1               # fetch depth is nr of commits
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyriksdagen
+        pip install cycler
+
+    - name: Download metadata
+      run: |
+        git clone git@github.com:swerik-project/riksdagen-politicians.git
+        git cd riksdagen-politicians && git checkout main && cd ../
+        mkdir metadata && mv riksdagen-politicians/data metadata/ && rm -R riksdagen-politicians
+
+    - name: Zip metadata
+      run: zip -r metadata.zip metadata
+
+    - name: Upload metadata to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ sectrts.GITHUB_TOKEN }}
+        file: metadata.zip
+        tag: ${{ github.ref }}
