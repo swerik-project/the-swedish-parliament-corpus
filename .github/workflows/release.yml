@@ -45,7 +45,7 @@ jobs:
     - name: Download records
       run: |
         git clone https://github.com/swerik-project/riksdagen-records.git
-        cd riksdagen-records && checkout main && cd ../
+        cd riksdagen-records && git checkout main && cd ../
         mkdir records && mv riksdagen-records/data records/ && rm -R riksdagen-records
 
     - name: Zip records
