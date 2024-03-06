@@ -96,7 +96,7 @@ def main():
         if _ not in dates.columns:
             dates[_] = None
 
-    dates["year"] = dates["protocol"].apply(lambda x: str(x.split('/')[2][:4]))
+    dates["year"] = dates["protocol"].apply(lambda x: str(x.split('/')[0][:4]))
     dates["spec"] = dates["protocol"].apply(lambda x: get_spec(x))
     dates["parliament_year"] = dates.apply(mk_py, axis=1)
     dates['chamber'] = dates['protocol'].apply(lambda x: get_ch(x))
