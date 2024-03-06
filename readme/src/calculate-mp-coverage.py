@@ -61,7 +61,7 @@ def mk_py(row):
 
 def get_ch(protocol_path):
     chamber = None
-    spl = protocol_path.split('/')[3].split('-')
+    spl = protocol_path.split('/')[-1].split('-')
     if len(spl) == 4:
         chamber = "ek"
     else:
