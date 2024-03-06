@@ -19,7 +19,7 @@ skip = [
 
 
 
-def plot_coverage_ratio(version, df):
+def plot_coverage_ratio(df):
     versions = df.columns
     versions = sorted(set(versions), key=lambda v: list(map(int, v[1:].split('.'))), reverse=True)
     versions = versions[:4]
@@ -95,26 +95,32 @@ def plot_coverage(version, df):
 def main(args):
 
     print("plotting MP coverage")
-    df = pd.read_csv("stats/mp-coverage/mp-coverage.csv", sep=";")
+    df = pd.read_csv("stats/mp-coverage/coverage.csv", sep=";")
     plot_coverage(args.version, df)
 
 
     print("plotting quality of MP coverage")
-    mp_coverage_df = pd.read_csv(f"{here}/figures/mp-coverage/mp-coverage.csv")
+    mp_coverage_df = pd.read_csv("stats/mp-coverage/mp-coverage.csv")
     mp_coverage_df.set_index('year', inplace=True)
+
     for s in skip:
         df.drop(df[df['protocol']==s].index, inplace=True)
 
     df['parliament_year'] = df['parliament_year'].apply(lambda x: int(x[:4]))
     pyears = df['parliament_year'].unique()
+
     D = {}
+
     for py in pyears:
         D[py] = df.loc[df['parliament_year']==py, "ratio"].mean()
 
     mp_coverage_df[args.version] = D
-    mp_coverage_df.to_csv("stats/mp-coverage/yearly-ratio.csv")
 
-    plot_coverage_ratio(args.version, mp_coverage_df)
+    mp_coverage_df.to_csv("stats/mp-coverage/mp-coverage.csv")
+
+
+    plot_coverage_ratio(mp_coverage_df)
+
 
 
 
