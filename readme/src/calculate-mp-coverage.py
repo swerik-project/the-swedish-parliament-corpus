@@ -43,7 +43,7 @@ def is_within_tolerance(nmp, baseline):
 
 def get_spec(protocol_path):
     spec = None
-    spl = protocol_path.split('/')[3].split('-')
+    spl = protocol_path.split('/')[-1].split('-')
     if len(spl) == 4:
         return spec
     else:
