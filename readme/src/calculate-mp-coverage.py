@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
-Calculates MP coverage and generates plots
-Should be run by `./generate-markdown.py`
+Calculates MP coverage and generates plots.
 """
 from pyriksdagen.metadata import load_Corpus_metadata
 from tqdm import tqdm
