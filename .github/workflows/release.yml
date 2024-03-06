@@ -58,6 +58,11 @@ jobs:
 
     - name: Calculate and Plot MP coverage
       run: |
+        ls -la
+        ls -la riksdagen-politicians
+        ls -la riksdagen-politicians/test
+        ls -la riksdagen-politicians/test/data
+        cat riksdagen-politicians/test/data/baseline-n-mps-year.csv
         PYTHONPATH="$PYTHONPATH:." python readme/src/calculate-mp-coverage.py
         PYTHONPATH="$PYTHONPATH:." python readme/src/plot-mp-coverage.py -v ${{ github.ref }}
 
