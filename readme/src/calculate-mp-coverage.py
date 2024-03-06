@@ -72,10 +72,8 @@ def get_ch(protocol_path):
 def get_baseline(row, baseline_df):
     y = row['year']
     c = row['chamber']
-    print(y,c)
     fdf = baseline_df.loc[(baseline_df['year'] == y) & (baseline_df['chamber'] == c)].copy()
     fdf.reset_index(inplace=True)
-    print(fdf)
     return fdf.at[0, "n_mps"]
 
 
@@ -102,7 +100,7 @@ def main():
     dates['chamber'] = dates['protocol'].apply(lambda x: get_ch(x))
     dates['baseline_N'] = dates.apply(get_baseline, args=(baseline_df,), axis=1)
 
-    corpus_meta = load_Corpus_metadata
+    corpus_meta = load_Corpus_metadata()
     mp_meta = corpus_meta[corpus_meta['source'] == 'member_of_parliament']
     mp_meta = mp_meta[mp_meta.start.notnull()]
 
@@ -158,7 +156,7 @@ def main():
                 dates.at[i, "ratio"] = "None"
             dates.at[i, "MEPs"] = list(MEPs)
             prgbr.update()
-    dates = dates.sort_values(list(dates.columns))
+    dates = dates.sort_values(by=['protocol', 'date'], ignore_index=True)
     dates.to_csv("stats/mp-coverage/coverage.csv", index=False, sep=";")
 
 
