@@ -81,7 +81,7 @@ def get_baseline(row, baseline_df):
 
 def main():
     print("checking MP coverage...")
-    baseline_df = pd.read_csv("riksdagen-politicians/test/data/number_mp_in_parliament.csv")
+    baseline_df = pd.read_csv("riksdagen-politicians/test/data/baseline-n-mps-year.csv")
     baseline_df['year'] = baseline_df['year'].apply(lambda x: str(x)[:4])
 
     dates = pd.read_csv("riksdagen-politicians/test/data/session-dates.csv", sep=";")
