@@ -4,7 +4,6 @@ Calculates MP coverage and generates plots
 Should be run by `./generate-markdown.py`
 """
 from pyriksdagen.metadata import load_Corpus_metadata
-from pyriksdagen.utils import get_data_location
 from tqdm import tqdm
 import argparse
 import datetime as dt
@@ -82,10 +81,10 @@ def get_baseline(row, baseline_df):
 
 def main():
     print("checking MP coverage...")
-    baseline_df = pd.read_csv(f"{get_data_location('metadata')}/test/data/number_mp_in_parliament.csv")
+    baseline_df = pd.read_csv("riksdagen-politicians/test/data/number_mp_in_parliament.csv")
     baseline_df['year'] = baseline_df['year'].apply(lambda x: str(x)[:4])
 
-    dates = pd.read_csv(f"{get_data_location('metadata')}/test/data/session-dates.csv", sep=";")
+    dates = pd.read_csv("riksdagen-politicians/test/data/session-dates.csv", sep=";")
     dates = dates[~dates['protocol'].isin(skip)]
     dates = dates[~dates['date'].isin(["2021", "1977"])]
 
