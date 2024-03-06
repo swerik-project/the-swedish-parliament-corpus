@@ -72,8 +72,10 @@ def get_ch(protocol_path):
 def get_baseline(row, baseline_df):
     y = row['year']
     c = row['chamber']
+    print(y,c)
     fdf = baseline_df.loc[(baseline_df['year'] == y) & (baseline_df['chamber'] == c)].copy()
     fdf.reset_index(inplace=True)
+    print(fdf)
     return fdf.at[0, "n_mps"]
 
 
