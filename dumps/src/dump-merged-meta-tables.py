@@ -7,7 +7,7 @@ import argparse
 
 
 
-def main():
+def main(args):
     corpus = load_Corpus_metadata()
     for file_ in ['member_of_parliament', 'minister', 'speaker']:
         df  = corpus[corpus['source'] == file_]
