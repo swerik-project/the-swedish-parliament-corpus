@@ -70,10 +70,14 @@ jobs:
 
     - name: Generate README
       run: |
+        export METADATA_PATH="riksdagen-politicians/data"
+        export RECORDS_PATH="riksdagen-records/data"
         PYTHONPATH="$PYTHONPATH:." python readme/src/generate-markdown.py -v ${{ github.ref }}
 
     - name: Dump merged metadata
       run: |
+        export METADATA_PATH="riksdagen-politicians/data"
+        export RECORDS_PATH="riksdagen-records/data"
         PYTHONPATH="$PYTHONPATH:." python dumps/src/dump-merged-meta-tables.py
 
     - name: Zip dumps
