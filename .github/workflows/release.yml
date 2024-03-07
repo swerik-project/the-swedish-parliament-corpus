@@ -90,6 +90,10 @@ jobs:
         file: dumps.zip
         tag: ${{ github.ref }}
 
+    - name: Remove Hyyuuggee files
+      run: |
+        rm stats/mp-coverage/coverage.csv
+
     - name: Add and Commit generated file
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
