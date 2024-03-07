@@ -62,6 +62,12 @@ jobs:
         PYTHONPATH="$PYTHONPATH:." python readme/src/calculate-mp-coverage.py
         PYTHONPATH="$PYTHONPATH:." python readme/src/plot-mp-coverage.py -v ${{ github.ref }}
 
+    - name: Estimate and Plot Speaker-Intro mapping
+      run: |
+        export METADATA_PATH="riksdagen-politicians/data"
+        export RECORDS_PATH="riksdagen-records/data"
+        PYTHONPATH="$PYTHONPATH:." python readme/src/estimate-intro-mapping-accuracy.py -v ${{ github.ref }} --show False
+
     - name: Generate README
       run: |
         PYTHONPATH="$PYTHONPATH:." python readme/src/generate-markdown.py -v ${{ github.ref }}
