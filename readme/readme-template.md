@@ -108,7 +108,7 @@ Currently, we have an extensive set of Parliamentary Records (Riksdagens Protoko
 
 We check how many speakers in the parliamentary records our algorithms idenify in each release. 
 
-![Estimate of mapping accuracy](https://raw.githubusercontent.com/welfare-state-analytics/riksdagen-corpus/main/input/accuracy/version_plot.png)
+![Estimate of speaker mapping accuracy](plots/speaker-mapping-estimate.png)
 
 ### Correct number of MPs over time
 
@@ -125,8 +125,8 @@ If you would like to participate in the curation or quality control of data cont
 
 - Swerik funding:Riksbankens Jubileumsfond IN22-0003
 
-<img src="scripts/stats-dashboard/figures/logos/rj.png" width="250"/>
-<img src="scripts/stats-dashboard/figures/logos/vr.png" width="250"/>
+<img src="readme/rj.png" width="250"/>
+<img src="readme/vr.png" width="250"/>
 
 ---
 Last update: {Updated}
