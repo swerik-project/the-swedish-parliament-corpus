@@ -26,8 +26,8 @@ import re, subprocess
 
 now = datetime.now()
 corpus_paths = {
-    "protocols_path": "riksdagen-records/data/",
-    "metadata_path": "riksdagen-politicians/data/"
+    "protocols_path": os.environ.get("RECORDS_PATH", 'data'),
+    "metadata_path": os.environ.get("METADATA_PATH", 'data')
 }
 md_row_names = {
     "-": "",
@@ -118,20 +118,20 @@ def calculate_prot_stats():
     Counts protocol docs, number of pages, and words
     """
     print("Calculating protocol summary statistics...")
-    D = {"protocols":{}, "pages":{}, "speeches": {}, "words":{}}
+    D = {"records":{}, "pages":{}, "speeches": {}, "words":{}}
     N_prot,N_prot_pages,N_prot_speeches, N_prot_words = 0,0,0,0
     protocols = sorted(list(protocol_iterators(
                                 get_data_location("records"),
                                 start=1867, end=2023)))
     for protocol in tqdm(protocols, total=len(protocols)):
         prot_year = infer_year(protocol)
-        if prot_year not in D["protocols"]:
-            D["protocols"][prot_year] = 0
+        if prot_year not in D["records"]:
+            D["records"][prot_year] = 0
             D["pages"][prot_year] = 0
             D["speeches"][prot_year] = 0
             D["words"][prot_year] = 0
         N_prot += 1
-        D["protocols"][prot_year] += 1
+        D["records"][prot_year] += 1
         pp, sp, pw = count_pages_speeches_words(protocol)
         N_prot_pages += pp
         D["pages"][prot_year] += pp
@@ -160,7 +160,7 @@ def count_MP():
     """
     print("Counting MPs (unique people w/ role)...")
     N_MP = 0
-    df = pd.read_csv(f"{get_data_location("metadata")}/member_of_parliament.csv")
+    df = pd.read_csv(f"{get_data_location('metadata')}/member_of_parliament.csv")
     N_MP = len(df["person_id"].unique())
     print(f"... {N_MP} individuals have a 'member of parliament' role")
     return N_MP
@@ -172,7 +172,7 @@ def count_MIN():
     """
     print("Counting ministers (unique people with role)...")
     N_MIN = 0
-    df = pd.read_csv(f"{get_data_location('metadata')}minister.csv")
+    df = pd.read_csv(f"{get_data_location('metadata')}/minister.csv")
     N_MIN = len(df["person_id"].unique())
     print(f"... {N_MIN} individuals have a 'minister' role")
     return N_MIN
@@ -267,13 +267,18 @@ def main(args):
     for stat, stat_d in stats.items():
         df = pd.read_csv(f"stats/{stat}/{stat}.csv")
         df.set_index("year", inplace=True)
-        df[args.version] = prot_d[header]
+        df[args.version] = prot_d[stat_d['header']]
         df.to_csv(f"stats/{stat}/{stat}.csv")
         gen_prot_plot(df, f"stats/{stat}/{stat}.csv", stat_d["title"], stat_d["header"].capitalize())
 
     print("...done")
 
-
+    print("RENDERING NEW README FILE:")
+    to_render = {
+            "Updated": now.strftime("%Y-%m-%d, %H:%M:%S"),
+            "Version": args.version,
+            "sumstats_table": table,
+        }
     if render_markdown(to_render):
         print("New README generated successfully.")
 
