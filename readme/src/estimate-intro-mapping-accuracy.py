@@ -46,7 +46,8 @@ def update_plot(version):
     # sort versions 
     #    (a) first by patch, then minor, then major and 
     #    (b) by int (10, 9 ... 2, 1) not str ('9' ... '2', '10', '1')
-    version = sorted(list(set(df['version'])), key=lambda s: list(map(int, s[1:].split('.'))), reverse=True)
+    versions = [v for v in versions if "rc" not in v]
+    version = sorted(list(set([v for v in df['version'] if "rc" not in v])), key=lambda s: list(map(int, s[1:].split('.'))), reverse=True)
 
     for v in version[:6]:
         dfv = df.loc[df['version'] == v]

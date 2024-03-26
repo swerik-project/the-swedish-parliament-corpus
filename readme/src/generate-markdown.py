@@ -58,7 +58,7 @@ def render_markdown(renderd):
 def mk_table_data(df):
     table_data = []
     D = {}
-    version = sorted(list(set(df['version'])), key=lambda s: list(map(int, s[1:].split('.'))), reverse=True)
+    version = sorted(list(set([v for v in df['version'] if "rc" not in v])), key=lambda s: list(map(int, s[1:].split('.'))), reverse=True)
     cols = [c for c in df.columns if c != "version"]
     for v in version[:3]:
         dfv = df.loc[df["version"]==v].copy()
