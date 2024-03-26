@@ -194,6 +194,7 @@ def gen_prot_plot(df, path, title_string, ylab):
     path_dir = "plots"#os.path.dirname(path)
     fig_name = os.path.basename(path).split('.')[0]
     versions = df.columns
+    versions = [v for v in versions if "rc" not in v]
     versions = sorted(set(versions), key=lambda v: list(map(int, v[1:].split('.'))), reverse=True)
     versions = versions[:4]
     df = df[versions]
