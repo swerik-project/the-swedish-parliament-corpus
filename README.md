@@ -2,7 +2,7 @@
 [![Validate Parla-Clarin XML](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml/badge.svg)](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml)
 
 
-# Swedish parliamentary proceedings --- 1867--today --- v1.0.0rc5
+# Swedish parliamentary proceedings --- 1867--today --- v1.0.0
 
 _Westac Project_, 2020--2024 |
 _Swerik Project_, 2023--2025
@@ -75,13 +75,13 @@ Documentation and example usage of Pyriksdagen and rcr can be found in their res
 
 Currently, we have an extensive set of Parliamentary Records (Riksdagens Protokoll) from 1867 until now. We are in the process of preparing Motions for inclusion in the corpus and other document types will follow.
 
-|                                      |   v0.0.26  |   v0.0.5   |   v0.0.4   |
+|                                      |   v1.0.0   |   v0.0.26  |   v0.0.5   |
 |--------------------------------------|------------|------------|------------|
-|           Corpus size (GB)           |    5.48    |    5.53    |    5.48    |
-|    Number of parliamentary records   |    17642   |    17790   |    17642   |
-|   Total parliamentary record pages*  |      0     |      0     |   1045458  |
-|  Total parliamentary record speeches |   1014214  |   1021129  |   1014214  |
-|   Total parliamentary record words   |  442634322 |  445919740 |  442634322 |
+|           Corpus size (GB)           |    5.53    |    5.48    |    5.53    |
+|    Number of parliamentary records   |    17800   |    17642   |    17790   |
+|   Total parliamentary record pages*  |      0     |      0     |      0     |
+|  Total parliamentary record speeches |   1022014  |   1014214  |   1021129  |
+|   Total parliamentary record words   |  446349968 |  442634322 |  445919740 |
 |           Number of Motions          |      0     |      0     |      0     |
 |          Total motion pages          |      0     |      0     |      0     |
 |          Total motion words          |      0     |      0     |      0     |
@@ -140,4 +140,4 @@ If you would like to participate in the curation or quality control of data cont
 <img src="readme/vr.png" width="250"/>
 
 ---
-Last update: 2024-03-26, 12:14:38
+Last update: 2024-03-26, 14:01:33
