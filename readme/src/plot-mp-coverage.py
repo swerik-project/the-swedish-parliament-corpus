@@ -21,6 +21,7 @@ skip = [
 
 def plot_coverage_ratio(df):
     versions = df.columns
+    versions = [v for v in versions if "rc" not in v]
     versions = sorted(set(versions), key=lambda v: list(map(int, v[1:].split('.'))), reverse=True)
     versions = versions[:4]
     df = df[versions]
