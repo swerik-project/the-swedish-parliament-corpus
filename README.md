@@ -2,7 +2,7 @@
 [![Validate Parla-Clarin XML](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml/badge.svg)](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml)
 
 
-# Swedish parliamentary proceedings --- 1867--today --- v0.0.26
+# Swedish parliamentary proceedings --- 1867--today --- v1.0.0rc5
 
 _Westac Project_, 2020--2024 |
 _Swerik Project_, 2023--2025
@@ -140,4 +140,4 @@ If you would like to participate in the curation or quality control of data cont
 <img src="readme/vr.png" width="250"/>
 
 ---
-Last update: 2024-03-07, 14:17:32
+Last update: 2024-03-26, 12:14:38
