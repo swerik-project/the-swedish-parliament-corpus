@@ -28,11 +28,11 @@ jobs:
 
     - name: Download metadata
       run: |
-        git clone https://github.com/swerik-project/riksdagen-politicians.git
-        cd riksdagen-politicians && git checkout main && cd ../
+        git clone https://github.com/swerik-project/riksdagen-persons.git
+        cd riksdagen-persons && git checkout main && cd ../
 
     - name: Zip metadata
-      run: zip -r metadata.zip riksdagen-politicians/data
+      run: zip -r metadata.zip riksdagen-persons/data
 
     - name: Upload metadata to release
       uses: svenstaro/upload-release-action@v2
@@ -58,25 +58,25 @@ jobs:
 
     - name: Calculate and Plot MP coverage
       run: |
-        export METADATA_PATH="riksdagen-politicians/data"
+        export METADATA_PATH="riksdagen-persons/data"
         PYTHONPATH="$PYTHONPATH:." python readme/src/calculate-mp-coverage.py
         PYTHONPATH="$PYTHONPATH:." python readme/src/plot-mp-coverage.py -v ${{ github.ref }}
 
     - name: Estimate and Plot Speaker-Intro mapping
       run: |
-        export METADATA_PATH="riksdagen-politicians/data"
+        export METADATA_PATH="riksdagen-persons/data"
         export RECORDS_PATH="riksdagen-records/data"
         PYTHONPATH="$PYTHONPATH:." python readme/src/estimate-intro-mapping-accuracy.py -v ${{ github.ref }} --show False
 
     - name: Generate README
       run: |
-        export METADATA_PATH="riksdagen-politicians/data"
+        export METADATA_PATH="riksdagen-persons/data"
         export RECORDS_PATH="riksdagen-records/data"
         PYTHONPATH="$PYTHONPATH:." python readme/src/generate-markdown.py -v ${{ github.ref }}
 
     - name: Dump merged metadata
       run: |
-        export METADATA_PATH="riksdagen-politicians/data"
+        export METADATA_PATH="riksdagen-persons/data"
         export RECORDS_PATH="riksdagen-records/data"
         PYTHONPATH="$PYTHONPATH:." python dumps/src/dump-merged-meta-tables.py
 
