@@ -105,7 +105,8 @@ def count_pages_speeches_words(protocol):
             if 'type' in elem.attrib:
                 if elem.attrib['type'] == 'speaker':
                     speeches += 1
-    pages = len(root.findall(f"{ns['tei_ns']}pb"))
+    pages = len(root.findall(f".//{ns['tei_ns']}pb"))
+    print(pages, speeches, words)
     return pages, speeches, words
 
 
