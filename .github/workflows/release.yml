@@ -49,6 +49,7 @@ jobs:
 
     - name: Unzip metadata
       run: |
+        echo "tag: $PERSONS_TAG"
         mv persons.zip "persons_$PERSONS_TAG.zip"
         ls -la
         unzip persons.zip
