@@ -44,7 +44,8 @@ jobs:
     - name: Download metadata, get repo version nr, unzip
       run: |
         PERSONS_INFO="$(curl -L https://api.github.com/repos/swerik-project/riksdagen-persons/releases/latest)"
-        PERSONS_TAG="$(echo $PERSONS_INFO | jq -r .tag_name)" >> $GITHUB_ENV
+        PERSONS_TAG="$(echo $PERSONS_INFO | jq -r .tag_name)"
+        echo "PERSONS_TAG=$PERSONS_TAG">> $GITHUB_ENV
         curl -LO "$(echo $PERSONS_INFO | jq -r .assets[0].browser_download_url)"
         echo "tag: $PERSONS_TAG"
         mv persons.zip "persons_$PERSONS_TAG.zip"
@@ -55,7 +56,7 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: "persons_${{env.PERSONS_TAG}}.zip"
+        file: persons_${{ env.PERSONS_TAG }}.zip
         tag: ${{ github.ref }}
 
     - name: Download records and get repo version nr
