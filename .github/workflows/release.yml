@@ -63,6 +63,7 @@ jobs:
         RECORDS_INFO="$(curl -L https://api.github.com/repos/swerik-project/riksdagen-persons/releases/latest)"
         RECORDS_TAG="$(echo $RECORDS_INFO | jq -r .tag_name)"
         echo "RECORDS_TAG=$RECORDS_TAG" >> $GITHUB_ENV
+        echo $RECORDS_INFO | jq -r .assets[0].browser_download_url
         curl -LO "$(echo $RECORDS_INFO | jq -r .assets[0].browser_download_url)"
         mv records.zip "records_$RECORDS_TAG.zip"
         unzip records_$RECORDS_TAG.zip
