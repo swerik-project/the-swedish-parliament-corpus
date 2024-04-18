@@ -41,14 +41,11 @@ jobs:
         PRD_INFO="$(curl -L https://api.github.com/repos/swerik-project/pyriksdagen/releases/latest)"
         PRD_TAG=="$(echo $PRD_INFO | jq -r .tag_name)"
 
-    - name: Download metadata and get repo version nr
+    - name: Download metadata, get repo version nr, unzip
       run: |
         PERSONS_INFO="$(curl -L https://api.github.com/repos/swerik-project/riksdagen-persons/releases/latest)"
         PERSONS_TAG="$(echo $PERSONS_INFO | jq -r .tag_name)"
         curl -LO "$(echo $PERSONS_INFO | jq -r .assets[0].browser_download_url)"
-
-    - name: Unzip metadata
-      run: |
         echo "tag: $PERSONS_TAG"
         mv persons.zip "persons_$PERSONS_TAG.zip"
         ls -la
