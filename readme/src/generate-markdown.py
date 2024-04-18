@@ -210,11 +210,36 @@ def gen_prot_plot(df, path, title_string, ylab):
     plt.savefig(f"{path_dir}/{fig_name}.png")
 
 
+def update_version_d(args):
+    if os.file.exists("stats/version-compatibility/versions.json"):
+        with open("stats/version-compatibility/versions.json", 'r') as inf:
+            version_d = json.load(inf)
+    else:
+        version_d = {}
+    version_d[args.version] = {
+            "pyriksdagen": args.pyriksdagen_version,
+            "riksdagen-persons": args.persons_version,
+            "riksdagen-records": args.records_version,
+        }
+    with open("stats/version-compatibility/versions.json", 'w+') as outf:
+        json.dump(version_d, outf, ensure_ascii=False, indent=4)
+    return version_d
 
+
+def versions_table(versions_d):
+    cols = ["Dated Release", "Reoisitory Versions"]
+    ds = []
+    for version, version_info in versions_d.items():
+        ds.append({"Dated Release": version, "Repository Versions":'<br>'.join([f"{k}: {v}" for k,v in version_info.items()])})
+    return markdown_table(ds).set_params(
+                                    quote=False,
+                                    padding_width=3,
+                                    row_sep="markdown").get_markdown()
 
 def main(args):
     print(f"CALUCLATING SUMSTATS FOR {args.version}")
     print("---------------------------------")
+    version_d = update_version_d(args)
     new_version_row = [args.version]
     new_version_row.append(calculate_corpus_size())
     prot_stats = calculate_prot_stats()
@@ -278,7 +303,7 @@ def main(args):
     print("RENDERING NEW README FILE:")
     to_render = {
             "Updated": now.strftime("%Y-%m-%d, %H:%M:%S"),
-            "Version": args.version,
+            "version_info": versions_table(version_d),
             "sumstats_table": table,
         }
     if render_markdown(to_render):
@@ -290,12 +315,20 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-v", "--version", type=str)
+    parser.add_argument("-py", "--pyriksdagen-version", type=str)
+    parser.add_argument("-rv", "--records-version", type=str)
+    parser.add_argument("-pv", "--persons-version", type=str)
     parser.add_argument("--outdir", type=str, default="plots")
     args = parser.parse_args()
-    exp = re.compile(r"v([0-9]+)([.])([0-9]+)([.])([0-9]+)(b|rc)?([0-9]+)?")
-    if exp.search(args.version) is None:
+    release_version = re.compile(r"v(20[0-9]{2})([.])((0|1)[0-9])([.])([0-3][0-9]{1})(b|rc)?([0-9]+)?")
+    repo_version = re.compile(r"v([0-9]+)([.])([0-9]+)([.])([0-9]+)(b|rc)?([0-9]+)?")
+    if release_version.search(args.version) is None:
         print(f"{args.version} is not a valid version number. Exiting")
         exit()
-    else:
-        args.version = exp.search(args.version).group(0)
-        main(args)
+    for v in [args.persons_version, args.records_version]:
+        if v is None or repo_version.search(v) is None:
+            print(f"{v} is not a valid version number. Exiting")
+            exit()
+    args.version = release_version.search(args.version).group(0)
+    print(args)
+    #main(args)

@@ -26,58 +26,72 @@ jobs:
         pip install pyriksdagen
         pip install cycler
 
-    - name: Download metadata
-      run: |
-        git clone https://github.com/swerik-project/riksdagen-persons.git
-        cd riksdagen-persons && git checkout main && cd ../
+    - name: Install jq
+      uses: dcarbone/install-jq-action@v2
+      with:
+        version: 1.7
+        force: false
 
-    - name: Zip metadata
-      run: zip -r metadata.zip riksdagen-persons/data
+    - name: 'Check jq'
+      run: |
+        jq --version
+
+    - name: Get Current pyriksdagen version
+      run: |
+        PRD_INFO="$(curl -L https://api.github.com/repos/swerik-project/pyriksdagen/releases/latest)"
+        PRD_TAG=="$(echo $PRD_INFO | jq -r .tag_name)"
+
+    - name: Download metadata and get repo version nr
+      run: |
+        PERSONS_INFO="$(curl -L https://api.github.com/repos/swerik-project/riksdagen-persons/releases/latest)"
+        PERSONS_TAG="$(echo $PERSONS_INFO | jq -r .tag_name)"
+        curl -LO "$(echo $PERSONS_INFO | jq -r .assets[0].browser_download_url)"
+
+    - name: Unzip metadata
+      run: |
+        unzip persons.zip
+        mv persons.zip "persons_$PERSONS_TAG.zip"
 
     - name: Upload metadata to release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: metadata.zip
+        file: persons_${{ PERSONS_TAG }}.zip"
         tag: ${{ github.ref }}
 
-    - name: Download records
+    - name: Download records and get repo version nr
       run: |
-        git clone https://github.com/swerik-project/riksdagen-records.git
-        cd riksdagen-records && git checkout main && cd ../
+        RECORDS_INFO="$(curl -L https://api.github.com/repos/swerik-project/riksdagen-persons/releases/latest)"
+        RECORDS_TAG="$(echo $RECORDS_INFO | jq -r .tag_name)"
+        curl -LO "$(echo $RECORDS_INFO | jq -r .assets[0].browser_download_url)"
 
-    - name: Zip records
-      run: zip -r records.zip riksdagen-records/data
+    - name: Unzip records
+      run: |
+        unzip records.zip
+        mv records.zip "records_$RECORDS_TAG.zip
 
     - name: Upload records to release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: records.zip
+        file: records_${{ RECORDS_TAG }}.zip
         tag: ${{ github.ref }}
 
     - name: Calculate and Plot MP coverage
       run: |
-        export METADATA_PATH="riksdagen-persons/data"
         PYTHONPATH="$PYTHONPATH:." python readme/src/calculate-mp-coverage.py
-        PYTHONPATH="$PYTHONPATH:." python readme/src/plot-mp-coverage.py -v ${{ github.ref }}
+        PYTHONPATH="$PYTHONPATH:." python readme/src/plot-mp-coverage.py -v ${{ RECORDS_TAG }}
 
     - name: Estimate and Plot Speaker-Intro mapping
       run: |
-        export METADATA_PATH="riksdagen-persons/data"
-        export RECORDS_PATH="riksdagen-records/data"
-        PYTHONPATH="$PYTHONPATH:." python readme/src/estimate-intro-mapping-accuracy.py -v ${{ github.ref }} --show False
+        PYTHONPATH="$PYTHONPATH:." python readme/src/estimate-intro-mapping-accuracy.py -v ${{ RECORDS_TAG }} --show False
 
     - name: Generate README
       run: |
-        export METADATA_PATH="riksdagen-persons/data"
-        export RECORDS_PATH="riksdagen-records/data"
-        PYTHONPATH="$PYTHONPATH:." python readme/src/generate-markdown.py -v ${{ github.ref }}
+        PYTHONPATH="$PYTHONPATH:." python readme/src/generate-markdown.py -v ${{ github.ref }} -pv $PERSONS_TAG -rv $RECORDS_TAG -py $PRD_TAG
 
     - name: Dump merged metadata
       run: |
-        export METADATA_PATH="riksdagen-persons/data"
-        export RECORDS_PATH="riksdagen-records/data"
         PYTHONPATH="$PYTHONPATH:." python dumps/src/dump-merged-meta-tables.py
 
     - name: Zip dumps
@@ -87,7 +101,7 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: dumps.zip
+        file: dumps_${{ github.ref }}.zip
         tag: ${{ github.ref }}
 
     - name: Remove Hyyuuggee files
