@@ -49,9 +49,9 @@ jobs:
 
     - name: Unzip metadata
       run: |
-      mv persons.zip "persons_$PERSONS_TAG.zip"
-      ls -la
-      unzip persons.zip
+        mv persons.zip "persons_$PERSONS_TAG.zip"
+        ls -la
+        unzip persons.zip
 
     - name: Upload metadata to release
       uses: svenstaro/upload-release-action@v2
