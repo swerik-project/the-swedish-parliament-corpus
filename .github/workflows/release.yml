@@ -56,7 +56,7 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: persons_$PERSONS_TAG.zip"
+        file: persons_$PERSONS_TAG.zip
         tag: ${{ github.ref }}
 
     - name: Download records and get repo version nr
@@ -68,7 +68,7 @@ jobs:
     - name: Unzip records
       run: |
         unzip records.zip
-        mv records.zip "records_$RECORDS_TAG.zip
+        mv records.zip "records_$RECORDS_TAG.zip"
 
     - name: Upload records to release
       uses: svenstaro/upload-release-action@v2
