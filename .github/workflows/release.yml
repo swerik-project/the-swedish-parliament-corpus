@@ -40,6 +40,7 @@ jobs:
       run: |
         PRD_INFO="$(curl -L https://api.github.com/repos/swerik-project/pyriksdagen/releases/latest)"
         PRD_TAG=="$(echo $PRD_INFO | jq -r .tag_name)"
+        echo "PRD_TAG=$PRD_TAG" >> $GITHUB_ENV
 
     - name: Download metadata, get repo version nr, unzip
       run: |
@@ -47,9 +48,7 @@ jobs:
         PERSONS_TAG="$(echo $PERSONS_INFO | jq -r .tag_name)"
         echo "PERSONS_TAG=$PERSONS_TAG">> $GITHUB_ENV
         curl -LO "$(echo $PERSONS_INFO | jq -r .assets[0].browser_download_url)"
-        echo "tag: $PERSONS_TAG"
         mv persons.zip "persons_$PERSONS_TAG.zip"
-        ls -la
         unzip persons_$PERSONS_TAG.zip
 
     - name: Upload metadata to release
@@ -59,23 +58,21 @@ jobs:
         file: persons_${{ env.PERSONS_TAG }}.zip
         tag: ${{ github.ref }}
 
-    - name: Download records and get repo version nr
+    - name: Download records, get repo version nr, and unzip
       run: |
-        echo "persons version: ${{env.PERSONS_TAG}}"
         RECORDS_INFO="$(curl -L https://api.github.com/repos/swerik-project/riksdagen-persons/releases/latest)"
         RECORDS_TAG="$(echo $RECORDS_INFO | jq -r .tag_name)"
+        echo "RECORDS_TAG=$RECORDS_TAG" >> $GITHUB_ENV
         curl -LO "$(echo $RECORDS_INFO | jq -r .assets[0].browser_download_url)"
-
-    - name: Unzip records
-      run: |
-        unzip records.zip
         mv records.zip "records_$RECORDS_TAG.zip"
+        unzip records_$RECORDS_TAG.zip
+
 
     - name: Upload records to release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: records_$RECORDS_TAG.zip
+        file: records_${{ env.RECORDS_TAG }}.zip
         tag: ${{ github.ref }}
 
     - name: Calculate and Plot MP coverage
@@ -89,14 +86,14 @@ jobs:
 
     - name: Generate README
       run: |
-        PYTHONPATH="$PYTHONPATH:." python readme/src/generate-markdown.py -v ${{ github.ref }} -pv $PERSONS_TAG -rv $RECORDS_TAG -py $PRD_TAG
+        PYTHONPATH="$PYTHONPATH:." python readme/src/generate-markdown.py -v ${{ github.ref }} -pv ${{ env.PERSONS_TAG }} -rv ${{ env.RECORDS_TAG }} -py ${{ env.PRD_TAG }}
 
     - name: Dump merged metadata
       run: |
         PYTHONPATH="$PYTHONPATH:." python dumps/src/dump-merged-meta-tables.py
 
     - name: Zip dumps
-      run: zip -r dumps.zip dumps/dumps
+      run: zip -r dumps_${{ github.ref }}.zip dumps/dumps
 
     - name: Upload dumps to zip
       uses: svenstaro/upload-release-action@v2
