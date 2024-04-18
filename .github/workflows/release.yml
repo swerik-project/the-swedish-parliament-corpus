@@ -56,7 +56,7 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: persons_${{ PERSONS_TAG }}.zip"
+        file: persons_$PERSONS_TAG.zip"
         tag: ${{ github.ref }}
 
     - name: Download records and get repo version nr
@@ -74,17 +74,17 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: records_${{ RECORDS_TAG }}.zip
+        file: records_$RECORDS_TAG.zip
         tag: ${{ github.ref }}
 
     - name: Calculate and Plot MP coverage
       run: |
         PYTHONPATH="$PYTHONPATH:." python readme/src/calculate-mp-coverage.py
-        PYTHONPATH="$PYTHONPATH:." python readme/src/plot-mp-coverage.py -v ${{ RECORDS_TAG }}
+        PYTHONPATH="$PYTHONPATH:." python readme/src/plot-mp-coverage.py -v $RECORDS_TAG
 
     - name: Estimate and Plot Speaker-Intro mapping
       run: |
-        PYTHONPATH="$PYTHONPATH:." python readme/src/estimate-intro-mapping-accuracy.py -v ${{ RECORDS_TAG }} --show False
+        PYTHONPATH="$PYTHONPATH:." python readme/src/estimate-intro-mapping-accuracy.py -v $RECORDS_TAG --show False
 
     - name: Generate README
       run: |
