@@ -82,11 +82,6 @@ jobs:
         mv baseline-n-mps-year.csv test-data/
         curl -LO https://raw.githubusercontent.com/swerik-project/riksdagen-persons/main/test/data/session-dates.csv
         mv session-dates.csv test-data/
-        echo '==='
-        ls -la
-        echo '---'
-        ls -la test-data/
-        echo '==='
         PYTHONPATH="$PYTHONPATH:." python readme/src/calculate-mp-coverage.py
         PYTHONPATH="$PYTHONPATH:." python readme/src/plot-mp-coverage.py -v ${{ env.RECORDS_TAG }}
 
@@ -109,7 +104,7 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: dumps_${{ github.ref }}.zip
+        file: dumps_${{ github.ref_name }}.zip
         tag: ${{ github.ref }}
 
     - name: Remove Hyyuuggee files
