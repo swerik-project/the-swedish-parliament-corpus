@@ -90,7 +90,7 @@ def calculate_upper_bound(args):
     else:
         protocols = sorted(list(protocol_iterators(get_data_location('records'))))
     #print(protocols)
-    years = sorted(set([int(p.split('/')[2][:4]) for p in protocols]))
+    years = sorted(set([int(p.split('/')[-2][:4]) for p in protocols]))
     years.append(max(years)+1)
     df = pd.DataFrame(
                 np.zeros((len(years), 2), dtype=int),
