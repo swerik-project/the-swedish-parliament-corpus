@@ -79,7 +79,7 @@ def get_baseline(row, baseline_df):
 
 
 def main(args):
-    if args.metadata_path
+    if args.metadata_path:
         metadata_path = args.metadata_path
     else:
         metadata_path = get_data_location("metadata")
