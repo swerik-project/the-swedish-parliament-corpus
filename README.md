@@ -2,7 +2,7 @@
 [![Validate Parla-Clarin XML](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml/badge.svg)](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml)
 
 
-# Swedish parliamentary proceedings --- 1867--today --- v1.0.0
+# Swedish parliamentary proceedings --- 1867--today --- v2024.04.19rc1
 
 _Westac Project_, 2020--2024 |
 _Swerik Project_, 2023--2025
@@ -10,13 +10,22 @@ _Swerik Project_, 2023--2025
 
 ## The data set
 
-The full data set consists of multiple parts:
+The full data set consists of multiple parts, which are version controlled independently from eachother. For convenience, the most up-to-date versions of these data sets are zipped and made available as a package on [the release page](https://github.com/swerik-project/the-swedish-parliament-corpus/releases) any time there's an update. These components are:
 
-- ```records.zip``` -- Parliamentary records (riksdagens protokoll) from 1867 until today in the [Parla-clarin](https://github.com/clarin-eric/parla-clarin) format
-- ```metadata.zip``` -- Comprehensive list of members of parliament, ministers and governments during this period + associated metadata (mandate periods, party info, etc)
-- ```dumps.zip``` -- various files containing merged / filtered / wrangled (meta)data
-- [In progress] -- An annotated catalog of motions submitted to the parliament with linked metadata
+- ```records_vX.X.X.zip``` -- Parliamentary records (riksdagens protokoll) from 1867 until today in the [Parla-clarin](https://github.com/clarin-eric/parla-clarin) format
+- ```persons_vX.X.X.zip``` -- Comprehensive list of members of parliament, ministers and governments during this period + associated metadata (mandate periods, party info, etc)
+- ```dumps_v20XX.XX.XX.zip``` -- various files containing merged / filtered / wrangled (meta)data
+- [comming soon] -- An annotated catalog of motions submitted to the parliament with linked metadata
+- [comming soon] -- An annotated catalog of Interpellation questions submitted to the government and Interpellation debates within the parliament
 
+
+### Version compatibility
+
+The table below is a record of semantically versioned repositories that are known to be compatible a the time of dated releases here:
+
+|  Dated Release  |                               Repository Versions                              |
+|-----------------|--------------------------------------------------------------------------------|
+|  v2024.04.19rc1 |  pyriksdagen: v1.1.0<br>riksdagen-persons: v1.0.0<br>riksdagen-records: v1.0.0 |
 
 ## Basic use
 
@@ -69,7 +78,7 @@ The data in the corpus is delivered as TEI XML files to follow established pract
 
 ## Documentation
 
-Documentation and example usage of Pyriksdagen and rcr can be found in their respective repositories [¿add links?]. Additionally some documentation about the curation process can be found in the scripts repo [¿link?].
+Documentation and example usage of Pyriksdagen and rcr can be found in their respective repositories. Additionally some documentation about the curation process can be found in the [scripts repository](https://github.com/swerik-project/scripts).
 
 ## Descriptive statistics at a glance
 
@@ -140,4 +149,4 @@ If you would like to participate in the curation or quality control of data cont
 <img src="readme/vr.png" width="250"/>
 
 ---
-Last update: 2024-03-26, 14:01:33
+Last update: 2024-04-19, 11:26:59
