@@ -39,7 +39,7 @@ jobs:
     - name: Get Current pyriksdagen version
       run: |
         PRD_INFO="$(curl -L https://api.github.com/repos/swerik-project/pyriksdagen/releases/latest)"
-        PRD_TAG=="$(echo $PRD_INFO | jq -r .tag_name)"
+        PRD_TAG="$(echo $PRD_INFO | jq -r .tag_name)"
         echo "PRD_TAG=$PRD_TAG" >> $GITHUB_ENV
 
     - name: Download metadata, get repo version nr, unzip
@@ -113,6 +113,7 @@ jobs:
 
     - name: Add and Commit generated file
       run: |
+        git status
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git add stats/
@@ -121,6 +122,7 @@ jobs:
         git commit -m "chore: update version plots"
         git add README.md
         git commit -m "chore: update README."
+        git status
 
     - name: Push changes
       uses: ad-m/github-push-action@master
