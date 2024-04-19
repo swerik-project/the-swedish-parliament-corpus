@@ -3,6 +3,7 @@
 Calculates MP coverage and generates plots.
 """
 from pyriksdagen.metadata import load_Corpus_metadata
+from pyriksdagen.utils import get_data_location
 from tqdm import tqdm
 import argparse
 import datetime as dt
