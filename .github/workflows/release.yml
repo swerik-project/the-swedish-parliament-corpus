@@ -77,8 +77,9 @@ jobs:
 
     - name: Calculate and Plot MP coverage
       run: |
+        ls -la
         PYTHONPATH="$PYTHONPATH:." python readme/src/calculate-mp-coverage.py
-        PYTHONPATH="$PYTHONPATH:." python readme/src/plot-mp-coverage.py -v $RECORDS_TAG
+        PYTHONPATH="$PYTHONPATH:." python readme/src/plot-mp-coverage.py -v ${{ env.RECORDS_TAG }}
 
     - name: Estimate and Plot Speaker-Intro mapping
       run: |
