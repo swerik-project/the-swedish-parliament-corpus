@@ -17,6 +17,7 @@ from pyriksdagen.utils import (
 )
 from tqdm import tqdm
 import argparse
+import json
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import os
