@@ -78,9 +78,13 @@ def get_baseline(row, baseline_df):
 
 
 
-def main():
+def main(args):
+    if args.metadata_path
+        metadata_path = args.metadata_path
+    else:
+        metadata_path = get_data_location("metadata")
     print("checking MP coverage...")
-    baseline_df = pd.read_csv("riksdagen-persons/test/data/baseline-n-mps-year.csv")
+    baseline_df = pd.read_csv(f"{metadata_location}/baseline-n-mps-year.csv")
     baseline_df['year'] = baseline_df['year'].apply(lambda x: str(x)[:4])
 
     dates = pd.read_csv("riksdagen-persons/test/data/session-dates.csv", sep=";")
@@ -174,4 +178,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--metadata-path", type=str, default=None)
+    args = parser.parse_args()
+    main(args)
