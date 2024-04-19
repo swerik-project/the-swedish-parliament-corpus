@@ -81,9 +81,9 @@ def get_baseline(row, baseline_df):
 
 def main(args):
     if args.metadata_path:
-        metadata_path = args.metadata_path
+        metadata_location = args.metadata_path
     else:
-        metadata_path = get_data_location("metadata")
+        metadata_location = get_data_location("metadata")
     print("checking MP coverage...")
     baseline_df = pd.read_csv(f"{metadata_location}/baseline-n-mps-year.csv")
     baseline_df['year'] = baseline_df['year'].apply(lambda x: str(x)[:4])
