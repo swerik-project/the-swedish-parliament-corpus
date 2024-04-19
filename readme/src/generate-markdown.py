@@ -211,7 +211,7 @@ def gen_prot_plot(df, path, title_string, ylab):
 
 
 def update_version_d(args):
-    if os.file.exists("stats/version-compatibility/versions.json"):
+    if os.path.exists("stats/version-compatibility/versions.json"):
         with open("stats/version-compatibility/versions.json", 'r') as inf:
             version_d = json.load(inf)
     else:
