@@ -305,6 +305,7 @@ def main(args):
 
     print("RENDERING NEW README FILE:")
     to_render = {
+            "Version": args.version,
             "Updated": now.strftime("%Y-%m-%d, %H:%M:%S"),
             "version_info": versions_table(version_d),
             "sumstats_table": table,
