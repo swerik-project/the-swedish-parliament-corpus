@@ -216,6 +216,8 @@ def update_version_d(args):
             version_d = json.load(inf)
     else:
         version_d = {}
+        if not os.path.exists("stats/version-compatibility"):
+            os.mkdir("stats/version-compatibility")
     version_d[args.version] = {
             "pyriksdagen": args.pyriksdagen_version,
             "riksdagen-persons": args.persons_version,
