@@ -77,9 +77,11 @@ jobs:
 
     - name: Calculate and Plot MP coverage
       run: |
-        curl -LO https://raw.githubusercontent.com/swerik-project/riksdagen-persons/main/test/data/baseline-n-mps-year.csv
         mkdir test-data
+        curl -LO https://raw.githubusercontent.com/swerik-project/riksdagen-persons/main/test/data/baseline-n-mps-year.csv
         mv baseline-n-mps-year.csv test-data/
+        curl -LO https://raw.githubusercontent.com/swerik-project/riksdagen-persons/main/test/data/session-dates.csv
+        mv session-dates.csv test-data/
         echo '==='
         ls -la
         echo '---'
