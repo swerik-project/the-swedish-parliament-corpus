@@ -330,5 +330,5 @@ if __name__ == '__main__':
             print(f"{v} is not a valid version number. Exiting")
             exit()
     args.version = release_version.search(args.version).group(0)
-    print(args)
-    #main(args)
+    #print(args)
+    main(args)
