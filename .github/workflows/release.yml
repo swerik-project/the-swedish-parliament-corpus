@@ -78,8 +78,13 @@ jobs:
     - name: Calculate and Plot MP coverage
       run: |
         curl -LO https://raw.githubusercontent.com/swerik-project/riksdagen-persons/main/test/data/baseline-n-mps-year.csv
-        mkdir test
-        mv baseline-n-mps-year.csv test/
+        mkdir test-data
+        mv baseline-n-mps-year.csv test-data/
+        echo '==='
+        ls -la
+        echo '---'
+        ls -la test-data/
+        echo '==='
         PYTHONPATH="$PYTHONPATH:." python readme/src/calculate-mp-coverage.py
         PYTHONPATH="$PYTHONPATH:." python readme/src/plot-mp-coverage.py -v ${{ env.RECORDS_TAG }}
 

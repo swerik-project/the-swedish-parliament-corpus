@@ -85,7 +85,7 @@ def main(args):
     else:
         metadata_location = "."
     print("checking MP coverage...")
-    baseline_df = pd.read_csv(f"{metadata_location}/test/data/baseline-n-mps-year.csv")
+    baseline_df = pd.read_csv(f"{metadata_location}/test-data/baseline-n-mps-year.csv")
     baseline_df['year'] = baseline_df['year'].apply(lambda x: str(x)[:4])
 
     dates = pd.read_csv("riksdagen-persons/test/data/session-dates.csv", sep=";")
