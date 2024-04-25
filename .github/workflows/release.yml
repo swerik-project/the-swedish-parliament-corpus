@@ -83,11 +83,11 @@ jobs:
         curl -LO https://raw.githubusercontent.com/swerik-project/riksdagen-persons/main/test/data/session-dates.csv
         mv session-dates.csv test-data/
         PYTHONPATH="$PYTHONPATH:." python readme/src/calculate-mp-coverage.py
-        PYTHONPATH="$PYTHONPATH:." python readme/src/plot-mp-coverage.py -v ${{ env.RECORDS_TAG }}
+        PYTHONPATH="$PYTHONPATH:." python readme/src/plot-mp-coverage.py -v ${{ env.PERSONS_TAG }}
 
     - name: Estimate and Plot Speaker-Intro mapping
       run: |
-        PYTHONPATH="$PYTHONPATH:." python readme/src/estimate-intro-mapping-accuracy.py -v $RECORDS_TAG --show False
+        PYTHONPATH="$PYTHONPATH:." python readme/src/estimate-intro-mapping-accuracy.py -v ${{ env.RECORDS_TAG }} --show False
 
     - name: Generate README
       run: |
