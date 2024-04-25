@@ -127,8 +127,8 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("-v", "--version", t
-                        ype=str,
+    parser.add_argument("-v", "--version",
+                        type=str,
                         help="Version of the riksdagen-persons (!!!) repository")
     args = parser.parse_args()
     exp = re.compile(r"v([0-9]+)([.])([0-9]+)([.])([0-9]+)(b|rc)?([0-9]+)?")
