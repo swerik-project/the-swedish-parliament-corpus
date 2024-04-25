@@ -41,7 +41,7 @@ Archives (```.zip``` files) can be downloaded, extracted, and used in whatever w
 
    (venv) ~$  pip install pyriksdagen
 
-A simple workflow is demonstrated in [this Google Colab notebook](https://colab.research.google.com/drive/1C3e2gwi9z83ikXbYXNPfB6RF7spTgzxA?usp=sharing).
+A simple workflow is demonstrated in [this Google Colab notebook](https://colab.research.google.com/github/swerik-project/pyriksdagen/blob/main/examples/corpus-walkthrough.ipynb).
 
 ### rcr: an R module
 
@@ -88,6 +88,8 @@ Currently, we have an extensive set of Parliamentary Records (Riksdagens Protoko
 
 ### Parliamentary Records over time
 
+This section plots information about the parliamentary records from the ```riksdagen-records``` repository {records_repo_version}.
+
 #### Number of Parliamentary Records
 
 ![Number of Parliamentary Records](plots/n-prot.png)
@@ -100,26 +102,39 @@ Currently, we have an extensive set of Parliamentary Records (Riksdagens Protoko
 
 ![Number of Speeches in Parliamentary Records](plots/prot-speeches.png)
 
-
 #### Number of Words in Parliamentary Records
 
 ![Number of Words in Parliamentary Records](plots/prot-words.png)
 
-### Members of Parliament over time
 
-![Members of Parliament over time](plots/mp-coverage.png)
 
 ## Quality assessment
 
 ### Speech-to-speaker mapping
 
-We check how many speakers in the parliamentary records our algorithms idenify in each release. 
+We check how many speakers in the parliamentary records our algorithms idenify in each release. From the ```riksdagen-records``` repository {records_repo_version}.
 
 ![Estimate of speaker mapping accuracy](plots/speaker-mapping-estimate.png)
 
 ### Correct number of MPs over time
 
+We check the number of MPs with a mandate on a given day against he baseline number of MPs that we know _should be_ sitting in parliament. From the riksdagen-persons repository {persons_repo_version}.
+
+This plot illustrates the mean daily number of MPs in the metadata compared to the baseling.
+
 ![Ratio of MP to seats over time](plots/mp-coverage-ratio.png)
+
+For more granularity, the plot below shows a box plot distribution of the daily number of MPs in each year agaist the baseline; mostly they are not visible, as they are tightly underneath the mean line (red). Colored dots represent outlier days.
+
+![Members of Parliament over time](plots/mp-coverage.png)
+
+### Segment classification
+
+The parliamentary records are subdivided into various components, including utterances, notes, and speaker introductions. As of the ```riksdagen-records``` repository v1.0.0, the segment classification accuracy was 0.9499. 
+
+### OCR accuracy
+
+As of v1.0.0 of the ```riksdagen-records``` corpus, the cumulative character error rate for 0.0311, and the word error rate is 0.0869, i.e., roughly 3 per cent of the characters and 9 per cent of the words are incorrect due to OCR errors.
 
 
 ## Participate!

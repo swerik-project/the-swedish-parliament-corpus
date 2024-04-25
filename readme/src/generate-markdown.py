@@ -277,19 +277,19 @@ def main(args):
     stats = {
         "n-prot":{
             "header": "records",
-            "title":f"Number of Parliamentary Records over time ({args.version})"
+            "title":f"Number of Parliamentary Records over time ({args.records_version})"
         },
         "prot-pages":{
             "header":"pages",
-            "title":f"Number of Pages in Parliamentary Records over time ({args.version})"
+            "title":f"Number of Pages in Parliamentary Records over time ({args.records_version})"
         },
         "prot-speeches":{
             "header": "speeches",
-            "title": f"Number of Speeches in Parliamentary Records over time ({args.version})"
+            "title": f"Number of Speeches in Parliamentary Records over time ({args.records_version})"
         },
         "prot-words":{
             "header": "words",
-            "title":f"Number of Words in Parliamentary Records over time ({args.version})"
+            "title":f"Number of Words in Parliamentary Records over time ({args.records_version})"
         }
     }
 
@@ -309,6 +309,8 @@ def main(args):
             "Updated": now.strftime("%Y-%m-%d, %H:%M:%S"),
             "version_info": versions_table(version_d),
             "sumstats_table": table,
+            "records_repo_version": args.records_version,
+            "persons_repo_version": args.persons_version,
         }
     if render_markdown(to_render):
         print("New README generated successfully.")
