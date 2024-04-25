@@ -2,7 +2,7 @@
 [![Validate Parla-Clarin XML](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml/badge.svg)](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml)
 
 
-# Swedish parliamentary proceedings --- 1867--today --- v2024.04.19rc1
+# Swedish parliamentary proceedings --- 1867--today --- v2024.04.25rc1
 
 _Westac Project_, 2020--2024 |
 _Swerik Project_, 2023--2025
@@ -26,6 +26,7 @@ The table below is a record of semantically versioned repositories that are know
 |  Dated Release  |                               Repository Versions                              |
 |-----------------|--------------------------------------------------------------------------------|
 |  v2024.04.19rc1 |  pyriksdagen: v1.1.0<br>riksdagen-persons: v1.0.0<br>riksdagen-records: v1.0.0 |
+|  v2024.04.25rc1 |  pyriksdagen: v1.2.0<br>riksdagen-persons: v1.0.0<br>riksdagen-records: v1.0.0 |
 
 ## Basic use
 
@@ -43,7 +44,7 @@ Archives (```.zip``` files) can be downloaded, extracted, and used in whatever w
 
    (venv) ~$  pip install pyriksdagen
 
-A simple workflow is demonstrated in [this Google Colab notebook](https://colab.research.google.com/drive/1C3e2gwi9z83ikXbYXNPfB6RF7spTgzxA?usp=sharing).
+A simple workflow is demonstrated in [this Google Colab notebook](https://colab.research.google.com/github/swerik-project/pyriksdagen/blob/main/examples/corpus-walkthrough.ipynb).
 
 ### rcr: an R module
 
@@ -84,13 +85,13 @@ Documentation and example usage of Pyriksdagen and rcr can be found in their res
 
 Currently, we have an extensive set of Parliamentary Records (Riksdagens Protokoll) from 1867 until now. We are in the process of preparing Motions for inclusion in the corpus and other document types will follow.
 
-|                                      |   v1.0.0   |   v0.0.26  |   v0.0.5   |
+|                                      |   v1.0.0   |   v0.14.0  |   v0.13.1  |
 |--------------------------------------|------------|------------|------------|
-|           Corpus size (GB)           |    5.53    |    5.48    |    5.53    |
-|    Number of parliamentary records   |    17800   |    17642   |    17790   |
-|   Total parliamentary record pages*  |      0     |      0     |      0     |
-|  Total parliamentary record speeches |   1022014  |   1014214  |   1021129  |
-|   Total parliamentary record words   |  446349968 |  442634322 |  445919740 |
+|           Corpus size (GB)           |    5.53    |    5.48    |    5.48    |
+|    Number of parliamentary records   |    17800   |    17642   |    17642   |
+|   Total parliamentary record pages*  |      0     |   1045458  |   1045458  |
+|  Total parliamentary record speeches |   1022014  |   1014214  |   1014214  |
+|   Total parliamentary record words   |  446349968 |  442634322 |  442634322 |
 |           Number of Motions          |      0     |      0     |      0     |
 |          Total motion pages          |      0     |      0     |      0     |
 |          Total motion words          |      0     |      0     |      0     |
@@ -100,6 +101,8 @@ Currently, we have an extensive set of Parliamentary Records (Riksdagens Protoko
 \* Digital original parliamentary records for some years in the 1990s are not paginated and thus do not contribute to the page count.See also §_Number of Pages in Parliamentary Records_.
 
 ### Parliamentary Records over time
+
+This section plots information about the parliamentary records from the ```riksdagen-records``` repository v1.0.0.
 
 #### Number of Parliamentary Records
 
@@ -113,26 +116,39 @@ Currently, we have an extensive set of Parliamentary Records (Riksdagens Protoko
 
 ![Number of Speeches in Parliamentary Records](plots/prot-speeches.png)
 
-
 #### Number of Words in Parliamentary Records
 
 ![Number of Words in Parliamentary Records](plots/prot-words.png)
 
-### Members of Parliament over time
 
-![Members of Parliament over time](plots/mp-coverage.png)
 
 ## Quality assessment
 
 ### Speech-to-speaker mapping
 
-We check how many speakers in the parliamentary records our algorithms idenify in each release. 
+We check how many speakers in the parliamentary records our algorithms idenify in each release. From the ```riksdagen-records``` repository v1.0.0.
 
 ![Estimate of speaker mapping accuracy](plots/speaker-mapping-estimate.png)
 
 ### Correct number of MPs over time
 
+We check the number of MPs with a mandate on a given day against he baseline number of MPs that we know _should be_ sitting in parliament. From the riksdagen-persons repository v1.0.0.
+
+This plot illustrates the mean daily number of MPs in the metadata compared to the baseling.
+
 ![Ratio of MP to seats over time](plots/mp-coverage-ratio.png)
+
+For more granularity, the plot below shows a box plot distribution of the daily number of MPs in each year agaist the baseline; mostly they are not visible, as they are tightly underneath the mean line (red). Colored dots represent outlier days.
+
+![Members of Parliament over time](plots/mp-coverage.png)
+
+### Segment classification
+
+The parliamentary records are subdivided into various components, including utterances, notes, and speaker introductions. As of the ```riksdagen-records``` repository v1.0.0, the segment classification accuracy was 0.9499. 
+
+### OCR accuracy
+
+As of v1.0.0 of the ```riksdagen-records``` corpus, the cumulative character error rate for 0.0311, and the word error rate is 0.0869, i.e., roughly 3 per cent of the characters and 9 per cent of the words are incorrect due to OCR errors.
 
 
 ## Participate!
@@ -149,4 +165,4 @@ If you would like to participate in the curation or quality control of data cont
 <img src="readme/vr.png" width="250"/>
 
 ---
-Last update: 2024-04-19, 11:26:59
+Last update: 2024-04-25, 20:22:34
