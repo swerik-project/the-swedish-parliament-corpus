@@ -121,7 +121,7 @@ def calculate_prot_stats():
     """
     print("Calculating protocol summary statistics...")
     D = {"records":{}, "pages":{}, "speeches": {}, "words":{}}
-    N_prot,N_prot_pages,N_prot_speeches, N_prot_words = 0,0,0,0
+    N_prot, N_prot_pages, N_prot_speeches, N_prot_words = 0,0,0,0
     protocols = sorted(list(protocol_iterators(
                                 get_data_location("records"),
                                 start=1867, end=2023)))
@@ -237,11 +237,14 @@ def versions_table(versions_d):
     ds = []
     versions_d = dict(sorted(versions_d.items(), reverse=True))
     for version, version_info in versions_d.items():
-        ds.append({"Dated Release": version, "Repository Versions":'<br>'.join([f"{k}: {v}" for k,v in version_info.items()])})
+        ds.append({"Dated Release": version, "Repository Versions":'<br>'.join([f"{k}: {v}" for k,v in version_info.items() if "rc" not in k])})
     return markdown_table(ds).set_params(
                                     quote=False,
                                     padding_width=3,
                                     row_sep="markdown").get_markdown()
+
+
+
 
 def main(args):
     print(f"CALUCLATING SUMSTATS FOR {args.version}")
@@ -281,18 +284,22 @@ def main(args):
     stats = {
         "n-prot":{
             "header": "records",
+            "version": args.records_version,
             "title":f"Number of Parliamentary Records over time ({args.records_version})"
         },
         "prot-pages":{
             "header":"pages",
+            "version": args.records_version,
             "title":f"Number of Pages in Parliamentary Records over time ({args.records_version})"
         },
         "prot-speeches":{
             "header": "speeches",
+            "version": args.records_version,
             "title": f"Number of Speeches in Parliamentary Records over time ({args.records_version})"
         },
         "prot-words":{
             "header": "words",
+            "version": args.records_version,
             "title":f"Number of Words in Parliamentary Records over time ({args.records_version})"
         }
     }
@@ -301,7 +308,7 @@ def main(args):
     for stat, stat_d in stats.items():
         df = pd.read_csv(f"stats/{stat}/{stat}.csv")
         df.set_index("year", inplace=True)
-        df[args.version] = prot_d[stat_d['header']]
+        df[stat_d['version']] = prot_d[stat_d['header']]
         df.to_csv(f"stats/{stat}/{stat}.csv")
         gen_prot_plot(df, f"stats/{stat}/{stat}.csv", stat_d["title"], stat_d["header"].capitalize())
 
