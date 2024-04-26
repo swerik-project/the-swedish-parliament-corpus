@@ -202,6 +202,9 @@ def gen_prot_plot(df, path, title_string, ylab):
     df = df[versions]
     p, a = plt.subplots()
     a.plot(df)
+    lines = a.get_children()
+    for i, l in enumerate(lines, -len(lines)):
+        l.set_zorder(abs(i))
     plt.title(title_string)
     plt.legend(versions, loc ="upper left")
     a.set_xlabel('Year')
