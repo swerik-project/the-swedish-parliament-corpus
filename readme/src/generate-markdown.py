@@ -235,6 +235,7 @@ def update_version_d(args):
 def versions_table(versions_d):
     cols = ["Dated Release", "Reoisitory Versions"]
     ds = []
+    versions_d = dict(sorted(versions_d.items(), reverse=True))
     for version, version_info in versions_d.items():
         ds.append({"Dated Release": version, "Repository Versions":'<br>'.join([f"{k}: {v}" for k,v in version_info.items()])})
     return markdown_table(ds).set_params(
