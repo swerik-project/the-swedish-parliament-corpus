@@ -2,7 +2,7 @@
 [![Validate Parla-Clarin XML](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml/badge.svg)](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml)
 
 
-# Swedish parliamentary proceedings --- 1867--today --- v2024.04.26rc2
+# Swedish parliamentary proceedings --- 1867--today --- v2024.04.26
 
 _Westac Project_, 2020--2024 |
 _Swerik Project_, 2023--2025
@@ -23,12 +23,9 @@ The full data set consists of multiple parts, which are version controlled indep
 
 The table below is a record of semantically versioned repositories that are known to be compatible a the time of dated releases here:
 
-|  Dated Release  |                               Repository Versions                              |
-|-----------------|--------------------------------------------------------------------------------|
-|  v2024.04.26rc2 |  pyriksdagen: v1.2.0<br>riksdagen-persons: v1.0.0<br>riksdagen-records: v1.0.0 |
-|  v2024.04.26rc1 |  pyriksdagen: v1.2.0<br>riksdagen-persons: v1.0.0<br>riksdagen-records: v1.0.0 |
-|  v2024.04.25rc1 |  pyriksdagen: v1.2.0<br>riksdagen-persons: v1.0.0<br>riksdagen-records: v1.0.0 |
-|  v2024.04.19rc1 |  pyriksdagen: v1.1.0<br>riksdagen-persons: v1.0.0<br>riksdagen-records: v1.0.0 |
+| Dated Release|                               Repository Versions                              |
+|--------------|--------------------------------------------------------------------------------|
+|  v2024.04.26 |  pyriksdagen: v1.2.0<br>riksdagen-persons: v1.0.0<br>riksdagen-records: v1.0.0 |
 
 ## Basic use
 
@@ -87,13 +84,13 @@ Documentation and example usage of Pyriksdagen and rcr can be found in their res
 
 Currently, we have an extensive set of Parliamentary Records (Riksdagens Protokoll) from 1867 until now. We are in the process of preparing Motions for inclusion in the corpus and other document types will follow.
 
-|                                      |   v0.14.0  |   v0.13.1  |   v0.13.0  |
+|                                      | v2024.04.26|   v0.14.0  |   v0.13.1  |
 |--------------------------------------|------------|------------|------------|
-|           Corpus size (GB)           |    5.48    |    5.48    |    5.48    |
-|    Number of parliamentary records   |    17642   |    17642   |    17642   |
-|   Total parliamentary record pages*  |   1045458  |   1045458  |   1045458  |
-|  Total parliamentary record speeches |   1014214  |   1014214  |   1014214  |
-|   Total parliamentary record words   |  442634322 |  442634322 |  442634322 |
+|           Corpus size (GB)           |    11.06   |    5.48    |    5.48    |
+|    Number of parliamentary records   |    17800   |    17642   |    17642   |
+|   Total parliamentary record pages*  |   1056361  |   1045458  |   1045458  |
+|  Total parliamentary record speeches |   1022014  |   1014214  |   1014214  |
+|   Total parliamentary record words   |  446349968 |  442634322 |  442634322 |
 |           Number of Motions          |      0     |      0     |      0     |
 |          Total motion pages          |      0     |      0     |      0     |
 |          Total motion words          |      0     |      0     |      0     |
@@ -167,4 +164,4 @@ If you would like to participate in the curation or quality control of data cont
 <img src="readme/vr.png" width="250"/>
 
 ---
-Last update: 2024-04-26, 09:31:53
+Last update: 2024-04-26, 10:11:47
