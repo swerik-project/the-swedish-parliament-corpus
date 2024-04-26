@@ -1,5 +1,7 @@
-[![Perform unit tests](https://github.com/swerik-project/riksdagen-records/actions/workflows/push.yml/badge.svg)](https://github.com/swerik-project/riksdagen-records/actions/workflows/push.yml)
-[![Validate Parla-Clarin XML](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml/badge.svg)](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml)
+[![Persons: data integrity tests](https://github.com/swerik-project/riksdagen-persons/actions/workflows/push.yml/badge.svg)](https://github.com/swerik-project/riksdagen-persons/actions/workflows/push.yml)
+[![Pyriksdagen: notebooks](https://github.com/swerik-project/pyriksdagen/actions/workflows/push.yml/badge.svg)](https://github.com/swerik-project/pyriksdagen/actions/workflows/push.yml)
+[![Records: data integrity tests](https://github.com/swerik-project/riksdagen-records/actions/workflows/push.yml/badge.svg)](https://github.com/swerik-project/riksdagen-records/actions/workflows/push.yml)
+[![Records: Parla-Clarin XML](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml/badge.svg)](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml)
 
 
 # Swedish parliamentary proceedings --- 1867--today --- {Version}
