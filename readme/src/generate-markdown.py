@@ -237,7 +237,8 @@ def versions_table(versions_d):
     ds = []
     versions_d = dict(sorted(versions_d.items(), reverse=True))
     for version, version_info in versions_d.items():
-        ds.append({"Dated Release": version, "Repository Versions":'<br>'.join([f"{k}: {v}" for k,v in version_info.items() if "rc" not in k])})
+        if "rc" not in version:
+            ds.append({"Dated Release": version, "Repository Versions":'<br>'.join([f"{k}: {v}" for k,v in version_info.items()])})
     return markdown_table(ds).set_params(
                                     quote=False,
                                     padding_width=3,
