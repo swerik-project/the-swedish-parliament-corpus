@@ -14,8 +14,8 @@ _Swerik Project_, 2023--2025
 
 The full data set consists of multiple parts, which are version controlled independently from eachother. For convenience, the most up-to-date versions of these data sets are zipped and made available as a package on [the release page](https://github.com/swerik-project/the-swedish-parliament-corpus/releases) any time there's an update. These components are:
 
-- ```records_vX.X.X.zip``` -- Parliamentary records (riksdagens protokoll) from 1867 until today in the [Parla-clarin](https://github.com/clarin-eric/parla-clarin) format
-- ```persons_vX.X.X.zip``` -- Comprehensive list of members of parliament, ministers and governments during this period + associated metadata (mandate periods, party info, etc)
+- ```records_vX.X.X.zip``` ([swerik-project/riksdagen-records/](https://github.com/swerik-project/riksdagen-records/)) -- Parliamentary records (riksdagens protokoll) from 1867 until today in the [Parla-clarin](https://github.com/clarin-eric/parla-clarin) format
+- ```persons_vX.X.X.zip``` ([swerik-project/riksdagen-persons/](https://github.com/swerik-project/riksdagen-persons/)) -- Comprehensive list of members of parliament, ministers and governments during this period + associated metadata (mandate periods, party info, etc)
 - ```dumps_v20XX.XX.XX.zip``` -- various files containing merged / filtered / wrangled (meta)data
 - [comming soon] -- An annotated catalog of motions submitted to the parliament with linked metadata
 - [comming soon] -- An annotated catalog of Interpellation questions submitted to the government and Interpellation debates within the parliament
