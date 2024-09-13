@@ -28,5 +28,10 @@
         "pyriksdagen": "v1.2.0",
         "riksdagen-persons": "v1.1.0",
         "riksdagen-records": "v1.1.0"
+    },
+    "v2024.09.13": {
+        "pyriksdagen": "v1.4.0",
+        "riksdagen-persons": "v1.1.0",
+        "riksdagen-records": "v1.2.0"
     }
 }

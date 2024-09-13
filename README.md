@@ -4,7 +4,7 @@
 [![Records: Parla-Clarin XML](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml/badge.svg)](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml)
 
 
-# Swedish parliamentary proceedings --- 1867--today --- v2024.06.19
+# Swedish parliamentary proceedings --- 1867--today --- v2024.09.13
 
 _Westac Project_, 2020--2024 |
 _Swerik Project_, 2023--2025
@@ -27,6 +27,7 @@ The table below is a record of semantically versioned repositories that are know
 
 | Dated Release|                               Repository Versions                              |
 |--------------|--------------------------------------------------------------------------------|
+|  v2024.09.13 |  pyriksdagen: v1.4.0<br>riksdagen-persons: v1.1.0<br>riksdagen-records: v1.2.0 |
 |  v2024.06.19 |  pyriksdagen: v1.2.0<br>riksdagen-persons: v1.1.0<br>riksdagen-records: v1.1.0 |
 |  v2024.04.26 |  pyriksdagen: v1.2.0<br>riksdagen-persons: v1.0.0<br>riksdagen-records: v1.0.0 |
 
@@ -87,13 +88,13 @@ Documentation and example usage of Pyriksdagen and rcr can be found in their res
 
 Currently, we have an extensive set of Parliamentary Records (Riksdagens Protokoll) from 1867 until now. We are in the process of preparing Motions for inclusion in the corpus and other document types will follow.
 
-|                                      | v2024.06.19| v2024.04.26|   v0.14.0  |
+|                                      | v2024.09.13| v2024.06.19| v2024.04.26|
 |--------------------------------------|------------|------------|------------|
-|           Corpus size (GB)           |    11.17   |    11.06   |    5.48    |
-|    Number of parliamentary records   |    17935   |    17800   |    17642   |
-|   Total parliamentary record pages*  |   1067858  |   1056361  |   1045458  |
-|  Total parliamentary record speeches |   1034498  |   1022014  |   1014214  |
-|   Total parliamentary record words   |  450383213 |  446349968 |  442634322 |
+|           Corpus size (GB)           |    11.21   |    11.17   |    11.06   |
+|    Number of parliamentary records   |    17935   |    17935   |    17800   |
+|   Total parliamentary record pages*  |   1067858  |   1067858  |   1056361  |
+|  Total parliamentary record speeches |   1033991  |   1034498  |   1022014  |
+|   Total parliamentary record words   |  455943546 |  450383213 |  446349968 |
 |           Number of Motions          |      0     |      0     |      0     |
 |          Total motion pages          |      0     |      0     |      0     |
 |          Total motion words          |      0     |      0     |      0     |
@@ -104,7 +105,7 @@ Currently, we have an extensive set of Parliamentary Records (Riksdagens Protoko
 
 ### Parliamentary Records over time
 
-This section plots information about the parliamentary records from the ```riksdagen-records``` repository v1.1.0.
+This section plots information about the parliamentary records from the ```riksdagen-records``` repository v1.2.0.
 
 #### Number of Parliamentary Records
 
@@ -128,7 +129,7 @@ This section plots information about the parliamentary records from the ```riksd
 
 ### Speech-to-speaker mapping
 
-We check how many speakers in the parliamentary records our algorithms idenify in each release. From the ```riksdagen-records``` repository v1.1.0.
+We check how many speakers in the parliamentary records our algorithms idenify in each release. From the ```riksdagen-records``` repository v1.2.0.
 
 ![Estimate of speaker mapping accuracy](plots/speaker-mapping-estimate.png)
 
@@ -167,4 +168,4 @@ If you would like to participate in the curation or quality control of data cont
 <img src="readme/vr.png" width="250"/>
 
 ---
-Last update: 2024-06-19, 07:33:38
+Last update: 2024-09-13, 06:56:43
