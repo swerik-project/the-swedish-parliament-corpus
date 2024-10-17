@@ -13,11 +13,12 @@ The test files for automated tests are already included as separate tests.
 Quality dimension estimation is commonly done by counting or by estimation based on a sample. There is a need to understand what is estimated and why it is estimated/motivation behind the quality estimation. Hence we need to describe how the each quality dimension more thoroughly.
 
 ## Decision
-All separate quality dimensions sheet should be included in the actual repository where they are used/analyzed for each quality dimension we estimate in that corpus. See the quality dimension template.
 
-Each test should be stored as `test-[what-is-checked-automatically].py/r`. Each test should include a header in comment describing the test and why it has been included. See the data-integrity-test template.
+All quality estimations and data-integrity tests should be included in the actual repository where they are used/analyzed. Each quality dimension estimation should be stored as `qe-[what-dimension-is-estimated].py/r` and should include a short docstring / header describing the the estimation as well as a reference to or "inclusion" of the markdown file that contains more detailed descriptions of what is estimated and the estimation process. See the quality dimension template.
 
-Python functions contained in the text files are to be described with docstrings that "include" the relevant .md files. API documentation is then generated with the pdoc module and becomes available under `swerik-project.github.io/<reponame>/quality` or `swerik-project.gihub.io/<reponame>/data-integrity`
+Similarly each data-integrity test should be stored as `test-[what-is-checked-automatically].py/r` and should include a short docstring / header describing the test as well as a reference to or "inclusion" of the markdown file that contains more detailed descriptions of what is tested and the testing process. See the data-integrity-test template.
+
+Python functions contained in the quality estimation and data-integrity test files described with docstrings that "include" the relevant .md files provide the basis to end-user API documentation. API documentation is then generated with the pdoc module and becomes available under `swerik-project.github.io/<reponame>/quality-estimation` or `swerik-project.gihub.io/<reponame>/data-integrity`
 
 ## Consequences
 This makes it easier to follow and understand the quality dimension, unit testing and to automatically parse the descriptions of the tests and how it is computed for each individual corpus. It also makes the corpus quality control process an integrated part of each individual corpus that then will work independently. 
