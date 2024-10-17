@@ -1,7 +1,10 @@
 # Handling of manual curation
 
 ## Status
-Proposed
+
+Decided
+
+- Decision: accepted
 
 ## Context
 As the SWERIK project grows, we will have an increased amount of data coming in from collaborators in different forms. This data will have different levels of quality. Some data might be simple programatical fixes (general low confidence in individual edits), student annotations, and expert/research annotated data.

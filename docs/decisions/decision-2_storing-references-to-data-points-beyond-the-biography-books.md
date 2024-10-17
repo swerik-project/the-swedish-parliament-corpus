@@ -2,7 +2,9 @@
 
 ## Status
 
-Proposed
+Decided
+
+- Decision: accepted
 
 
 ## Context

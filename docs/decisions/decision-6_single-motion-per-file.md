@@ -2,7 +2,10 @@
 
 
 ## Status
-proposed 
+
+Decided
+
+- Decision: accepted
 
 ## Context
 In the motions source material there are two issues relating to clean curation of materials:

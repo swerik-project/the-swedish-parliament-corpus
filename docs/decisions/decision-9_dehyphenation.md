@@ -1,6 +1,9 @@
 # Dehyphenation
 ## Status
-proposed
+
+Decided
+
+- Decision: accepted
 
 ## Context
 In most corpora there is dehyphenation at line and page breaks. This is simply due to the layout of the page. At the same time we should try to be minimize the textual representation error as much as possible. 

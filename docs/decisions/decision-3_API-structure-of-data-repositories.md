@@ -1,7 +1,10 @@
 # API structure of data repositories
 
 ## Status
+
 Decided
+
+- Decision: accepted
 
 ## Context
 We need to have a unifide API to access and work with quality estimation for each individual repository. An example is that we want to have the data to estimate the OCR quality (i.e. the test data) in the repository so when the repository is updated the estimation can be conducted. 
