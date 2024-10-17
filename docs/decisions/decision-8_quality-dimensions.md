@@ -1,7 +1,9 @@
 # How do document quality dimensions and data integrity tests
 ## Status
 
-proposed
+Decided
+
+- Decision: approved
 
 ## Context
 An important part of the continuous integration of the SWERIK corpora is the quality control step, consisting of automated tests and the estimation of quality dimensions of interest.
