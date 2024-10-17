@@ -24,7 +24,7 @@ We store the data, test, and quality estimation in the following way.
 /quality/... -> scripts used for quality estimation
 /quality/data/... -> data used for quality estimation
 /quality/estimates/... -> estimates by version stored for easy access
-
+/quality/docs/... -> quality dimension descriptions
 
 ## Consequences
 This will make clear where different data sources go.
