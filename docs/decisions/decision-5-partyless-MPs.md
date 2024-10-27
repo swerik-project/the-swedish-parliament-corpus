@@ -1,6 +1,9 @@
 # Title
 ## Status
-Proposed
+
+Decided
+
+Decision: approved
 
 ## Context
 Some MPs don't belong to a particular party. There are different ways of storing this _partilös_, _vilde_, NaN, etc. 
@@ -10,7 +13,7 @@ Further, there are additional specifications about types of _vilde_ which may or
 ## Decision
 Decide which non-party labels constitute the same partylessness category and unify the ID used.
 
-proposed: _partilös_
+"Utan partibeteckning" --- "Independent politician" --- "Q327591"
 
 ## Consequences
 More consistent labelling of party membership.
