@@ -1,7 +1,11 @@
 # Don't edit decision docs that have been decided upon
 
 ## Status
-Proposed
+
+Decided
+
+- Decision: accepted
+
 
 ## Context
 I noticed in a previous decision (8), there were edits made to the decision 3 document. In this case the edit was sensible and small, but it shouldn't happen IMO -- this opens the door for post-hoc rewriting the rules, and lots of potential confusion.
