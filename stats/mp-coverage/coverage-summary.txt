@@ -1,2 +1,0 @@
-Of 34516 parliament days, 8122 have correct N MPs in metadata: 0.23531116004171979.
-   33783 pass or almost passed within the margin of error, i.e. +- 10%: 0.9787634720129795.

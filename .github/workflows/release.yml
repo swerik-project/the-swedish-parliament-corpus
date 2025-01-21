@@ -40,16 +40,27 @@ jobs:
       run: |
         PRD_INFO="$(curl -L https://api.github.com/repos/swerik-project/pyriksdagen/releases/latest)"
         PRD_TAG="$(echo $PRD_INFO | jq -r .tag_name)"
-        echo "PRD_TAG=$PRD_TAG" >> $GITHUB_ENV
+        echo "PYRIKSDAGEN_TAG=$PRD_TAG" >> $GITHUB_ENV
 
-    - name: Download metadata, get repo version nr, unzip
+    - name: Get Current scripts version
+      run: |
+        SCRIPTS_INFO="$(curl -L https://api.github.com/repos/swerik-project/scripts/releases/latest)"
+        SCRIPTS_TAG="$(echo $SCRIPTS_INFO | jq -r .tag_name)"
+        echo "SCRIPTS_TAG=$SCRIPTS_TAG" >> $GITHUB_ENV
+
+    - name: Get Current rcr version
+      run: |
+        RCR_INFO="$(curl -L https://api.github.com/repos/swerik-project/rcr/releases/latest)"
+        RCR_TAG="$(echo $RCR_INFO | jq -r .tag_name)"
+        echo "RCR_TAG=$RCR_TAG" >> $GITHUB_ENV
+
+    - name: Get Persons repo version nr, dl zip for release
       run: |
         PERSONS_INFO="$(curl -L https://api.github.com/repos/swerik-project/riksdagen-persons/releases/latest)"
         PERSONS_TAG="$(echo $PERSONS_INFO | jq -r .tag_name)"
         echo "PERSONS_TAG=$PERSONS_TAG">> $GITHUB_ENV
         curl -LO "$(echo $PERSONS_INFO | jq -r .assets[0].browser_download_url)"
         mv persons.zip "persons_$PERSONS_TAG.zip"
-        unzip persons_$PERSONS_TAG.zip
 
     - name: Upload metadata to release
       uses: svenstaro/upload-release-action@v2
@@ -58,15 +69,13 @@ jobs:
         file: persons_${{ env.PERSONS_TAG }}.zip
         tag: ${{ github.ref }}
 
-    - name: Download records, get repo version nr, and unzip
+    - name: Download records data, get repo version nr, and unzip
       run: |
         RECORDS_INFO="$(curl -L https://api.github.com/repos/swerik-project/riksdagen-records/releases/latest)"
         RECORDS_TAG="$(echo $RECORDS_INFO | jq -r .tag_name)"
         echo "RECORDS_TAG=$RECORDS_TAG" >> $GITHUB_ENV
         curl -LO "$(echo $RECORDS_INFO | jq -r .assets[0].browser_download_url)"
         mv records.zip "records_$RECORDS_TAG.zip"
-        unzip records_$RECORDS_TAG.zip
-
 
     - name: Upload records to release
       uses: svenstaro/upload-release-action@v2
@@ -75,51 +84,52 @@ jobs:
         file: records_${{ env.RECORDS_TAG }}.zip
         tag: ${{ github.ref }}
 
-    - name: Calculate and Plot MP coverage
+    # Motions
+    - name: Download Motions data and get repo version nr
       run: |
-        mkdir test-data
-        curl -LO https://raw.githubusercontent.com/swerik-project/riksdagen-persons/main/test/data/baseline-n-mps-year.csv
-        mv baseline-n-mps-year.csv test-data/
-        curl -LO https://raw.githubusercontent.com/swerik-project/riksdagen-persons/main/test/data/session-dates.csv
-        mv session-dates.csv test-data/
-        PYTHONPATH="$PYTHONPATH:." python readme/src/calculate-mp-coverage.py
-        PYTHONPATH="$PYTHONPATH:." python readme/src/plot-mp-coverage.py -v ${{ env.PERSONS_TAG }}
+        MOTIONS_INFO="$(curl -L https://api.github.com/repos/swerik-project/riksdagen-motions/releases/latest)"
+        MOTIONS_TAG="$(echo $MOTIONS_INFO | jq -r .tag_name)"
+        echo "MOTIONS_TAG=$MOTIONS_TAG" >> $GITHUB_ENV
+    #    curl -LO "$(echo $MOTIONS_INFO | jq -r .assets[0].browser_download_url)"
+    #    mv motions.zip "motions_$MOTIONS_TAG.zip"
+    #
+    #- name: Upload motions to release
+    #  uses: svenstaro/upload-release-action@v2
+    #  with:
+    #    repo_token: ${{ secrets.GITHUB_TOKEN }}
+    #    file: motions_${{ env.MOTIONS_TAG }}.zip
+    #    tag: ${{ github.ref }}
+    #
+    # UNCOMMENT BEFORE NEXT RELEASE
+    #
 
-    - name: Estimate and Plot Speaker-Intro mapping
+    - name: Download interpellations, get repo version nr, and unzip
       run: |
-        PYTHONPATH="$PYTHONPATH:." python readme/src/estimate-intro-mapping-accuracy.py -v ${{ env.RECORDS_TAG }} --show False
+        INTERPELLATIONS_INFO="$(curl -L https://api.github.com/repos/swerik-project/riksdagen-interpellations/releases/latest)"
+        INTERPELLATIONS_TAG="$(echo $INTERPELLATIONS_INFO | jq -r .tag_name)"
+        echo "INTERPELLATIONS_TAG=$INTERPELLATIONS_TAG" >> $GITHUB_ENV
+        curl -LO "$(echo $INTERPELLATIONS_INFO | jq -r .assets[0].browser_download_url)"
+        mv interpellation-questions.zip "interpellation-questions_$RECORDS_TAG.zip"
 
-    - name: Generate README
-      run: |
-        PYTHONPATH="$PYTHONPATH:." python readme/src/generate-markdown.py -v ${{ github.ref_name }} -pv ${{ env.PERSONS_TAG }} -rv ${{ env.RECORDS_TAG }} -py ${{ env.PRD_TAG }}
-
-    - name: Dump merged metadata
-      run: |
-        PYTHONPATH="$PYTHONPATH:." python dumps/src/dump-merged-meta-tables.py
-
-    - name: Zip dumps
-      run: zip -r dumps_${{ github.ref_name }}.zip dumps/dumps
-
-    - name: Upload dumps to zip
+    - name: Upload records to release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: dumps_${{ github.ref_name }}.zip
+        file: interpellation-questions_${{ env.INTERPELLATIONS_TAG }}.zip
         tag: ${{ github.ref }}
 
-    - name: Remove Hyyuuggee files
+    - name: Generate README
       run: |
-        rm stats/mp-coverage/coverage.csv
+        PYTHONPATH="$PYTHONPATH:." python readme/src/generate-markdown.py -v ${{ github.ref_name }} -pv ${{ env.PERSONS_TAG }} -rv ${{ env.RECORDS_TAG }} -py ${{ env.PYRIKSDAGEN_TAG }} -mv ${{ env.MOTIONS_TAG }} -iv ${{ env.INTERPELLATION_TAG }} -sv ${{ env.SCRIPTS_TAG }} -r ${{ env.RCR_TAG }}
 
     - name: Add and Commit generated file
       run: |
         git status
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git add stats/
-        git add plots/
+        git add version-compatibility/
         git add README.md
-        git commit -m "chore: update version stats, plots, and readme"
+        git commit -m "chore: update version compatibility and readme"
         git status
 
     - name: Push changes
