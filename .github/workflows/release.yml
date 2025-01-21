@@ -120,7 +120,7 @@ jobs:
 
     - name: Generate README
       run: |
-        PYTHONPATH="$PYTHONPATH:." python readme/src/generate-markdown.py -v ${{ github.ref_name }} -pv ${{ env.PERSONS_TAG }} -rv ${{ env.RECORDS_TAG }} -py ${{ env.PYRIKSDAGEN_TAG }} -mv ${{ env.MOTIONS_TAG }} -iv ${{ env.INTERPELLATION_TAG }} -sv ${{ env.SCRIPTS_TAG }} -r ${{ env.RCR_TAG }}
+        PYTHONPATH="$PYTHONPATH:." python readme/src/generate-markdown.py -v ${{ github.ref_name }} -pv ${{ env.PERSONS_TAG }} -rv ${{ env.RECORDS_TAG }} -py ${{ env.PYRIKSDAGEN_TAG }} -mv ${{ env.MOTIONS_TAG }} -iv ${{ env.INTERPELLATIONS_TAG }} -sv ${{ env.SCRIPTS_TAG }} -r ${{ env.RCR_TAG }}
 
     - name: Add and Commit generated file
       run: |
