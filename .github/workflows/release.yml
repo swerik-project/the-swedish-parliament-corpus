@@ -109,7 +109,7 @@ jobs:
         INTERPELLATIONS_TAG="$(echo $INTERPELLATIONS_INFO | jq -r .tag_name)"
         echo "INTERPELLATIONS_TAG=$INTERPELLATIONS_TAG" >> $GITHUB_ENV
         curl -LO https://api.github.com/repos/swerik-project/riksdagen-interpellations/releases/download/$INTERPELLATIONS_TAG/interpellation-questions.zip
-        mv interpellation-questions.zip "interpellation-questions_$RECORDS_TAG.zip"
+        mv interpellation-questions.zip "interpellation-questions_$INTERPELLATIONS_TAG.zip"
 
     - name: Upload records to release
       uses: svenstaro/upload-release-action@v2
