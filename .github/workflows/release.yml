@@ -114,6 +114,17 @@ jobs:
         file: interpellation-questions_${{ env.INTERPELLATIONS_TAG }}.zip
         tag: ${{ github.ref }}
 
+    - name: Generate Reference List
+      run: |
+        PYTHONPATH="$PYTHONPATH:." python references/compile-reference-list.py --output-file swerik-reference-list_${{ github.ref_name }}.bib
+
+    - name: Upload Reference List to Release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: swerik-reference-list_${{ github.ref_name }}.bib
+        tag: ${{ github.ref }}
+
     - name: Generate README
       run: |
         PYTHONPATH="$PYTHONPATH:." python readme/src/generate-markdown.py -v ${{ github.ref_name }} -pv ${{ env.PERSONS_TAG }} -rv ${{ env.RECORDS_TAG }} -py ${{ env.PYRIKSDAGEN_TAG }} -mv ${{ env.MOTIONS_TAG }} -iv ${{ env.INTERPELLATIONS_TAG }} -sv ${{ env.SCRIPTS_TAG }} -r ${{ env.RCR_TAG }}
