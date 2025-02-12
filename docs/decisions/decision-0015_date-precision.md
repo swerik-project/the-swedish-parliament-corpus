@@ -6,15 +6,18 @@ Some dates related to party existence and party affiliation are only as precise 
 
 ## Decision
 
-Add columns to `party.csv`
 
-- inception_precision: possible values y, m, d
-- dissolution_precision: possible values y, m, d
+Add precision value column with the suffix `_precision` to any column with dates. Values for a `*_precision` column are `year`, `month`, or `day`.
 
-Add columns to `party_affiliation.csv`
+examples:
 
-- start_precision: possible values y, m, d
-- end_precision:possible values y, m, d
+- add to `party.csv`
+	+ inception_precision
+	+ dissolution_precision
+
+- add to `party_affiliation.csv`
+	+ start_precision
+	+ end_precision
 
 
 Dates with only a year (4 digits) or YYYY-01-01 or YYYY-12-31 are automatically assigned year precision. 
