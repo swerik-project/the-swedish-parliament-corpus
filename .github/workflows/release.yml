@@ -59,7 +59,7 @@ jobs:
         PERSONS_INFO="$(curl -L https://api.github.com/repos/swerik-project/riksdagen-persons/releases/latest)"
         PERSONS_TAG="$(echo $PERSONS_INFO | jq -r .tag_name)"
         echo "PERSONS_TAG=$PERSONS_TAG">> $GITHUB_ENV
-        curl -LO https://api.github.com/repos/swerik-project/riksdagen-persons/releases/download/$PERSONS_TAG/persons.zip
+        curl -LO https://github.com/swerik-project/riksdagen-persons/releases/download/$PERSONS_TAG/persons.zip
         mv persons.zip "persons_$PERSONS_TAG.zip"
 
     - name: Upload metadata to release
@@ -74,7 +74,7 @@ jobs:
         RECORDS_INFO="$(curl -L https://api.github.com/repos/swerik-project/riksdagen-records/releases/latest)"
         RECORDS_TAG="$(echo $RECORDS_INFO | jq -r .tag_name)"
         echo "RECORDS_TAG=$RECORDS_TAG" >> $GITHUB_ENV
-        curl -LO https://api.github.com/repos/swerik-project/riksdagen-records/releases/download/$RECORDS_TAG/records.zip
+        curl -LO https://github.com/swerik-project/riksdagen-records/releases/download/$RECORDS_TAG/records.zip
         mv records.zip "records_$RECORDS_TAG.zip"
 
     - name: Upload records to release
@@ -89,7 +89,7 @@ jobs:
         MOTIONS_INFO="$(curl -L https://api.github.com/repos/swerik-project/riksdagen-motions/releases/latest)"
         MOTIONS_TAG="$(echo $MOTIONS_INFO | jq -r .tag_name)"
         echo "MOTIONS_TAG=$MOTIONS_TAG" >> $GITHUB_ENV
-        curl -LO https://api.github.com/repos/swerik-project/riksdagen-motions/releases/download/$MOTIONS_TAG/motions.zip
+        curl -LO https://github.com/swerik-project/riksdagen-motions/releases/download/$MOTIONS_TAG/motions.zip
         mv motions.zip "motions_$MOTIONS_TAG.zip"
 
     - name: Upload motions to release
@@ -104,25 +104,14 @@ jobs:
         INTERPELLATIONS_INFO="$(curl -L https://api.github.com/repos/swerik-project/riksdagen-interpellations/releases/latest)"
         INTERPELLATIONS_TAG="$(echo $INTERPELLATIONS_INFO | jq -r .tag_name)"
         echo "INTERPELLATIONS_TAG=$INTERPELLATIONS_TAG" >> $GITHUB_ENV
-        curl -LO https://api.github.com/repos/swerik-project/riksdagen-interpellations/releases/download/$INTERPELLATIONS_TAG/interpellation-questions.zip
+        curl -LO https://github.com/swerik-project/riksdagen-interpellations/releases/download/$INTERPELLATIONS_TAG/interpellation-questions.zip
         mv interpellation-questions.zip "interpellation-questions_$INTERPELLATIONS_TAG.zip"
 
-    - name: Upload records to release
+    - name: Upload interpellations to release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: interpellation-questions_${{ env.INTERPELLATIONS_TAG }}.zip
-        tag: ${{ github.ref }}
-
-    - name: Generate Reference List
-      run: |
-        PYTHONPATH="$PYTHONPATH:." python references/compile-reference-list.py --output-file swerik-reference-list_${{ github.ref_name }}.bib
-
-    - name: Upload Reference List to Release
-      uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: swerik-reference-list_${{ github.ref_name }}.bib
         tag: ${{ github.ref }}
 
     - name: Generate README
