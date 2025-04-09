@@ -3,7 +3,7 @@
 
 
 
-# The Swedish Parliament Corpus --- 1867--today --- v2025.03.24
+# The Swedish Parliament Corpus --- 1867--today --- v2025.04.10
 
 _Westac Project_, 2020--2024 |
 _Swerik Project_, 2023--2025
@@ -40,7 +40,7 @@ The release contains:
 View the Riksdagen Records Repository [here](https://github.com/swerik-project/riksdagen-records) or the complete most recent release [here](https://github.com/swerik-project/riksdagen-records/releases/latest).
 
 
-### The Riksdagen Persons Corpus -- latest v1.1.2
+### The Riksdagen Persons Corpus -- latest v1.1.3
 
 [![Persons: data integrity tests](https://github.com/swerik-project/riksdagen-persons/actions/workflows/push.yml/badge.svg)](https://github.com/swerik-project/riksdagen-persons/actions/workflows/push.yml)
 
@@ -134,6 +134,7 @@ From 2025, we aim to make new releases of all repositories around the middle of 
 
 | Dated Release|                                                                                     Repository Versions                                                                                    |
 |--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|  v2025.04.10 |  pyriksdagen: v1.8.0<br>riksdagen-persons: v1.1.3<br>riksdagen-records: v1.4.1<br>riksdagen-motions: v0.3.0<br>riksdagen-interpellations: v0.2.1<br>scripts: v0.0.3<br>rcr-version: v0.3.0 |
 |  v2025.03.24 |  pyriksdagen: v1.8.0<br>riksdagen-persons: v1.1.2<br>riksdagen-records: v1.4.1<br>riksdagen-motions: v0.3.0<br>riksdagen-interpellations: v0.2.1<br>scripts: v0.0.3<br>rcr-version: v0.3.0 |
 |  v2025.02.14 |  pyriksdagen: v1.8.0<br>riksdagen-persons: v1.1.2<br>riksdagen-records: v1.4.0<br>riksdagen-motions: v0.2.2<br>riksdagen-interpellations: v0.2.1<br>scripts: v0.0.2<br>rcr-version: v0.3.0 |
 |  v2025.01.15 |  pyriksdagen: v1.7.1<br>riksdagen-persons: v1.1.1<br>riksdagen-records: v1.3.0<br>riksdagen-motions: v0.2.1<br>riksdagen-interpellations: v0.2.0<br>scripts: v0.0.1<br>rcr-version: v0.3.0 |
@@ -161,7 +162,7 @@ We check how many speakers in the parliamentary records our algorithms idenify i
 
 ### Correct number of MPs over time
 
-We check the number of MPs with a mandate on a given day against he baseline number of MPs that we know _should be_ sitting in parliament. From the riksdagen-persons repository v1.1.2.
+We check the number of MPs with a mandate on a given day against he baseline number of MPs that we know _should be_ sitting in parliament. From the riksdagen-persons repository v1.1.3.
 
 This plot illustrates the mean daily number of MPs in the metadata compared to the baseling.
 
@@ -187,4 +188,4 @@ If you would like to participate in the curation or quality control of data cont
 <img src="readme/vr.png" width="250"/>
 
 ---
-Last update: 2025-03-24, 08:29:40
+Last update: 2025-04-09, 13:14:27
