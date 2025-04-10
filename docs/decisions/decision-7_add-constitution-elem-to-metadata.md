@@ -48,6 +48,13 @@ When the content of a speech is changed:
 
 The speech ID is deterministically generated from the ID of the introduction that starts the speech, and the ID of the element (a or b) that terminates the speech. This corresponds to the rules 1-3 above.
 
+# Why not a speech ID in the u elements
+
+There are some reasons not to have the IDs in the `<u>` elements as attributes:
+- The ParlaClarin does not have a dedicated attribute for it
+- As we add different overlapping entities, the elements would get cluttered
+- Accessing all speech IDs in the same place in the metadata is better in terms of usability
+
 ## Consequences
 
 We get a parlaclarin compliant means to store speech IDs and a sufficiently flexible way to annotate structures in the protocol documents.
