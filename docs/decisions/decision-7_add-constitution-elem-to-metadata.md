@@ -53,7 +53,6 @@ The speech ID is deterministically generated from the ID of the introduction tha
 There are some reasons not to have the IDs in the `<u>` elements as attributes:
 - The ParlaClarin or TEI schemas do not have a dedicated attribute for it
 - As we add different overlapping entities, the elements would get cluttered
-- Accessing all speech IDs in the same place in the metadata is better in terms of usability
 
 ## Consequences
 
