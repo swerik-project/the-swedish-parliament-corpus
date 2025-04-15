@@ -9,31 +9,19 @@ assignees: ''
 
 # Release cycle to-do
 
-## 🔳 Riksdagen Records Corpus
+## 🔳 Bert Riksdagen Classifier
 
 - [ ] prereleasae PR
 - [ ] merge prerelease
 - [ ] release
 
-## 🔳 Riksdagen Persons Corpus
+## 🔳 Pcldapy
 
 - [ ] prereleasae PR
 - [ ] merge prerelease
 - [ ] release
 
-## 🔳 Riksdagen Motions Corpus
-
-- [ ] prereleasae PR
-- [ ] merge prerelease
-- [ ] release
-
-## 🔳 Riskdagen Interpellations Corpus
-
-- [ ] prereleasae PR
-- [ ] merge prerelease
-- [ ] release
-
-## 🔳 Scripts
+## 🔳  Pyparlaclarin
 
 - [ ] prereleasae PR
 - [ ] merge prerelease
@@ -45,12 +33,35 @@ assignees: ''
 - [ ] merge prerelease
 - [ ] release
 
-## 🔳 Bert Riksdagen Classifier
+## 🔳 Riskdagen Interpellations Corpus
 
 - [ ] prereleasae PR
 - [ ] merge prerelease
 - [ ] release
 
+## 🔳 Riksdagen Motions Corpus
+
+- [ ] prereleasae PR
+- [ ] merge prerelease
+- [ ] release
+
+## 🔳 Riksdagen Persons Corpus
+
+- [ ] prereleasae PR
+- [ ] merge prerelease
+- [ ] release
+
+## 🔳 Riksdagen Records Corpus
+
+- [ ] prereleasae PR
+- [ ] merge prerelease
+- [ ] release
+
+## 🔳 Scripts
+
+- [ ] prereleasae PR
+- [ ] merge prerelease
+- [ ] release
 
 -------------------------------------------------------------------------------------
 
