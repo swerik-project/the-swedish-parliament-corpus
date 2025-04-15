@@ -9,47 +9,43 @@ assignees: ''
 
 # Release cycle to-do
 
-- [ ] prereleasae PR
-- [ ] merge prerelease
-- [ ] release
-
-## Riksdagen Records Corpus
+## 🔳 Riksdagen Records Corpus
 
 - [ ] prereleasae PR
 - [ ] merge prerelease
 - [ ] release
 
-## Riksdagen Persons Corpus
+## 🔳 Riksdagen Persons Corpus
 
 - [ ] prereleasae PR
 - [ ] merge prerelease
 - [ ] release
 
-## Riksdagen Motions Corpus
+## 🔳 Riksdagen Motions Corpus
 
 - [ ] prereleasae PR
 - [ ] merge prerelease
 - [ ] release
 
-## Riskdagen Interpellations Corpus
+## 🔳 Riskdagen Interpellations Corpus
 
 - [ ] prereleasae PR
 - [ ] merge prerelease
 - [ ] release
 
-## Scripts
+## 🔳 Scripts
 
 - [ ] prereleasae PR
 - [ ] merge prerelease
 - [ ] release
 
-## Pyriksdagen
+## 🔳 Pyriksdagen
 
 - [ ] prereleasae PR
 - [ ] merge prerelease
 - [ ] release
 
-## Bert Riksdagen Classifier
+## 🔳 Bert Riksdagen Classifier
 
 - [ ] prereleasae PR
 - [ ] merge prerelease
@@ -58,7 +54,7 @@ assignees: ''
 
 -------------------------------------------------------------------------------------
 
-## The Swedish Parliament Corpus
+## 🔳 The Swedish Parliament Corpus
 
 - [ ] prereleasae PR
 - [ ] merge prerelease
