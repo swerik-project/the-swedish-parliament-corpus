@@ -67,6 +67,4 @@ assignees: ''
 
 ## 🔳 The Swedish Parliament Corpus
 
-- [ ] prereleasae PR
-- [ ] merge prerelease
 - [ ] release
