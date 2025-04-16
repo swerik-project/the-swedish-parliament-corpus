@@ -3,7 +3,7 @@
 
 
 
-# The Swedish Parliament Corpus --- 1867--today --- v2025.04.10
+# The Swedish Parliament Corpus --- 1867--today --- v2025.04.16
 
 _Westac Project_, 2020--2024 |
 _Swerik Project_, 2023--2025
@@ -25,7 +25,7 @@ Please consult [Yrjänäinen et al. (2024)](https://aclanthology.org/2024.lrec-m
 The full data set consists of multiple parts, which are version controlled independently from each other. For convenience, the most up-to-date versions of these data sets are zipped and made available as a package on [the release page](https://github.com/swerik-project/the-swedish-parliament-corpus/releases) roughly once a month. These components are:
 
 
-### The Riksdagen Records Corpus -- latest v1.4.1
+### The Riksdagen Records Corpus -- latest v1.4.2
 
 [![Records: data integrity tests](https://github.com/swerik-project/riksdagen-records/actions/workflows/push.yml/badge.svg)](https://github.com/swerik-project/riksdagen-records/actions/workflows/push.yml)
 [![Records: Parla-Clarin XML](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml/badge.svg)](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml)
@@ -65,7 +65,7 @@ This is a collection of structured, annotated motions submitted to the Swedish R
 View the Riksdagen Motions Repository [here](https://github.com/swerik-project/riksdagen-motions) or the complete most recent release [here](https://github.com/swerik-project/riksdagen-motions/releases/latest).
 
 
-### The Riksdagen Interpellations Corpus -- latest v0.2.1
+### The Riksdagen Interpellations Corpus -- latest v0.2.2
 
 From the 1994/95 parliament year, written Interpellation questions submitted to members of the government are stored as a separate class of documents. This is a structured, annotated catalog of these Interpellation questions, encoded in [TEI](https://www.tei-c.org/)-compliant XML. Earlier interpellation questions, as well as interpellation debates in general can be found in the Riksdagen Records.
 
@@ -81,7 +81,7 @@ View the Riksdagen Interpellations Repository [here](https://github.com/swerik-p
 We offer some Python and R-based tools for working with the data. While users are free to work with the data in any way they see fit, we recommend utilizing tried and tested functions, particularly the Pyriksdagen Python module.
 
 
-### Pyriksdagen -- latest v1.8.0
+### Pyriksdagen -- latest v1.8.1
 
 [![Pyriksdagen: notebooks](https://github.com/swerik-project/pyriksdagen/actions/workflows/push.yml/badge.svg)](https://github.com/swerik-project/pyriksdagen/actions/workflows/push.yml)
 
@@ -96,7 +96,7 @@ Each release of Pyriksdagen is published immediately on PyPi, nevertheless, each
 View the Pyriksdagen Interpellations Repository [here](https://github.com/swerik-project/pyriksdagen) or the complete most recent release [here](https://github.com/swerik-project/pyriksdagen/releases/latest).
 
 
-### The "scripts" Repository -- latest v0.0.3
+### The "scripts" Repository -- latest v0.0.4
 
 The scripts repository contains (primarily) Python scripts that we use for curation and maintenance of the data sets. Although we have begun releasing versions of this repository, we make no promise of backwards compatibility, rather we offer this code as a set of examples that users may find helpful.
 
@@ -134,6 +134,7 @@ From 2025, we aim to make new releases of all repositories around the middle of 
 
 | Dated Release|                                                                                     Repository Versions                                                                                    |
 |--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|  v2025.04.16 |  pyriksdagen: v1.8.1<br>riksdagen-persons: v1.1.3<br>riksdagen-records: v1.4.2<br>riksdagen-motions: v0.3.0<br>riksdagen-interpellations: v0.2.2<br>scripts: v0.0.4<br>rcr-version: v0.3.0 |
 |  v2025.04.10 |  pyriksdagen: v1.8.0<br>riksdagen-persons: v1.1.3<br>riksdagen-records: v1.4.1<br>riksdagen-motions: v0.3.0<br>riksdagen-interpellations: v0.2.1<br>scripts: v0.0.3<br>rcr-version: v0.3.0 |
 |  v2025.03.24 |  pyriksdagen: v1.8.0<br>riksdagen-persons: v1.1.2<br>riksdagen-records: v1.4.1<br>riksdagen-motions: v0.3.0<br>riksdagen-interpellations: v0.2.1<br>scripts: v0.0.3<br>rcr-version: v0.3.0 |
 |  v2025.02.14 |  pyriksdagen: v1.8.0<br>riksdagen-persons: v1.1.2<br>riksdagen-records: v1.4.0<br>riksdagen-motions: v0.2.2<br>riksdagen-interpellations: v0.2.1<br>scripts: v0.0.2<br>rcr-version: v0.3.0 |
@@ -156,7 +157,7 @@ We are developing and implementing an extensive battery of quality assessments a
 
 ### Speech-to-speaker mapping
 
-We check how many speakers in the parliamentary records our algorithms idenify in each release. From the ```riksdagen-records``` repository v1.4.1.
+We check how many speakers in the parliamentary records our algorithms idenify in each release. From the ```riksdagen-records``` repository v1.4.2.
 
 ![Estimate of speaker mapping accuracy](https://raw.githubusercontent.com/swerik-project/riksdagen-records/refs/heads/main/quality/estimates/speaker-mapping-coverage/speaker-mapping-coverage.png)
 
@@ -188,4 +189,4 @@ If you would like to participate in the curation or quality control of data cont
 <img src="readme/vr.png" width="250"/>
 
 ---
-Last update: 2025-04-09, 13:14:27
+Last update: 2025-04-16, 08:18:42

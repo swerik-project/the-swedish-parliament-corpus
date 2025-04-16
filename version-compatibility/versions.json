@@ -69,5 +69,14 @@
         "riksdagen-interpellations": "v0.2.1",
         "scripts": "v0.0.3",
         "rcr-version": "v0.3.0"
+    },
+    "v2025.04.16": {
+        "pyriksdagen": "v1.8.1",
+        "riksdagen-persons": "v1.1.3",
+        "riksdagen-records": "v1.4.2",
+        "riksdagen-motions": "v0.3.0",
+        "riksdagen-interpellations": "v0.2.2",
+        "scripts": "v0.0.4",
+        "rcr-version": "v0.3.0"
     }
 }
