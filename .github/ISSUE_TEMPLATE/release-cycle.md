@@ -57,6 +57,12 @@ assignees: ''
 - [ ] merge prerelease
 - [ ] release
 
+## 🔳 Riksdagen Volume G Corpus
+
+- [ ] prereleasae PR
+- [ ] merge prerelease
+- [ ] release
+
 ## 🔳 Scripts
 
 - [ ] prereleasae PR
