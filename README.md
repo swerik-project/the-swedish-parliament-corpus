@@ -3,7 +3,7 @@
 
 
 
-# The Swedish Parliament Corpus --- 1867--today --- v2025.04.16
+# The Swedish Parliament Corpus --- 1867--today --- v2025.05.20
 
 _Westac Project_, 2020--2024 |
 _Swerik Project_, 2023--2025
@@ -40,7 +40,7 @@ The release contains:
 View the Riksdagen Records Repository [here](https://github.com/swerik-project/riksdagen-records) or the complete most recent release [here](https://github.com/swerik-project/riksdagen-records/releases/latest).
 
 
-### The Riksdagen Persons Corpus -- latest v1.1.3
+### The Riksdagen Persons Corpus -- latest v1.2.0
 
 [![Persons: data integrity tests](https://github.com/swerik-project/riksdagen-persons/actions/workflows/push.yml/badge.svg)](https://github.com/swerik-project/riksdagen-persons/actions/workflows/push.yml)
 
@@ -54,7 +54,7 @@ This is a comprehensive collection of members of parliament, ministers and gover
 View the Riksdagen Persons Repository [here](https://github.com/swerik-project/riksdagen-persons) or the complete most recent release [here](https://github.com/swerik-project/riksdagen-persons/releases/latest).
 
 
-### The Riksdagen Motions Corpus -- latest v0.3.0
+### The Riksdagen Motions Corpus -- latest v0.3.1
 
 This is a collection of structured, annotated motions submitted to the Swedish Riksdag with linked metadata. The motions are encoded in [TEI](https://www.tei-c.org/)-compliant XML.
 
@@ -96,7 +96,7 @@ Each release of Pyriksdagen is published immediately on PyPi, nevertheless, each
 View the Pyriksdagen Interpellations Repository [here](https://github.com/swerik-project/pyriksdagen) or the complete most recent release [here](https://github.com/swerik-project/pyriksdagen/releases/latest).
 
 
-### The "scripts" Repository -- latest v0.0.4
+### The "scripts" Repository -- latest v0.0.5
 
 The scripts repository contains (primarily) Python scripts that we use for curation and maintenance of the data sets. Although we have begun releasing versions of this repository, we make no promise of backwards compatibility, rather we offer this code as a set of examples that users may find helpful.
 
@@ -134,6 +134,7 @@ From 2025, we aim to make new releases of all repositories around the middle of 
 
 | Dated Release|                                                                                     Repository Versions                                                                                    |
 |--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|  v2025.05.20 |  pyriksdagen: v1.8.1<br>riksdagen-persons: v1.2.0<br>riksdagen-records: v1.4.2<br>riksdagen-motions: v0.3.1<br>riksdagen-interpellations: v0.2.2<br>scripts: v0.0.5<br>rcr-version: v0.3.0 |
 |  v2025.04.16 |  pyriksdagen: v1.8.1<br>riksdagen-persons: v1.1.3<br>riksdagen-records: v1.4.2<br>riksdagen-motions: v0.3.0<br>riksdagen-interpellations: v0.2.2<br>scripts: v0.0.4<br>rcr-version: v0.3.0 |
 |  v2025.04.10 |  pyriksdagen: v1.8.0<br>riksdagen-persons: v1.1.3<br>riksdagen-records: v1.4.1<br>riksdagen-motions: v0.3.0<br>riksdagen-interpellations: v0.2.1<br>scripts: v0.0.3<br>rcr-version: v0.3.0 |
 |  v2025.03.24 |  pyriksdagen: v1.8.0<br>riksdagen-persons: v1.1.2<br>riksdagen-records: v1.4.1<br>riksdagen-motions: v0.3.0<br>riksdagen-interpellations: v0.2.1<br>scripts: v0.0.3<br>rcr-version: v0.3.0 |
@@ -163,7 +164,7 @@ We check how many speakers in the parliamentary records our algorithms idenify i
 
 ### Correct number of MPs over time
 
-We check the number of MPs with a mandate on a given day against he baseline number of MPs that we know _should be_ sitting in parliament. From the riksdagen-persons repository v1.1.3.
+We check the number of MPs with a mandate on a given day against he baseline number of MPs that we know _should be_ sitting in parliament. From the riksdagen-persons repository v1.2.0.
 
 This plot illustrates the mean daily number of MPs in the metadata compared to the baseling.
 
@@ -189,4 +190,4 @@ If you would like to participate in the curation or quality control of data cont
 <img src="readme/vr.png" width="250"/>
 
 ---
-Last update: 2025-04-16, 08:18:42
+Last update: 2025-05-20, 19:21:50
