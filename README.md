@@ -3,7 +3,7 @@
 
 
 
-# The Swedish Parliament Corpus --- 1867--today --- v2025.05.20
+# The Swedish Parliament Corpus --- 1867--today --- v2025.08.15
 
 _Westac Project_, 2020--2024 |
 _Swerik Project_, 2023--2025
@@ -54,7 +54,7 @@ This is a comprehensive collection of members of parliament, ministers and gover
 View the Riksdagen Persons Repository [here](https://github.com/swerik-project/riksdagen-persons) or the complete most recent release [here](https://github.com/swerik-project/riksdagen-persons/releases/latest).
 
 
-### The Riksdagen Motions Corpus -- latest v0.3.1
+### The Riksdagen Motions Corpus -- latest v0.5.0
 
 This is a collection of structured, annotated motions submitted to the Swedish Riksdag with linked metadata. The motions are encoded in [TEI](https://www.tei-c.org/)-compliant XML.
 
@@ -81,7 +81,7 @@ View the Riksdagen Interpellations Repository [here](https://github.com/swerik-p
 We offer some Python and R-based tools for working with the data. While users are free to work with the data in any way they see fit, we recommend utilizing tried and tested functions, particularly the Pyriksdagen Python module.
 
 
-### Pyriksdagen -- latest v1.8.1
+### Pyriksdagen -- latest v1.9.0
 
 [![Pyriksdagen: notebooks](https://github.com/swerik-project/pyriksdagen/actions/workflows/push.yml/badge.svg)](https://github.com/swerik-project/pyriksdagen/actions/workflows/push.yml)
 
@@ -96,7 +96,7 @@ Each release of Pyriksdagen is published immediately on PyPi, nevertheless, each
 View the Pyriksdagen Interpellations Repository [here](https://github.com/swerik-project/pyriksdagen) or the complete most recent release [here](https://github.com/swerik-project/pyriksdagen/releases/latest).
 
 
-### The "scripts" Repository -- latest v0.0.5
+### The "scripts" Repository -- latest v0.0.6
 
 The scripts repository contains (primarily) Python scripts that we use for curation and maintenance of the data sets. Although we have begun releasing versions of this repository, we make no promise of backwards compatibility, rather we offer this code as a set of examples that users may find helpful.
 
@@ -134,6 +134,7 @@ From 2025, we aim to make new releases of all repositories around the middle of 
 
 | Dated Release|                                                                                     Repository Versions                                                                                    |
 |--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|  v2025.08.15 |  pyriksdagen: v1.9.0<br>riksdagen-persons: v1.2.0<br>riksdagen-records: v1.4.2<br>riksdagen-motions: v0.5.0<br>riksdagen-interpellations: v0.2.2<br>scripts: v0.0.6<br>rcr-version: v0.3.0 |
 |  v2025.05.20 |  pyriksdagen: v1.8.1<br>riksdagen-persons: v1.2.0<br>riksdagen-records: v1.4.2<br>riksdagen-motions: v0.3.1<br>riksdagen-interpellations: v0.2.2<br>scripts: v0.0.5<br>rcr-version: v0.3.0 |
 |  v2025.04.16 |  pyriksdagen: v1.8.1<br>riksdagen-persons: v1.1.3<br>riksdagen-records: v1.4.2<br>riksdagen-motions: v0.3.0<br>riksdagen-interpellations: v0.2.2<br>scripts: v0.0.4<br>rcr-version: v0.3.0 |
 |  v2025.04.10 |  pyriksdagen: v1.8.0<br>riksdagen-persons: v1.1.3<br>riksdagen-records: v1.4.1<br>riksdagen-motions: v0.3.0<br>riksdagen-interpellations: v0.2.1<br>scripts: v0.0.3<br>rcr-version: v0.3.0 |
@@ -190,4 +191,4 @@ If you would like to participate in the curation or quality control of data cont
 <img src="readme/vr.png" width="250"/>
 
 ---
-Last update: 2025-05-20, 19:21:50
+Last update: 2025-08-15, 12:09:59
