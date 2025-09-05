@@ -1,7 +1,7 @@
 # Sample size for Pull Requests
 
 ## Context
-Previously we used a sample size of 50 to estimate quality of proposed changes to the corpus. Due to some mathematical wizardry, we estimate that we can reduce the sample size while still guaranteeing continued improvement to the corpus (see Yrjänäinen and Magnusson 2025).
+Previously we used a sample size of 50 to estimate quality of proposed changes to the corpus. Due to some mathematical wizardry, we estimate that we can reduce the sample size while still guaranteeing continued improvement to the corpus (see Yrjänäinen and Magnusson 2025 [bibtex key: YrjanainenMagnusson2025]).
 
 ## Decision
 On Pull Requests involving edits to data: 
