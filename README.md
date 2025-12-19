@@ -3,7 +3,7 @@
 
 
 
-# The Swedish Parliament Corpus --- 1867--today --- v2025.08.15
+# The Swedish Parliament Corpus --- 1867--today --- v2025.12.19
 
 _Westac Project_, 2020--2024 |
 _Swerik Project_, 2023--2025
@@ -25,7 +25,7 @@ Please consult [Yrjänäinen et al. (2024)](https://aclanthology.org/2024.lrec-m
 The full data set consists of multiple parts, which are version controlled independently from each other. For convenience, the most up-to-date versions of these data sets are zipped and made available as a package on [the release page](https://github.com/swerik-project/the-swedish-parliament-corpus/releases) roughly once a month. These components are:
 
 
-### The Riksdagen Records Corpus -- latest v1.4.2
+### The Riksdagen Records Corpus -- latest v1.5.0
 
 [![Records: data integrity tests](https://github.com/swerik-project/riksdagen-records/actions/workflows/push.yml/badge.svg)](https://github.com/swerik-project/riksdagen-records/actions/workflows/push.yml)
 [![Records: Parla-Clarin XML](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml/badge.svg)](https://github.com/swerik-project/riksdagen-records/actions/workflows/validate.yml)
@@ -40,7 +40,7 @@ The release contains:
 View the Riksdagen Records Repository [here](https://github.com/swerik-project/riksdagen-records) or the complete most recent release [here](https://github.com/swerik-project/riksdagen-records/releases/latest).
 
 
-### The Riksdagen Persons Corpus -- latest v1.2.0
+### The Riksdagen Persons Corpus -- latest v1.2.1
 
 [![Persons: data integrity tests](https://github.com/swerik-project/riksdagen-persons/actions/workflows/push.yml/badge.svg)](https://github.com/swerik-project/riksdagen-persons/actions/workflows/push.yml)
 
@@ -54,7 +54,7 @@ This is a comprehensive collection of members of parliament, ministers and gover
 View the Riksdagen Persons Repository [here](https://github.com/swerik-project/riksdagen-persons) or the complete most recent release [here](https://github.com/swerik-project/riksdagen-persons/releases/latest).
 
 
-### The Riksdagen Motions Corpus -- latest v0.5.0
+### The Riksdagen Motions Corpus -- latest v0.6.0
 
 This is a collection of structured, annotated motions submitted to the Swedish Riksdag with linked metadata. The motions are encoded in [TEI](https://www.tei-c.org/)-compliant XML.
 
@@ -81,7 +81,7 @@ View the Riksdagen Interpellations Repository [here](https://github.com/swerik-p
 We offer some Python and R-based tools for working with the data. While users are free to work with the data in any way they see fit, we recommend utilizing tried and tested functions, particularly the Pyriksdagen Python module.
 
 
-### Pyriksdagen -- latest v1.9.0
+### Pyriksdagen -- latest v1.10.0
 
 [![Pyriksdagen: notebooks](https://github.com/swerik-project/pyriksdagen/actions/workflows/push.yml/badge.svg)](https://github.com/swerik-project/pyriksdagen/actions/workflows/push.yml)
 
@@ -96,7 +96,7 @@ Each release of Pyriksdagen is published immediately on PyPi, nevertheless, each
 View the Pyriksdagen Interpellations Repository [here](https://github.com/swerik-project/pyriksdagen) or the complete most recent release [here](https://github.com/swerik-project/pyriksdagen/releases/latest).
 
 
-### The "scripts" Repository -- latest v0.0.6
+### The "scripts" Repository -- latest v0.0.7
 
 The scripts repository contains (primarily) Python scripts that we use for curation and maintenance of the data sets. Although we have begun releasing versions of this repository, we make no promise of backwards compatibility, rather we offer this code as a set of examples that users may find helpful.
 
@@ -132,18 +132,19 @@ View the rcr repository [here](https://github.com/swerik-project/rcr) or the com
 
 From 2025, we aim to make new releases of all repositories around the middle of each month (assuming there is new work to release). In theory, these "dated" releases of various repositories should be compatible with others released around the same time. The table below is a record of semantically versioned repositories at the time of scheduled releases:
 
-| Dated Release|                                                                                     Repository Versions                                                                                    |
-|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|  v2025.08.15 |  pyriksdagen: v1.9.0<br>riksdagen-persons: v1.2.0<br>riksdagen-records: v1.4.2<br>riksdagen-motions: v0.5.0<br>riksdagen-interpellations: v0.2.2<br>scripts: v0.0.6<br>rcr-version: v0.3.0 |
-|  v2025.05.20 |  pyriksdagen: v1.8.1<br>riksdagen-persons: v1.2.0<br>riksdagen-records: v1.4.2<br>riksdagen-motions: v0.3.1<br>riksdagen-interpellations: v0.2.2<br>scripts: v0.0.5<br>rcr-version: v0.3.0 |
-|  v2025.04.16 |  pyriksdagen: v1.8.1<br>riksdagen-persons: v1.1.3<br>riksdagen-records: v1.4.2<br>riksdagen-motions: v0.3.0<br>riksdagen-interpellations: v0.2.2<br>scripts: v0.0.4<br>rcr-version: v0.3.0 |
-|  v2025.04.10 |  pyriksdagen: v1.8.0<br>riksdagen-persons: v1.1.3<br>riksdagen-records: v1.4.1<br>riksdagen-motions: v0.3.0<br>riksdagen-interpellations: v0.2.1<br>scripts: v0.0.3<br>rcr-version: v0.3.0 |
-|  v2025.03.24 |  pyriksdagen: v1.8.0<br>riksdagen-persons: v1.1.2<br>riksdagen-records: v1.4.1<br>riksdagen-motions: v0.3.0<br>riksdagen-interpellations: v0.2.1<br>scripts: v0.0.3<br>rcr-version: v0.3.0 |
-|  v2025.02.14 |  pyriksdagen: v1.8.0<br>riksdagen-persons: v1.1.2<br>riksdagen-records: v1.4.0<br>riksdagen-motions: v0.2.2<br>riksdagen-interpellations: v0.2.1<br>scripts: v0.0.2<br>rcr-version: v0.3.0 |
-|  v2025.01.15 |  pyriksdagen: v1.7.1<br>riksdagen-persons: v1.1.1<br>riksdagen-records: v1.3.0<br>riksdagen-motions: v0.2.1<br>riksdagen-interpellations: v0.2.0<br>scripts: v0.0.1<br>rcr-version: v0.3.0 |
-|  v2024.09.13 |                                                        pyriksdagen: v1.4.0<br>riksdagen-persons: v1.1.0<br>riksdagen-records: v1.2.0                                                       |
-|  v2024.06.19 |                                                        pyriksdagen: v1.2.0<br>riksdagen-persons: v1.1.0<br>riksdagen-records: v1.1.0                                                       |
-|  v2024.04.26 |                                                        pyriksdagen: v1.2.0<br>riksdagen-persons: v1.0.0<br>riksdagen-records: v1.0.0                                                       |
+| Dated Release|                                                                                     Repository Versions                                                                                     |
+|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|  v2025.12.19 |  pyriksdagen: v1.10.0<br>riksdagen-persons: v1.2.1<br>riksdagen-records: v1.5.0<br>riksdagen-motions: v0.6.0<br>riksdagen-interpellations: v0.2.2<br>scripts: v0.0.7<br>rcr-version: v0.3.0 |
+|  v2025.08.15 |  pyriksdagen: v1.9.0<br>riksdagen-persons: v1.2.0<br>riksdagen-records: v1.4.2<br>riksdagen-motions: v0.5.0<br>riksdagen-interpellations: v0.2.2<br>scripts: v0.0.6<br>rcr-version: v0.3.0  |
+|  v2025.05.20 |  pyriksdagen: v1.8.1<br>riksdagen-persons: v1.2.0<br>riksdagen-records: v1.4.2<br>riksdagen-motions: v0.3.1<br>riksdagen-interpellations: v0.2.2<br>scripts: v0.0.5<br>rcr-version: v0.3.0  |
+|  v2025.04.16 |  pyriksdagen: v1.8.1<br>riksdagen-persons: v1.1.3<br>riksdagen-records: v1.4.2<br>riksdagen-motions: v0.3.0<br>riksdagen-interpellations: v0.2.2<br>scripts: v0.0.4<br>rcr-version: v0.3.0  |
+|  v2025.04.10 |  pyriksdagen: v1.8.0<br>riksdagen-persons: v1.1.3<br>riksdagen-records: v1.4.1<br>riksdagen-motions: v0.3.0<br>riksdagen-interpellations: v0.2.1<br>scripts: v0.0.3<br>rcr-version: v0.3.0  |
+|  v2025.03.24 |  pyriksdagen: v1.8.0<br>riksdagen-persons: v1.1.2<br>riksdagen-records: v1.4.1<br>riksdagen-motions: v0.3.0<br>riksdagen-interpellations: v0.2.1<br>scripts: v0.0.3<br>rcr-version: v0.3.0  |
+|  v2025.02.14 |  pyriksdagen: v1.8.0<br>riksdagen-persons: v1.1.2<br>riksdagen-records: v1.4.0<br>riksdagen-motions: v0.2.2<br>riksdagen-interpellations: v0.2.1<br>scripts: v0.0.2<br>rcr-version: v0.3.0  |
+|  v2025.01.15 |  pyriksdagen: v1.7.1<br>riksdagen-persons: v1.1.1<br>riksdagen-records: v1.3.0<br>riksdagen-motions: v0.2.1<br>riksdagen-interpellations: v0.2.0<br>scripts: v0.0.1<br>rcr-version: v0.3.0  |
+|  v2024.09.13 |                                                        pyriksdagen: v1.4.0<br>riksdagen-persons: v1.1.0<br>riksdagen-records: v1.2.0                                                        |
+|  v2024.06.19 |                                                        pyriksdagen: v1.2.0<br>riksdagen-persons: v1.1.0<br>riksdagen-records: v1.1.0                                                        |
+|  v2024.04.26 |                                                        pyriksdagen: v1.2.0<br>riksdagen-persons: v1.0.0<br>riksdagen-records: v1.0.0                                                        |
 
 
 ## Documentation
@@ -159,13 +160,13 @@ We are developing and implementing an extensive battery of quality assessments a
 
 ### Speech-to-speaker mapping
 
-We check how many speakers in the parliamentary records our algorithms idenify in each release. From the ```riksdagen-records``` repository v1.4.2.
+We check how many speakers in the parliamentary records our algorithms idenify in each release. From the ```riksdagen-records``` repository v1.5.0.
 
 ![Estimate of speaker mapping accuracy](https://raw.githubusercontent.com/swerik-project/riksdagen-records/refs/heads/main/quality/estimates/speaker-mapping-coverage/speaker-mapping-coverage.png)
 
 ### Correct number of MPs over time
 
-We check the number of MPs with a mandate on a given day against he baseline number of MPs that we know _should be_ sitting in parliament. From the riksdagen-persons repository v1.2.0.
+We check the number of MPs with a mandate on a given day against he baseline number of MPs that we know _should be_ sitting in parliament. From the riksdagen-persons repository v1.2.1.
 
 This plot illustrates the mean daily number of MPs in the metadata compared to the baseling.
 
@@ -191,4 +192,4 @@ If you would like to participate in the curation or quality control of data cont
 <img src="readme/vr.png" width="250"/>
 
 ---
-Last update: 2025-08-15, 12:09:59
+Last update: 2025-12-19, 14:57:28
