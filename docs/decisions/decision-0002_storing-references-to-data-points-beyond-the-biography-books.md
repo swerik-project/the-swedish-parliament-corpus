@@ -1,12 +1,5 @@
 # Storing references to data points beyond the Biography Books
 
-## Status
-
-Decided
-
-- Decision: accepted
-
-
 ## Context
 
 To data, we have relied on the Bio Books as an authoritative source of information. However, it has been pointed out that some of the information is imprecise / incorrect. While we have kept track of MPs' page references in the bio books, we have not indicated the scope of these page references over particular data points in any way.

@@ -1,11 +1,5 @@
 # Storing decisions in SWERIK
 
-## Status
-
-Decided
-
-- Decision: Accepted
-
 ## Context
 
 We want to store project-wide decisions in a doc/decisions folder of this (umbrella) repository.

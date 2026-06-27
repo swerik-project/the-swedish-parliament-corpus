@@ -1,10 +1,4 @@
 # How do document quality dimensions and data integrity tests
-## Status
-
-Decided
-
-- Decision: approved
-
 ## Context
 An important part of the continuous integration of the SWERIK corpora is the quality control step, consisting of automated tests and the estimation of quality dimensions of interest.
 
@@ -24,4 +18,3 @@ Python functions contained in the quality estimation and data-integrity test fil
 
 ## Consequences
 This makes it easier to follow and understand the quality dimension, unit testing and to automatically parse the descriptions of the tests and how it is computed for each individual corpus. It also makes the corpus quality control process an integrated part of each individual corpus that then will work independently. 
-

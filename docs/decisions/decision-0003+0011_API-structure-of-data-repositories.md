@@ -1,11 +1,5 @@
 # API structure of data repositories
 
-## Status
-
-Decided
-
-- Decision: accepted
-
 ## Context
 
 *Amendment to decision 3 following decision 8.*
