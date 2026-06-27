@@ -44,7 +44,7 @@ If new scope is discovered after an issue is closed, open a new issue, or re-ope
 
 **Cons**
 
-  * Some issues remain open while the remaining work is review/merge rather than implementation; this should be handled with project status fields.
+  * Some issues remain open while the remaining work is review/merge rather than implementation; this should be handled with project status fields such as `On hold`, `In review`, or `PR opened`.
   * PR authors need to choose closing keywords carefully, especially when a PR only partially addresses an issue.
 
 ## References
