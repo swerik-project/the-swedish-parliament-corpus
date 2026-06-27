@@ -16,7 +16,7 @@ Given that we already have a `test/data/` directory in each of the data reposito
 - (a) to update information in Wikidata as necessary
 - (b) to test that the information does not change after querying from Wikidata
 
-For example, this question arose from the fact that there is more precise information about MP mandates in person registers, so we would have a file `data/test/mandate.csv` with the following columns:
+For example, this question arose from the fact that there is more precise information about MP mandates in person registers, so we would have a file `test/data/mandate.csv` with the following columns:
 
 
 | person_id |       date | date_type | source               | page | endorse |
