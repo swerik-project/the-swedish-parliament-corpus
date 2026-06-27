@@ -1,5 +1,9 @@
 # Storing decisions in SWERIK
 
+## Relationship
+
+Amended by [Decision 0012](decision-0012_rm-status-from-template.md).
+
 ## Context
 
 We want to store project-wide decisions in a `docs/decisions` folder of this (umbrella) repository.

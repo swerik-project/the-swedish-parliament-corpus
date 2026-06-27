@@ -1,5 +1,9 @@
 # Remove Status from Decisions Template
 
+## Relationship
+
+Amends [Decision 0001](decision-0001_storing-decisions-in-SWERIK.md).
+
 ## Context
 
 There has been some difficulty remembering to change the "status" part of the decision to approved before merging an approved decision.

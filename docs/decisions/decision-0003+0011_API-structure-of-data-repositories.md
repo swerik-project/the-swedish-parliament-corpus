@@ -1,5 +1,9 @@
 # API structure of data repositories
 
+## Relationship
+
+Amends [Decision 0003](decision-0003_API-structure-of-data-repositories.md), following [Decision 0008](decision-0008_quality-dimensions.md).
+
 ## Context
 
 *Amendment to decision 3 following decision 8.*
