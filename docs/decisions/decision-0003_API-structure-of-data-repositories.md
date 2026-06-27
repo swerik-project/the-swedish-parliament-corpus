@@ -2,7 +2,7 @@
 
 ## Relationship
 
-Amended by [Decision 0003+0011](decision-0003+0011_API-structure-of-data-repositories.md).
+Amended by [Decision 0011](decision-0011_API-structure-of-data-repositories-amendment.md).
 
 ## Context
 We need to have a unified API to access and work with quality estimation for each individual repository. An example is that we want to have the data to estimate the OCR quality (i.e. the test data) in the repository so when the repository is updated the estimation can be conducted.
