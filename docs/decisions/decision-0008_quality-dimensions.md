@@ -14,6 +14,14 @@ All quality estimations and data-integrity tests should be included in the actua
 
 Similarly each data-integrity test should be stored as `test-[what-is-checked-automatically].py/r` and should include a short docstring / header describing the test as well as a reference to or "inclusion" of the markdown file that contains more detailed descriptions of what is tested and the testing process. See the data-integrity-test template.
 
+Data-integrity tests and quality estimations serve different roles.
+
+Data-integrity tests are hard gates. They check properties that must hold for every accepted version of the corpus. If a data-integrity test fails, the proposed revision should not be merged unless the test itself is being intentionally changed by a new decision or correction.
+
+Quality estimations are reporting metrics. They measure known uncertainty, incompleteness, or error rates in the corpus, often using counts, samples, or manually annotated reference data. A quality estimation may report imperfect results without failing CI, but the method and versioned result should be documented under `quality/`.
+
+A check should not live in `test/` with disabled or commented-out assertions. If it is expected to block invalid corpus states, it should be an active data-integrity test. If it is expected to measure corpus quality without necessarily blocking a merge, it should be implemented as a quality estimation.
+
 Python functions contained in the quality estimation and data-integrity test files described with docstrings that "include" the relevant .md files provide the basis to end-user API documentation. API documentation is then generated with the pdoc module and becomes available under `swerik-project.github.io/<reponame>/quality-estimation` or `swerik-project.gihub.io/<reponame>/data-integrity`
 
 ## Consequences
