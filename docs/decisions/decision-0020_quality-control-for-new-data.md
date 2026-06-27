@@ -43,6 +43,13 @@ Acceptance sampling is not a replacement for quality estimation. For each substa
 
 Quality imperfections that do not block inclusion should be documented as future curation issues. Examples include OCR errors, imperfect segmentation, unmapped speakers or signatories, approximate page breaks, uncertain but traceable metadata, and formatting variation in a period or source type.
 
+Every new-data pull request should include a short quality-control note with:
+
+- what data was added and from which source
+- the sampling unit and manual sample result
+- which automated integrity tests were run
+- known non-blocking issues opened or linked for future curation
+
 Adding new data in a backwards-compatible way should normally be treated as a minor version change. Adding new data in a way that changes the corpus API should be treated as a major version change. 
 
 ## Consequences
