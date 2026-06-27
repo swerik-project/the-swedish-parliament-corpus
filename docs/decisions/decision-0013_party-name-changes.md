@@ -1,4 +1,4 @@
-# decision 13: Handling party name changes
+# Decision 13: Handling Party Name Changes
 
 ## Context
 

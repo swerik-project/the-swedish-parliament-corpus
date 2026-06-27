@@ -11,8 +11,8 @@ Individual repositories should only create `docs/decisions` when they have repos
 The template is in large part taken from [here](https://github.com/joelparkerhenderson/architecture-decision-record/tree/main/locales/en/templates/decision-record-template-by-michael-nygard). By following this format we can use [adr-tools](https://github.com/npryce/adr-tools) for managing the decision files.
 
 
-## Decision:
-We use [this template](https://raw.githubusercontent.com/swerik-project/the-swedish-parliament-corpus/decision-1/docs/decisions/decision-template.md) for decisions.
+## Decision
+We use [this template](decision-template.md) for decisions.
 
 
 
