@@ -2,9 +2,9 @@
 
 ## Context
 
-We want to store project-wide decisions in a doc/decisions folder of this (umbrella) repository.
+We want to store project-wide decisions in a `docs/decisions` folder of this (umbrella) repository.
 
-Similarly we store repository-specific decisions in a doc/decisions folder in individual repositories.
+Similarly we store repository-specific decisions in a `docs/decisions` folder in individual repositories.
 
 The template is in large part taken from [here](https://github.com/joelparkerhenderson/architecture-decision-record/tree/main/locales/en/templates/decision-record-template-by-michael-nygard). By following this format we can use [adr-tools](https://github.com/npryce/adr-tools) for managing the decision files.
 
