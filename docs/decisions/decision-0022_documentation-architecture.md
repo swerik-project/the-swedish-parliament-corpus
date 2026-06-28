@@ -42,7 +42,13 @@ Canonical human documentation for each repository should be stored in files that
 - `test/README.md` for integrity-test documentation.
 - `docs/decisions/` for decisions.
 
-Generated documentation may be published under `docs/` when needed for the project website, but generated files are outputs. They should not be the only manually maintained source of important documentation. If the website needs quality or test pages under `docs/`, those pages should be generated from the canonical source files and release artefacts.
+Generated documentation may be published under `docs/` when needed for the project website, but generated files are outputs. They should not be the only manually maintained source of important documentation.
+
+Quality documentation should be maintained through `quality/README.md`. The quality README should explain the available quality-estimation documentation, link to the individual QE documents, and describe how quality summaries, graphs, and release artefacts are produced or updated.
+
+Integrity-test documentation should be maintained through `test/README.md`. The test README should explain what tests are run, how to run them, where the test files live, and how release or CI test summaries are produced or updated.
+
+If the project website needs quality or test pages under `docs/`, those pages should be generated from `quality/README.md`, `test/README.md`, individual QE documents, test files, and release artefacts.
 
 Each repository README should use the same basic structure, adjusted to the repository type:
 
@@ -74,6 +80,7 @@ Documentation should follow these maintenance rules:
 
 - Prefer one source of truth for each fact.
 - Link from overview pages to detailed pages instead of copying long sections.
+- Each repository README should link to `quality/README.md` and `test/README.md` when those files exist, and should summarize rather than duplicate their contents.
 - Keep contributor-facing workflows in `CONTRIBUTING.md`.
 - Keep user-facing quick orientation in `README.md`.
 - Keep quality and test details close to the code and data that produce them.
