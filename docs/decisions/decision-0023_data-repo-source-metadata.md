@@ -22,7 +22,7 @@ We therefore need a clear distinction between:
   researchers;
 - data repo source metadata, which describes a repository or released dataset as
   a publishable source for discovery, citation, catalogue harvesting, and
-  archival workflows to alight with FAIR principles.
+  archival workflows to align with FAIR principles.
 
 Keeping these concepts separate avoids confusing user-facing corpus metadata
 with project/release metadata used by infrastructure.
@@ -61,6 +61,65 @@ config/source-metadata/riksdagen-motions.yml
 The file name should match the repository name. This makes the file unambiguous
 when metadata is copied, aggregated, validated, or used by the umbrella
 repository.
+
+The source metadata file should use a common set of top-level slots. For
+`riksdagen-records`, the initial file should contain at least:
+
+```yaml
+metadata_type: data_repo_source_metadata
+metadata_version: 1
+
+repository:
+  name: riksdagen-records
+  url: https://github.com/swerik-project/riksdagen-records
+  issue_tracker_url: https://github.com/swerik-project/riksdagen-records/issues
+
+dataset:
+  identifier: riksdagen-records
+  title:
+    en: "The Swedish Parliament Corpus: Riksdagen Records"
+    sv: "Sveriges riksdagskorpus: riksdagsprotokoll"
+  description:
+    en: ""
+    sv: ""
+  temporal_coverage:
+    start: ""
+    end: ""
+  languages:
+    - sv
+  keywords:
+    en: []
+    sv: []
+  type: dataset
+
+publisher:
+  name:
+    en: Uppsala University
+    sv: Uppsala universitet
+  identifier: ""
+  url: https://www.uu.se/
+
+contact:
+  name: ""
+  email: ""
+  url: ""
+
+documentation:
+  readme_url: https://github.com/swerik-project/riksdagen-records#readme
+
+citation:
+  cff_url: https://github.com/swerik-project/riksdagen-records/blob/main/CITATION.cff
+
+relations:
+  related_repositories:
+    - https://github.com/swerik-project/riksdagen-persons
+```
+
+The exact values may be completed incrementally, but the top-level slots should
+remain stable so tooling can validate and transform the file across
+repositories. Empty strings and empty lists are acceptable while the first
+metadata files are being drafted, but release automation should eventually fail
+for required public-catalogue fields that are still empty.
 
 The source metadata file should be the human-maintained source of truth for
 repository-level publication metadata. Catalogue-specific and publication-
