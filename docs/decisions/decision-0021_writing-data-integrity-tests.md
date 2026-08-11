@@ -25,11 +25,22 @@ Individual test functions should also have short docstrings when their purpose i
 
 Test failures should be readable and actionable. Assertion messages should explain what failed, how many failures were found when possible, and where detailed results can be inspected if the test writes result files.
 
-Tests that scan many files or can produce many failures should write structured diagnostic outputs to `test/results/` when useful. These outputs should be suitable for review and follow-up curation work.
+Tests that scan many files or can produce more than a few failures should write structured diagnostic outputs to `test/results/`. These outputs should be suitable for review and follow-up curation work.
 
-The `trainerlog` module should be used for logging progress, summaries, and diagnostic messages instead of ad hoc printing, except where standard `unittest` output is sufficient.
+The `trainerlog` module should be used for logging progress, summaries, and diagnostic messages instead of ad hoc printing. Standard `unittest` output is sufficient only for small tests with one or a few clear assertions.
 
-Release-blocking data integrity tests should be included in the relevant CI workflow. A test that is not run by CI should be treated as a diagnostic or helper script, not as an active corpus guarantee.
+Data integrity tests must be included in the relevant CI workflow. A data integrity test is release-blocking when a failure should prevent a corpus revision or release from being accepted. 
+
+When adding or modifying a data integrity test, contributors should check that:
+
+* the file name describes the corpus guarantee being checked
+* the module has a docstring explaining the guarantee, motivation, input data, and documentation link when applicable
+* test functions have semantic names
+* test functions have docstrings when their purpose is not obvious from the name
+* failures include actionable assertion messages
+* large failure sets are written to `test/results/`
+* `trainerlog` is used for progress and diagnostics
+* tests are included in CI/Github Actions
 
 ## Consequences
 
