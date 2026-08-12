@@ -14,6 +14,8 @@ SWERIK data integrity tests should be written as semantic, documented, CI-runnab
 
 Data integrity test files and test functions should have semantic names that describe what is checked. Names such as `test_speaker_mapping_integrity.py`, `test_docdate_sequence.py`, or `test_xml_id_references.py` are preferred. Names based only on issue numbers, such as `test_issue_46.py`, should be avoided.
 
+Before adding a new data integrity test, contributors should check whether a test for the same corpus guarantee already exists. If it does, the existing test should normally be extended instead of creating a duplicate test. If a new test is still added because the guarantee is distinct, the difference should be clear from the test name and documentation.
+
 Each data integrity test file should include a docstring or header explaining:
 
 * what corpus guarantee the test checks
@@ -33,6 +35,7 @@ Data integrity tests must be included in the relevant CI workflow. A data integr
 
 When adding or modifying a data integrity test, contributors should check that:
 
+* existing tests and test documentation have been checked for overlap
 * the file name describes the corpus guarantee being checked
 * the module has a docstring explaining the guarantee, motivation, input data, and documentation link when applicable
 * test functions have semantic names
