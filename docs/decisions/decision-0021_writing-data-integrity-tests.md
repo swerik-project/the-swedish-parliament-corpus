@@ -35,7 +35,7 @@ Data integrity tests must be included in the relevant CI workflow. A data integr
 
 When adding or modifying a data integrity test, contributors should check that:
 
-* existing tests and test documentation have been checked for overlap
+* existing tests and test documentation have been checked for overlap, e.g. by introducing an error supposed to be caught by the new test and see if it is already captured by an existing test
 * the file name describes the corpus guarantee being checked
 * the module has a docstring explaining the guarantee, motivation, input data, and documentation link when applicable
 * test functions have semantic names
