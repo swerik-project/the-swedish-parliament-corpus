@@ -2,9 +2,9 @@
 
 ## Context
 
-Decision 0015 introduced precision columns for party existence and party affiliation dates. It solved the immediate problem of testing party-affiliation data when some dates are only known at year precision, but it did not document the general date format used across SWERIK repositories.
+Decision 0015 introduced precision columns for party existence and party affiliation dates.
 
-Issue https://github.com/welfare-state-analytics/riksdagen-corpus/issues/205 notes that the project had settled on ISO-style dates, but that this design choice was not documented. Dates occur in several SWERIK corpus repositories, including party existence, party affiliations, mandate periods, document dates, submission dates, and other metadata.
+Issue https://github.com/welfare-state-analytics/riksdagen-corpus/issues/205 notes that the project had settled on ISO-style dates, but that this design choice was not documented. 
 
 This decision amends decision 0015. Where this decision conflicts with decision 0015, this decision takes precedence.
 
@@ -19,10 +19,6 @@ Allowed date granularities are:
 - `YYYY-MM-DD` for day precision, e.g. `1867-05-14`
 
 Datetime values should only be used when time is semantically part of the source data. When used, they should follow the same profile, e.g. `YYYY-MM-DDThh:mmTZD`, `YYYY-MM-DDThh:mm:ssTZD`, or a more precise timestamp with fractional seconds.
-
-Reduced precision should not be hidden by fabricating month or day values solely to satisfy parser limitations. When a CSV column may contain dates with varying precision, add a corresponding precision value column with the suffix `_precision`. Values for a `*_precision` column are `year`, `month`, or `day`.
-
-Legacy or source-derived values such as `YYYY-01-01` or `YYYY-12-31` may be interpreted as year precision only when this is documented by the relevant `*_precision` column or migration rule. They should not be introduced as new placeholder values for reduced-precision dates.
 
 ## Consequences
 
