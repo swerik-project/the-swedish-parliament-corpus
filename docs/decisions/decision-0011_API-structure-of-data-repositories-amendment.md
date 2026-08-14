@@ -1,18 +1,16 @@
 # API structure of data repositories
 
-## Status
+## Relationship
 
-Decided
-
-- Decision: accepted
+Amends [Decision 0003](decision-0003_API-structure-of-data-repositories.md), following [Decision 0008](decision-0008_quality-dimensions.md).
 
 ## Context
 
 *Amendment to decision 3 following decision 8.*
 
-We need to have a unifide API to access and work with quality estimation for each individual repository. An example is that we want to have the data to estimate the OCR quality (i.e. the test data) in the repository so when the repository is updated the estimation can be conducted. 
+We need to have a unified API to access and work with quality estimation for each individual repository. An example is that we want to have the data to estimate the OCR quality (i.e. the test data) in the repository so when the repository is updated the estimation can be conducted.
 
-This also includes that we need to store the estimated results in the corpus in a nice formats for the umbrella repository to easily access and use estimated quality.
+This also includes that we need to store the estimated results in the corpus in a nice format for the umbrella repository to easily access and use estimated quality.
 
 See [#329](https://github.com/welfare-state-analytics/riksdagen-corpus/issues/329) for discussions.
 
