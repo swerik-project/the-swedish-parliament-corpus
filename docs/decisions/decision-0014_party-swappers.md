@@ -1,4 +1,4 @@
-# Decision 14: Swapping parties
+# Decision 14: Swapping Parties
 
 ## Context
 
