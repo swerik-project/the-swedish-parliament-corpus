@@ -79,6 +79,7 @@ Machine-readable metadata should accompany human documentation:
 Documentation should follow these maintenance rules:
 
 - Prefer one source of truth for each fact.
+- Documentation generated from code, docstrings or other close-to-code sources should be preferred whenever possible.
 - Link from overview pages to detailed pages instead of copying long sections.
 - Each repository README should link to `quality/README.md` and `test/README.md` when those files exist, and should summarize rather than duplicate their contents.
 - Keep contributor-facing workflows in `CONTRIBUTING.md`.
