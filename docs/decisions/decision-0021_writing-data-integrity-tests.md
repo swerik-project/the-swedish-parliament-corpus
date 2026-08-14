@@ -39,6 +39,7 @@ When adding or modifying a data integrity test, contributors should check that:
 * the file name describes the corpus guarantee being checked
 * the module has a docstring explaining the guarantee, motivation, input data, and documentation link when applicable
 * test functions have semantic names
+* test uses functionality from pyriksdagen python library if available
 * test functions have docstrings when their purpose is not obvious from the name
 * failures include actionable assertion messages
 * large failure sets are written to `test/results/`
