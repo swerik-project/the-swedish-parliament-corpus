@@ -1,4 +1,4 @@
-# decision 13: Handling party name changes
+# Decision 13: Handling Party Name Changes
 
 ## Context
 
@@ -7,7 +7,7 @@ Some MP's party affiliations are over a time period when the party changed names
 
 ## Decision
 
-Store dates of name changes/dissolution of parties in `party.csv`. When a party dissolves / changes name during a mandate period, add a row for affected MPs with the new party.
+Represent party name changes and party dissolutions in `party_affiliation.csv`. When a party dissolves or changes name during a mandate period, add a row for affected MPs with the new party label and party ID.
 
 - party affiliation at the time of election ends on the date (-1 day) of dissolution/name change 
 - new / renamed party affiliation starts on the date of dissolution/name change 

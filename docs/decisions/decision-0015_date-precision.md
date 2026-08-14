@@ -1,10 +1,10 @@
-# Date precision for party existence and party affiliations
+# Date precision for party affiliations
 
 Superseded by [decision-0023_date-format-and-precision.md](decision-0023_date-format-and-precision.md).
 
 ## Context
 
-Some dates related to party existence and party affiliation are only as precise as the year. In practice, this makes it difficult to test for historical accuracy in the party affiliation data.
+Some dates related to party affiliation are only as precise as the year. In practice, this makes it difficult to test for historical accuracy in the party affiliation data.
 
 ## Decision
 
@@ -13,18 +13,20 @@ Add precision value column with the suffix `_precision` to any column with dates
 
 examples:
 
-- add to `party.csv`
-	+ inception_precision
-	+ dissolution_precision
-
 - add to `party_affiliation.csv`
 	+ start_precision
 	+ end_precision
 
 
-Dates with only a year (4 digits) or YYYY-01-01 or YYYY-12-31 are automatically assigned year precision. 
+For testing and comparison, dates with precision should be interpreted as intervals.
 
-Increasing precision after (manual) checks of dates are stored in `party.csv` / `party_affiliation.csv` as well as relevant files under `test/data/` and regular tests are implemented to ensure manually corrected data is not overwritten.
+- `YYYY` with `year` precision covers `YYYY-01-01` through `YYYY-12-31`.
+- `YYYY-MM` with `month` precision covers the first through last day of that month.
+- `YYYY-MM-DD` with `day` precision covers that exact day.
+
+A precision-aware comparison passes when an exact reference date falls inside the stored interval, or when two imprecise date intervals overlap. Tests should not treat imprecise dates as exact January 1 or month-start values except as interval boundaries.
+
+Increasing precision after (manual) checks of dates is stored in `party_affiliation.csv` as well as relevant files under `test/data/`, and regular tests are implemented to ensure manually corrected data is not overwritten.
 
 ## Consequences
 
