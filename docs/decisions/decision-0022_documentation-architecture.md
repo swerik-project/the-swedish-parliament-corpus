@@ -74,6 +74,7 @@ Machine-readable metadata should accompany human documentation:
 - `CITATION.cff` is the canonical repository citation file.
 - DCAT metadata should describe released datasets that should be discoverable in catalogues such as dataportal.se and data.europa.eu.
 - CSV files that form part of the public data model should be documented with CSVW metadata.
+- Repository information should be maintained in each data repository according to the data repo source metadata decision.
 - Metadata intended for SND, DORIS, Dataverse, or similar repositories should be derived from the same canonical project metadata where possible.
 
 Documentation should follow these maintenance rules:
@@ -87,7 +88,7 @@ Documentation should follow these maintenance rules:
 - Keep quality and test details close to the code and data that produce them.
 - Use relative links inside repositories when linking to files in the same repository.
 - Validate links, citation metadata, release metadata, and generated summaries as part of release checks.
-- Keep a machine-readable list of SWERIK data repositories in the umbrella repository and use automated tests to check that data repositories follow these documentation rules.
+- Use repository-local data integrity tests and CI workflows to check that each data repository follows these documentation rules.
 
 ## Consequences
 
