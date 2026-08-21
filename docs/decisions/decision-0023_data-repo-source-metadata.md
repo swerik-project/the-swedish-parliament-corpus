@@ -37,12 +37,10 @@ Each SWERIK data repository should store its canonical repository information un
 docs/[repo-name]-info.yml
 ```
 
-For example:
+For example (in the `riksdagen-records` repo):
 
 ```text
 docs/riksdagen-records-info.yml
-docs/riksdagen-persons-info.yml
-docs/riksdagen-motions-info.yml
 ```
 
 The file name should match the repository name. This makes the file unambiguous
