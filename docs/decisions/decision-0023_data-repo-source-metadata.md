@@ -48,7 +48,8 @@ when metadata on the repo is copied, aggregated, validated, or used by the umbre
 repository.
 
 The repository info file should use a common set of top-level slots. For
-`riksdagen-records`, the initial file should contain at least:
+`riksdagen-records`, the initial file should contain a core set of slots that
+can be expanded incrementally:
 
 ```yaml
 metadata_type: repository_information
@@ -83,7 +84,6 @@ publisher:
 
 contact:
   name: ""
-  email: ""
   url: ""
 
 documentation:
@@ -148,7 +148,7 @@ while infrastructure code can look for publication metadata in
 `docs`.
 
 DCAT work for dataportal.se can start from
-`docs/riksdagen-records.yml` and generate
+`docs/riksdagen-records-info.yml` and generate
 `docs/dcat/riksdagen-records.rdf` and `docs/dcat/riksdagen-records.ttl`. The
 same pattern can later be reused for `riksdagen-persons`, `riksdagen-motions`,
 and other SWERIK data repositories.
