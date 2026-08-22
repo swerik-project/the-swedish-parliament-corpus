@@ -33,6 +33,8 @@ The `trainerlog` module should be used for logging progress, summaries, and diag
 
 Data integrity tests must be included in the relevant CI workflow. A data integrity test is release-blocking when a failure should prevent a corpus revision or release from being accepted. 
 
+Pull requests for release-blocking data integrity tests should normally demonstrate that the test fails in CI by temporarily committing a minimal intentional data error and then reverting that commit before merge. Keeping both the failing-data commit and the revert commit in the PR branch gives reviewers an auditable red-then-green record.
+
 When adding or modifying a data integrity test, contributors should check that:
 
 * existing tests and test documentation have been checked for overlap, e.g. by introducing an error supposed to be caught by the new test and see if it is already captured by an existing test
@@ -45,6 +47,7 @@ When adding or modifying a data integrity test, contributors should check that:
 * large failure sets are written to `test/results/`
 * `trainerlog` is used for progress and diagnostics
 * tests are included in CI/Github Actions
+* the PR demonstrates, when practical, that the test fails in CI for a minimal intentional data error and passes again after that error is reverted
 
 ## Consequences
 
