@@ -1,12 +1,5 @@
 # Storing references to data points beyond the Biography Books
 
-## Status
-
-Decided
-
-- Decision: accepted
-
-
 ## Context
 
 To data, we have relied on the Bio Books as an authoritative source of information. However, it has been pointed out that some of the information is imprecise / incorrect. While we have kept track of MPs' page references in the bio books, we have not indicated the scope of these page references over particular data points in any way.
@@ -23,7 +16,7 @@ Given that we already have a `test/data/` directory in each of the data reposito
 - (a) to update information in Wikidata as necessary
 - (b) to test that the information does not change after querying from Wikidata
 
-For example, this question arose from the fact that there is more precise information about MP mandates in person registers, so we would have a file `data/test/mandate.csv` with the following columns:
+For example, this question arose from the fact that there is more precise information about MP mandates in person registers, so we would have a file `test/data/mandate.csv` with the following columns:
 
 
 | person_id |       date | date_type | source               | page | endorse |
