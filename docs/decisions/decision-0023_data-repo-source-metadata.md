@@ -48,7 +48,8 @@ when metadata on the repo is copied, aggregated, validated, or used by the umbre
 repository.
 
 The repository info file should use a common set of top-level slots. For
-`riksdagen-records`, the initial file should contain at least:
+`riksdagen-records`, the initial file should contain a DCAT-ready core set of
+slots that can be expanded incrementally:
 
 ```yaml
 metadata_type: repository_information
@@ -72,7 +73,13 @@ dataset:
   keywords:
     en: []
     sv: []
+  themes:
+    - http://publications.europa.eu/resource/authority/data-theme/GOVE
   type: dataset
+  landing_page_url: https://github.com/swerik-project/the-swedish-parliament-corpus
+  license: ""
+  temporal_coverage:
+    start: "1867"
 
 publisher:
   name:
@@ -82,12 +89,14 @@ publisher:
   url: https://www.uu.se/
 
 contact:
-  name: ""
-  email: ""
-  url: ""
+  name: SWERIK project
+  url: https://github.com/orgs/swerik-project/discussions
 
 documentation:
   readme_url: https://github.com/swerik-project/riksdagen-records#readme
+  docs_url: https://swerik-project.github.io/riksdagen-records/
+  quality_documentation_url: https://swerik-project.github.io/riksdagen-records/riksdagen-records/quality
+  test_documentation_url: https://swerik-project.github.io/riksdagen-records/riksdagen-records/test
 
 citation:
   cff_url: https://github.com/swerik-project/riksdagen-records/blob/main/CITATION.cff
@@ -95,13 +104,28 @@ citation:
 relations:
   related_repositories:
     - https://github.com/swerik-project/riksdagen-persons
+
+distributions:
+  - name: records.zip
+    access_url: https://github.com/swerik-project/riksdagen-records/releases/latest/download/records.zip
+    download_url: https://github.com/swerik-project/riksdagen-records/releases/latest/download/records.zip
+    media_type: application/zip
+    format: ZIP
 ```
 
-The exact values will be completed incrementally as needs is identified, but the top-level slots should
-remain stable so tooling can validate and transform the file across
-repositories. Empty strings and empty lists are acceptable while the first
-metadata files are being drafted, but release automation should eventually fail
-for required public-catalogue fields that are still empty.
+The exact values and additional slots will be completed incrementally as needs
+are identified. The core top-level slots should remain stable so tooling can
+validate and transform the file across repositories. The DCAT-ready core should
+include at least a catalogue theme from the EU data-theme vocabulary, structured
+temporal coverage that can be generated as `dct:PeriodOfTime`, and a
+distribution with `access_url` because `dcat:accessURL` is mandatory for
+DCAT-AP-SE distributions. Optional slots and fields such as contact email,
+license URI, version and release-date metadata, additional related resources,
+and catalogue-specific identifiers may be added when they are available or
+needed by a catalogue, generator, release workflow, or archive workflow. Empty
+strings and empty lists are acceptable while metadata files are being drafted,
+but release automation should eventually fail for required public-catalogue
+fields that are still empty.
 
 The info file should be the human-maintained source of truth for
 repository-level publication metadata. Catalogue-specific and publication-
@@ -119,16 +143,17 @@ practical. Possible generated or validated outputs include:
 
 Generated publication artifacts may be written to `docs/` when they are intended
 to be served by GitHub Pages or another documentation site. For DCAT, the
-recommended generated layout is:
+required harvestable generated artifact is:
 
 ```text
 docs/dcat/[repo-name].rdf
-docs/dcat/[repo-name].ttl
 ```
 
-The RDF/XML file is the harvestable machine-facing artifact. The Turtle file is
-for human review and debugging. Both should be treated as generated publication
-artifacts unless a repository explicitly documents another maintenance model.
+The RDF/XML file is the harvestable machine-facing artifact. A Turtle file may
+also be generated for human review and debugging if that proves useful, but it
+is optional because the YAML info file is the human-maintained source of truth.
+Generated DCAT files should be treated as generated publication artifacts unless
+a repository explicitly documents another maintenance model.
 
 Repository info files should use stable, absolute URLs and identifiers when they
 describe public resources. For catalogue outputs, generated metadata should
@@ -148,8 +173,8 @@ while infrastructure code can look for publication metadata in
 `docs`.
 
 DCAT work for dataportal.se can start from
-`docs/riksdagen-records.yml` and generate
-`docs/dcat/riksdagen-records.rdf` and `docs/dcat/riksdagen-records.ttl`. The
+`docs/riksdagen-records-info.yml` and generate
+`docs/dcat/riksdagen-records.rdf`. The
 same pattern can later be reused for `riksdagen-persons`, `riksdagen-motions`,
 and other SWERIK data repositories.
 
