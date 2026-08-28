@@ -38,14 +38,19 @@ Pull requests for release-blocking data integrity tests should normally demonstr
 When adding or modifying a data integrity test, contributors should check that:
 
 * existing tests and test documentation have been checked for overlap, e.g. by introducing an error supposed to be caught by the new test and see if it is already captured by an existing test
+* schema, primary-key, and foreign-key checks are delegated to CSVW metadata tests when possible
+* new tests check a distinct semantic corpus guarantee rather than duplicating existing structural validation
 * the file name describes the corpus guarantee being checked
 * the module has a docstring explaining the guarantee, motivation, input data, and documentation link when applicable
 * test functions have semantic names
 * test uses functionality from pyriksdagen python library if available
+* new tabular CSV tests use polars unless there is a good reason not to
 * test functions have docstrings when their purpose is not obvious from the name
+* unnecessary object-oriented boilerplate is avoided; helper functions are module-level when they do not need test instance state
 * failures include actionable assertion messages
 * large failure sets are written to `test/results/`
 * `trainerlog` is used for progress and diagnostics
+* known exceptions are explicit, narrow, and documented
 * tests are included in CI/Github Actions
 * the PR demonstrates, when practical, that the test fails in CI for a minimal intentional data error and passes again after that error is reverted
 
