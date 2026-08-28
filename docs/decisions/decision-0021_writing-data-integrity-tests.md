@@ -46,9 +46,12 @@ When adding or modifying a data integrity test, contributors should check that:
 * test uses functionality from pyriksdagen python library if available
 * new tabular CSV tests use polars unless there is a good reason not to
 * test functions have docstrings when their purpose is not obvious from the name
-* unnecessary object-oriented boilerplate is avoided; helper functions are module-level when they do not need test instance state
+* unnecessary object-oriented boilerplate is avoided; prefer module-level helper functions and a single data-collection function unless the test framework genuinely requires shared test state
 * failures include actionable assertion messages
 * large failure sets are written to `test/results/`
+* tests that collect several related error categories prefer one diagnostics table with an `error_type` column over multiple per-error CSV files
+* diagnostic tables are usually built with `polars` and sorted by stable review keys such as `file`, `error_type`, and relevant location columns before being written
+* magic constants and repeated formatting inside scan loops are avoided; use named thresholds such as `MAX_SPAN_DAYS = 7` and format output values in one place when possible
 * `trainerlog` is used for progress and diagnostics
 * known exceptions are explicit, narrow, and documented
 * tests are included in CI/Github Actions
