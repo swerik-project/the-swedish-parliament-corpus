@@ -29,6 +29,8 @@ Test failures should be readable and actionable. Assertion messages should expla
 
 Tests that scan many files or can produce more than a few failures should write structured diagnostic outputs to `test/results/`. These outputs should be suitable for review and follow-up curation work.
 
+When a new data integrity test finds known current-data failures that are too large to fix in the same pull request, the test may use an explicit current-data threshold instead of failing immediately. This should only be done when the pull request or linked issue records the problem cases, a follow-up issue is open for fixing them, and later curation pull requests are expected to reduce the threshold.
+
 The `trainerlog` module should be used for logging progress, summaries, and diagnostic messages instead of ad hoc printing. Standard `unittest` output is sufficient only for small tests with one or a few clear assertions.
 
 Data integrity tests must be included in the relevant CI workflow. A data integrity test is release-blocking when a failure should prevent a corpus revision or release from being accepted. 
