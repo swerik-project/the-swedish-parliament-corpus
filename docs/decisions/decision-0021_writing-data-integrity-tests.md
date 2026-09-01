@@ -49,7 +49,11 @@ When adding or modifying a data integrity test, contributors should check that:
 * documentation links in module docstrings point to existing, current repository documentation or umbrella decisions
 * test functions have semantic names
 * test uses functionality from the `pyriksdagen` Python library if available
-* new tabular CSV tests use `polars` unless there is a good reason not to
+* structured corpus formats are parsed with the project-standard parser; XML/TEI should be parsed with `pyriksdagen.io.parse_tei`, `lxml`, or another explicit XML parser, not with regular expressions, string splitting, or raw text scans of tags and attributes
+* regular expressions may be used on extracted text content, but not to parse XML tags, attributes, nesting, or element boundaries
+* performance concerns do not justify bypassing XML parsing; use `pyriksdagen` iterators, `lxml.iterparse`, XPath or element traversal, narrower file selection, cached diagnostics, or CI partitioning instead
+* static data integrity tests do not invoke shell commands or depend on the repository being a Git checkout; avoid `subprocess`, `os.system`, `git grep`, `grep`, `rg`, `find`, and similar commands inside tests unless the test is explicitly validating an external command-line tool
+* new CSV/TSV fixture and diagnostic tests use `polars` for reading and writing tabular data unless there is a good reason not to
 * libraries outside the central template's standard imports are added only when they remove real complexity, and the reason for each additional library is documented in the module docstring or near the import
 * if a test imports `polars`, tabular reading, null filtering, date parsing, joins, selections, sorting, and CSV output are normally handled with `polars` expressions rather than row-wise Python code
 * missing diagnostic values are represented as `None` or `polars` nulls, not as empty strings or other string sentinels
@@ -76,11 +80,13 @@ When adding or modifying a data integrity test, contributors should check that:
 Before requesting review, contributors should run a quick search for common implementation smells:
 
 ```bash
-rg 'import csv|csv\.DictReader|print\(|tqdm|strftime|strptime|FunctionTestCase|def load_tests|TestStringMethods' test
+rg 'import csv|csv\.DictReader|csv\.DictWriter|print\(|tqdm|strftime|strptime|FunctionTestCase|def load_tests|TestStringMethods' test
+rg 'subprocess|Popen|os\.system|git grep|grep |rg |find |read_bytes|read_text' test
+rg 're\.compile|re\.search|re\.finditer|xml:id=|who=|<[^>]+>' test
 rg '= ""|: ""|return ""|get\([^,]+, ""\)' test
 ```
 
-Matches are not automatically wrong. They should, however, be removed or justified before review. In particular, `csv.DictReader`, repeated date string conversion, generic test class names, custom `load_tests` glue, empty-string sentinels, progress bars, and ad hoc printing are common signs that a data integrity test should be simplified or moved toward `pyriksdagen`, `polars`, `trainerlog`, and the shared template.
+Matches are not automatically wrong. They should, however, be removed or justified before review. In particular, `csv.DictReader`, `csv.DictWriter`, repeated date string conversion, generic test class names, custom `load_tests` glue, empty-string sentinels, progress bars, ad hoc printing, shell commands, Git-dependent scans, raw XML file reads, and regular expressions that inspect XML markup are common signs that a data integrity test should be simplified or moved toward `pyriksdagen`, `polars`, `trainerlog`, and the shared template. The `re` module is not banned; regular expressions are acceptable for already-extracted text content when they do not replace structured parsing.
 
 ## Consequences
 

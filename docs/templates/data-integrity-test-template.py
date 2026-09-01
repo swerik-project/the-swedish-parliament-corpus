@@ -13,7 +13,9 @@ explain:
 Implementation conventions:
 
 * use pyriksdagen for corpus walking, TEI parsing, metadata, and corpus helpers
+* parse XML/TEI with pyriksdagen or lxml, not regular expressions or raw tag scans
 * use polars for tabular fixtures, diagnostics, sorting, and CSV output
+* do not invoke subprocesses or Git/grep-style shell commands in static tests
 * keep missing values as None/null, not string sentinels
 * keep dates typed until the output boundary
 * write one stable diagnostics table to test/results/ for large failure sets
