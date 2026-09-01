@@ -46,6 +46,7 @@ When adding or modifying a data integrity test, contributors should check that:
 * new tests check a distinct semantic corpus guarantee rather than duplicating existing structural validation
 * the file name describes the corpus guarantee being checked
 * the module has a docstring explaining the guarantee, motivation, input data, and documentation link when applicable
+* documentation links in module docstrings point to existing, current repository documentation or umbrella decisions
 * test functions have semantic names
 * test uses functionality from the `pyriksdagen` Python library if available
 * new tabular CSV tests use `polars` unless there is a good reason not to
@@ -58,13 +59,15 @@ When adding or modifying a data integrity test, contributors should check that:
 * unnecessary object-oriented boilerplate is avoided; prefer module-level helper functions and a single data-collection function unless the test framework genuinely requires shared test state
 * `unittest.TestCase` classes, when used for CI discovery, have semantic names and contain only the test assertions; corpus scanning and diagnostics should stay in module-level functions
 * helper functions do real domain work or remove meaningful repetition; helpers that only wrap one obvious library call are avoided
+* data structures match the guarantee being checked; use sets for unordered membership, lists or tuples only when order matters, and avoid canonicalization helpers unless the comparison genuinely needs them
 * failures include actionable assertion messages
 * large failure sets are written to `test/results/`
 * tests that collect several related error categories prefer one diagnostics table with an `error_type` column over multiple per-error CSV files
 * diagnostic tables are usually built with `polars` and sorted by stable review keys such as `file`, `error_type`, and relevant location columns before being written
 * magic constants and repeated formatting inside scan loops are avoided; use named thresholds such as `MAX_SPAN_DAYS = 7` and format output values in one place when possible
 * `trainerlog` is used for progress and diagnostics; progress bars and ad hoc printing are avoided in release-blocking CI tests unless there is a documented reason
-* known exceptions are explicit, narrow, and documented
+* known exceptions, baselines, and transition allowances are explicit, narrow, and documented close to the assertion that uses them unless they are shared by several tests
+* temporary or compatibility tests document what transition they protect and when the test, exception, or baseline can be removed or ratcheted down
 * tests are included in CI/Github Actions
 * the PR demonstrates, when practical, that the test fails in CI for a minimal intentional data error and passes again after that error is reverted
 
