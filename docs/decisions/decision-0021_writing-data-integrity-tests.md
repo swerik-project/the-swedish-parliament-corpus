@@ -35,6 +35,10 @@ Data integrity tests must be included in the relevant CI workflow. A data integr
 
 Pull requests for release-blocking data integrity tests should normally demonstrate that the test fails in CI by temporarily committing a minimal intentional data error and then reverting that commit before merge. Keeping both the failing-data commit and the revert commit in the PR branch gives reviewers an auditable red-then-green record.
 
+The central implementation template for new data integrity tests is [the data integrity test template](../templates/data-integrity-test-template.py) in the umbrella repository. Corpus repositories should use this template directly as the starting point for new data integrity tests. 
+
+### Implementation checklist
+
 When adding or modifying a data integrity test, contributors should check that:
 
 * existing tests and test documentation have been checked for overlap, e.g. by introducing an error supposed to be caught by the new test and see if it is already captured by an existing test
@@ -43,19 +47,37 @@ When adding or modifying a data integrity test, contributors should check that:
 * the file name describes the corpus guarantee being checked
 * the module has a docstring explaining the guarantee, motivation, input data, and documentation link when applicable
 * test functions have semantic names
-* test uses functionality from pyriksdagen python library if available
-* new tabular CSV tests use polars unless there is a good reason not to
+* test uses functionality from the `pyriksdagen` Python library if available
+* new tabular CSV tests use `polars` unless there is a good reason not to
+* libraries outside the central template's standard imports are added only when they remove real complexity, and the reason for each additional library is documented in the module docstring or near the import
+* if a test imports `polars`, tabular reading, null filtering, date parsing, joins, selections, sorting, and CSV output are normally handled with `polars` expressions rather than row-wise Python code
+* missing diagnostic values are represented as `None` or `polars` nulls, not as empty strings or other string sentinels
+* dates remain typed as dates or datetimes until the final output boundary; repeated `strftime`/`strptime` calls inside corpus scan loops are avoided when `polars` or `pyriksdagen` can parse or format centrally
+* diagnostic tables have a stable nullable schema, or normalize optional columns before sorting/writing, so the test works when there are zero failures or only some error categories are present
 * test functions have docstrings when their purpose is not obvious from the name
 * unnecessary object-oriented boilerplate is avoided; prefer module-level helper functions and a single data-collection function unless the test framework genuinely requires shared test state
+* `unittest.TestCase` classes, when used for CI discovery, have semantic names and contain only the test assertions; corpus scanning and diagnostics should stay in module-level functions
+* helper functions do real domain work or remove meaningful repetition; helpers that only wrap one obvious library call are avoided
 * failures include actionable assertion messages
 * large failure sets are written to `test/results/`
 * tests that collect several related error categories prefer one diagnostics table with an `error_type` column over multiple per-error CSV files
 * diagnostic tables are usually built with `polars` and sorted by stable review keys such as `file`, `error_type`, and relevant location columns before being written
 * magic constants and repeated formatting inside scan loops are avoided; use named thresholds such as `MAX_SPAN_DAYS = 7` and format output values in one place when possible
-* `trainerlog` is used for progress and diagnostics
+* `trainerlog` is used for progress and diagnostics; progress bars and ad hoc printing are avoided in release-blocking CI tests unless there is a documented reason
 * known exceptions are explicit, narrow, and documented
 * tests are included in CI/Github Actions
 * the PR demonstrates, when practical, that the test fails in CI for a minimal intentional data error and passes again after that error is reverted
+
+### Pre-review grep checklist
+
+Before requesting review, contributors should run a quick search for common implementation smells:
+
+```bash
+rg 'import csv|csv\.DictReader|print\(|tqdm|strftime|strptime|FunctionTestCase|def load_tests|TestStringMethods' test
+rg '= ""|: ""|return ""|get\([^,]+, ""\)' test
+```
+
+Matches are not automatically wrong. They should, however, be removed or justified before review. In particular, `csv.DictReader`, repeated date string conversion, generic test class names, custom `load_tests` glue, empty-string sentinels, progress bars, and ad hoc printing are common signs that a data integrity test should be simplified or moved toward `pyriksdagen`, `polars`, `trainerlog`, and the shared template.
 
 ## Consequences
 
