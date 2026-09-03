@@ -33,14 +33,14 @@ Individual test functions should normally have short docstrings explaining:
 * what specific corpus guarantee the test checks
 * why that guarantee matters
 * what input data, gold-standard data, or reference data the test uses
-* what current-data threshold or result file applies, when applicable
+* what current-data threshold, logging behavior, or optional result file applies, when applicable
 * any relevant umbrella decision or external source that motivates the guarantee
 
 The module docstring should stay brief. Function-level documentation should describe the concrete assertion made by that function, so documentation is less likely to drift when individual checks change.
 
-Test failures should be readable and actionable. Assertion messages should explain what failed, how many failures were found when possible, and where detailed results can be inspected if the test writes result files.
+Test failures should be readable and actionable. Assertion messages should explain what failed, how many failures were found when possible, and that detailed rows were logged with `trainerlog`. If a test also writes a motivated result file, the assertion message should include its path.
 
-Tests should start by logging observed errors with the `trainerlog` logger and reporting the failure clearly in the assertion message. A separate CSV or TSV diagnostic file should usually wait until there is a concrete review or follow-up curation use case. If a test writes structured diagnostic output to `test/results/`, the output should be scoped to that individual test or guarantee, rather than collected into a common file for several independent guarantees.
+Tests should start by logging observed errors with the `trainerlog` logger and reporting the failure clearly in the assertion message. A separate CSV or TSV diagnostic file should be added later only when logger output is not enough for a concrete review or follow-up curation use case. If a test writes structured diagnostic output to `test/results/`, the output should be scoped to that individual test or guarantee, rather than collected into a common file for several independent guarantees.
 
 When a new data integrity test finds known current-data failures that are too large to fix in the same pull request, the test may use an explicit current-data threshold instead of failing immediately. This should only be done when the pull request or linked issue records the problem cases, a follow-up issue is open for fixing them, and later curation pull requests are expected to reduce the threshold.
 
@@ -76,7 +76,7 @@ When a coding agent adds or modifies a data integrity test, it should normally:
 6. Use `polars` for CSV/TSV fixtures, joins, filtering, sorting, and diagnostics unless a different library clearly simplifies the implementation.
 7. Log observed errors with `trainerlog`; add structured diagnostics to `test/results/` only when a separate file is motivated by review or follow-up curation needs, and keep written diagnostics scoped to one test or guarantee.
 8. Keep scans sequential unless the pull request documents measured CI/runtime evidence for a more complex implementation.
-9. Add actionable assertion messages that report counts and diagnostic file paths when applicable.
+9. Add actionable assertion messages that report counts, say that details were logged, and include diagnostic file paths only when the test writes a motivated result file.
 10. Wire release-blocking tests into the relevant CI workflow.
 11. Run the pre-review grep checklist and either remove or justify remaining matches.
 
@@ -92,7 +92,7 @@ When adding or modifying a data integrity test, contributors should check that:
 * Python test file names use importable underscore names such as `test_<semantic_guarantee>.py`
 * the file name describes the corpus guarantee being checked
 * the module has a brief docstring explaining the family of checks and any shared input data
-* test-function docstrings explain the specific guarantee, motivation, input data, current-data threshold, diagnostic output, and relevant decisions or external sources when applicable
+* test-function docstrings explain the specific guarantee, motivation, input data, current-data threshold, logging behavior, optional diagnostic output, and relevant decisions or external sources when applicable
 * data integrity test documentation is kept in the test file itself; do not create separate Markdown documentation under `test/docs/` for new data integrity tests
 * test functions have semantic names
 * the implementation starts from the simplest readable structured scan of the data, and only keeps template sections that the guarantee actually needs
@@ -106,7 +106,7 @@ When adding or modifying a data integrity test, contributors should check that:
 * static data integrity tests do not invoke shell commands or depend on the repository being a Git checkout; avoid `subprocess`, `os.system`, `git grep`, `grep`, `rg`, `find`, and similar commands inside tests
 * new CSV/TSV fixture and diagnostic tests use `polars` for reading and writing tabular data unless there is a good reason not to
 * libraries outside the central template's standard imports are added only when they remove real complexity, and the reason for each additional library is documented in the module docstring or near the import
-* tabular reading, null checks, date parsing, joins, selections, sorting, and CSV output are normally handled with `polars` expressions rather than row-wise Python code
+* tabular reading, null checks, date parsing, joins, selections, and sorting are normally handled with `polars` expressions rather than row-wise Python code; CSV output should also use `polars` when a test writes an optional diagnostic file
 * missing diagnostic values are represented as `None` or `polars` nulls, not as empty strings or other string sentinels. Similarly, when `polars` is used to create a dataframe, `None` or `polars` nulls should be used.
 * missing values from source data remain missing values throughout the test; do not use options such as `null_values=[""]` to override source parsing, do not drop nulls by default, and do not turn nulls into empty strings just to simplify formatting or sorting
 * dates remain typed as dates or datetimes until the final output boundary; repeated `strftime`/`strptime` calls inside corpus scan loops are avoided when `polars` or `pyriksdagen` can parse or format centrally
@@ -115,7 +115,7 @@ When adding or modifying a data integrity test, contributors should check that:
 * `unittest.TestCase` classes, when used for CI discovery, have semantic names and should be assertion-focused; direct scan loops are acceptable and often preferred for simple one-pass checks
 * `subTest`, shared collectors, shared caches, and shared threshold dictionaries are not used to combine independent guarantees into one test
 * helper functions do real domain work or remove meaningful repetition; helpers that only wrap one obvious library call, split one attribute, copy a dictionary, or hide a short element traversal are avoided
-* test should never edit/write data outside test/results
+* tests normally should not write data; if a test writes a motivated diagnostic file, it should not write outside `test/results`
 * data structures match the guarantee being checked; use sets for unordered membership, lists or tuples only when order matters, and avoid canonicalization helpers unless the comparison genuinely needs them
 * text normalization is narrow, comparison-specific, and documented close to the code that uses it; Swedish letters and accents are preserved unless the tested guarantee explicitly needs accent-insensitive matching
 * failures include actionable assertion messages
@@ -125,7 +125,7 @@ When adding or modifying a data integrity test, contributors should check that:
 * magic constants and repeated formatting inside scan loops are avoided; use named thresholds such as `MAX_SPAN_DAYS = 7` and format output values in one place when possible
 * `trainerlog` is used for progress and diagnostics; progress bars from known project dependencies such as `tqdm` are allowed for long scans, while ad hoc printing is avoided in release-blocking CI tests
 * known exceptions, baselines, and transition allowances are explicit, narrow, and documented close to the assertion that uses them
-* current-data thresholds define the counted unit, such as rows, files, blocks, or unique ids; diagnostics, assertions, and follow-up issues should use the same unit
+* current-data thresholds define the counted unit, such as rows, files, blocks, or unique ids; logger output, assertions, optional diagnostics, and follow-up issues should use the same unit
 * temporary or compatibility tests (e.g. when waiting for functionality to go into pyriksdagen) document what transition they protect and when the test, exception, or baseline can be removed or ratcheted down
 * tests are included in the existing relevant CI/Github Actions workflow unless a separate workflow has a distinct schedule, trigger, or dependency reason; the same release-blocking test should not be duplicated across workflows
 * the PR demonstrates, when practical, that the test fails in CI for a minimal intentional data error and passes again after that error is reverted
