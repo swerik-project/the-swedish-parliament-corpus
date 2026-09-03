@@ -17,8 +17,6 @@ keeps tests independent and easy to follow. Add structured diagnostic files only
 when they are specifically useful for review or follow-up curation work.
 """
 
-
-from pathlib import Path
 import unittest
 
 import polars as pl
@@ -30,28 +28,40 @@ from tqdm import tqdm
 
 LOGGER = get_logger(name="example-reference-id-integrity")
 
-REFERENCE_PATH = Path("test/data/example-reference.csv")
+REFERENCE_PATH = "test/data/example-reference.csv"
 
+MAX_NULL_REFERENCE_IDS = 0
 MAX_MISSING_REFERENCE_ROWS = 0
-
-
-def format_error(row: dict[str, object]) -> str:
-    """Format one diagnostic row for log and assertion output."""
-    return " | ".join(f"{key}={value}" for key, value in row.items())
-
-
-def log_errors(errors: list[dict[str, object]]) -> str:
-    """Log diagnostic rows and return concise text for the assertion message."""
-    if len(errors) == 0:
-        return "no diagnostics"
-
-    for row in errors:
-        LOGGER.error(format_error(row))
-    return "diagnostics logged with trainerlog"
 
 
 class TestExampleGuaranteeIntegrity(unittest.TestCase):
     """Release-blocking checks for the example corpus guarantee."""
+
+    def test_example_reference_fixture_has_no_null_reference_ids(self):
+        """Guarantee: the example reference fixture has no null reference ids.
+
+        Why this matters: the reference fixture contains manually curated
+        identifiers used by later corpus checks. The test reads
+        ``test/data/example-reference.csv`` with Polars and lets unexpected null
+        values fail clearly rather than dropping or replacing them. The accepted
+        threshold is zero null values. Summary diagnostics are logged with
+        ``trainerlog``.
+        """
+        reference = pl.read_csv(REFERENCE_PATH, infer_schema_length=10000)
+        null_reference_ids = reference.filter(pl.col("reference_id").is_null())
+
+        if null_reference_ids.height > 0:
+            LOGGER.error(
+                "file=%s | issue=null reference_id value(s) in fixture | count=%s",
+                REFERENCE_PATH,
+                null_reference_ids.height,
+            )
+
+        self.assertEqual(
+            null_reference_ids.height,
+            MAX_NULL_REFERENCE_IDS,
+            f"{REFERENCE_PATH} has {null_reference_ids.height} null reference_id value(s)",
+        )
 
     def test_example_reference_ids_are_present_in_xml(self):
         """Guarantee: every XML document has a row in the example reference fixture.
@@ -59,45 +69,35 @@ class TestExampleGuaranteeIntegrity(unittest.TestCase):
         Why this matters: the reference fixture contains manually curated
         information that must cover each accepted corpus file. The test reads
         ``test/data/example-reference.csv`` with Polars and scans XML files under
-        ``data/`` with ``pyriksdagen``. Unexpected null ``reference_id`` values
-        in the fixture should fail clearly rather than being dropped or replaced.
-        The accepted threshold is zero errors. Individual errors are logged with
-        ``trainerlog``. A structured result file can be added later if logger
-        output is not enough for review or follow-up curation work.
+        ``data/`` with ``pyriksdagen``. The accepted threshold is zero missing
+        reference rows. Individual errors are logged with ``trainerlog``. A
+        structured result file can be added later if logger output is not enough
+        for review or follow-up curation work.
         """
         reference = pl.read_csv(REFERENCE_PATH, infer_schema_length=10000)
-        null_reference_ids = reference.filter(pl.col("reference_id").is_null())
-        self.assertEqual(
-            null_reference_ids.height,
-            0,
-            f"{REFERENCE_PATH} has {null_reference_ids.height} null reference_id value(s)",
-        )
-
         known_reference_ids = set(reference.get_column("reference_id").to_list())
-        errors = []
+        missing_reference_rows = 0
         paths = sorted(corpus_iterator("records", corpus_root="data"))
         LOGGER.info("Checking example guarantee for %s records", len(paths))
 
         for path in tqdm(paths, desc="example guarantee"):
             root = parse_tei(path, get_ns=False)
-            xml_id = root.get(f"{{http://www.w3.org/XML/1998/namespace}}id")
+            xml_id = root.get("{http://www.w3.org/XML/1998/namespace}id")
             if xml_id not in known_reference_ids:
-                errors.append(
-                    {
-                        "file": path,
-                        "xml_id": xml_id,
-                        "issue": "XML document has no row in the reference fixture",
-                        "expected": "reference fixture row",
-                    }
+                missing_reference_rows += 1
+                LOGGER.error(
+                    "file=%s | xml_id=%s | issue=missing reference fixture row",
+                    path,
+                    xml_id,
                 )
 
-        details = log_errors(errors)
         self.assertLessEqual(
-            len(errors),
+            missing_reference_rows,
             MAX_MISSING_REFERENCE_ROWS,
             (
-                f"{len(errors)} missing reference row(s), exceeding baseline "
-                f"{MAX_MISSING_REFERENCE_ROWS}; {details}"
+                f"{missing_reference_rows} missing reference row(s), exceeding "
+                f"baseline {MAX_MISSING_REFERENCE_ROWS}; diagnostics logged "
+                "with trainerlog"
             ),
         )
 
