@@ -58,6 +58,19 @@ The central implementation template for new data integrity tests is [the data in
 
 The preferred implementation is the smallest structured test that states the corpus guarantee directly: iterate over the relevant corpus files with `pyriksdagen`, parse the relevant structured data, collect only the observations needed for that test's assertion, and assert the accepted baseline. Extra layers such as custom caches, chunkers, worker pools, broad canonicalization pipelines, combined error taxonomies, shared baseline dictionaries for independent guarantees, or multi-stage diagnostics should be avoided as much as possible, and only be added when they solve a concrete, documented problem.
 
+Several implementation choices follow from this preferred shape:
+
+* Prefer counters over diagnostic dataframes when the assertion only needs counts.
+* Log failures at the point where they are found, instead of collecting generic error rows and formatting them later.
+* Repeat simple reference loading in separate tests when that keeps each guarantee independent.
+* Avoid shared `error_type` taxonomies for independent guarantees.
+* Use the natural counted unit for the guarantee, such as duplicate signer blocks counting blocks rather than diagnostic rows.
+* Helper functions are fine only for real domain logic, such as extracting a signature location, not for hiding a short scan or assertion.
+
+When a test only needs a count, use a simple integer counter and log each failure where it is detected. Do not build a diagnostic dataframe, shared error taxonomy, or generic row formatter unless the test actually needs tabular output for a motivated review workflow.
+
+Repeating small reference-data reads or corpus scans across test functions is acceptable when it keeps each guarantee self-contained. The preferred shape is close to the assertion: load the reference data needed by that guarantee, scan the relevant corpus files, log observed failures, and assert the guarantee's natural counted unit.
+
 For narrow guarantees, a readable loop inside the test method can be clearer than a large collection framework. Multiple simple scans are preferable to a shared collection framework when the shared framework makes the tests less independent. Module-level helper functions are acceptable when they remove meaningful repetition or express domain logic, but they should normally serve one guarantee rather than combining several independent assertions. Reviewers should be able to identify the code that checks the guarantee without following unrelated helper layers.
 
 Data integrity tests should be written with human reviewers in mind, i.e. they should be kept short and easy to follow.
