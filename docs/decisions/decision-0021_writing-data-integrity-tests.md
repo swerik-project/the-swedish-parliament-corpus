@@ -40,7 +40,7 @@ The module docstring should stay brief. Function-level documentation should desc
 
 Test failures should be readable and actionable. Assertion messages should explain what failed, how many failures were found when possible, and where detailed results can be inspected if the test writes result files.
 
-Tests should start by logging observed errors with the `trainerlog` logger and reporting the failure clearly in the assertion message. A separate CSV or TSV diagnostic file should be avoided if not a larger number of errors are logged (more than 50). If a test writes structured diagnostic output to `test/results/`, the output should be scoped to that individual test or guarantee, rather than collected into a common file for several independent guarantees.
+Tests should start by logging observed errors with the `trainerlog` logger and reporting the failure clearly in the assertion message. A separate CSV or TSV diagnostic file should usually wait until there is a concrete review or follow-up curation use case. If a test writes structured diagnostic output to `test/results/`, the output should be scoped to that individual test or guarantee, rather than collected into a common file for several independent guarantees.
 
 When a new data integrity test finds known current-data failures that are too large to fix in the same pull request, the test may use an explicit current-data threshold instead of failing immediately. This should only be done when the pull request or linked issue records the problem cases, a follow-up issue is open for fixing them, and later curation pull requests are expected to reduce the threshold.
 
@@ -119,8 +119,8 @@ When adding or modifying a data integrity test, contributors should check that:
 * data structures match the guarantee being checked; use sets for unordered membership, lists or tuples only when order matters, and avoid canonicalization helpers unless the comparison genuinely needs them
 * text normalization is narrow, comparison-specific, and documented close to the code that uses it; Swedish letters and accents are preserved unless the tested guarantee explicitly needs accent-insensitive matching
 * failures include actionable assertion messages
-* diagnostic tables are usually built with `polars` and sorted by stable review keys such as `file`, `error_type`, and relevant location columns before being written
 * tests start by logging observed errors with `trainerlog` and keep assertion messages readable and actionable
+* structured diagnostics in `test/results/` are added only when a separate file is motivated by review or follow-up curation needs
 * common diagnostic CSV/TSV files for several independent guarantees are avoided
 * magic constants and repeated formatting inside scan loops are avoided; use named thresholds such as `MAX_SPAN_DAYS = 7` and format output values in one place when possible
 * `trainerlog` is used for progress and diagnostics; progress bars from known project dependencies such as `tqdm` are allowed for long scans, while ad hoc printing is avoided in release-blocking CI tests
