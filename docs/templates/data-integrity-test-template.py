@@ -18,7 +18,6 @@ when they are specifically useful for review or follow-up curation work.
 """
 
 import unittest
-
 import polars as pl
 from pyriksdagen.io import parse_tei
 from pyriksdagen.utils import corpus_iterator
