@@ -2,25 +2,14 @@
 Template for SWERIK data integrity tests.
 
 Copy this file into a corpus repository as test/test_<guarantee>.py and rename
-the example names before use. The module docstring in the copied test should
-explain:
+the example names before use. Use importable Python module names with
+underscores, not hyphens. The module docstring in the copied test should explain:
 
 * what corpus guarantee the test checks
 * why that guarantee matters
 * what input, gold-standard, or reference data the test uses
 
-Implementation conventions:
-
-* use pyriksdagen for corpus walking, TEI parsing, metadata, and corpus helpers
-* parse XML/TEI with pyriksdagen or lxml, not regular expressions or raw tag scans
-* use polars for tabular fixtures, diagnostics, sorting, and CSV output
-* do not invoke subprocesses or Git/grep-style shell commands in static tests
-* keep missing values as None/null, not string sentinels
-* keep dates typed until the output boundary
-* write one stable diagnostics table to test/results/ for large failure sets
-* keep corpus collection in module-level functions
-* use semantic unittest class and test method names when CI uses unittest
-* document why any additional third-party libraries are needed
+See Decision 21 on writing unit tests for convensions.
 """
 from pathlib import Path
 import unittest
@@ -37,7 +26,9 @@ RESULTS_PATH = Path("test/results/example-guarantee-integrity.csv")
 REFERENCE_PATH = Path("test/data/example-reference.csv")
 
 # Replace this with the current-data baseline when the guarantee has known
-# legacy failures. Tighten it in later curation PRs as data quality improves.
+# legacy failures. A thresholded test is still release-blocking: it blocks
+# regressions beyond the accepted baseline. Define the counted unit clearly in
+# the test docs and tighten the threshold in later curation PRs.
 MAX_EXAMPLE_ERRORS = 0
 
 # Defining the test error output schema
@@ -52,6 +43,9 @@ DIAGNOSTIC_SCHEMA = {
 }
 SORT_COLUMNS = ["file", "error_type", "xml_id"]
 
+# Module-level cache populated by example_errors(). unittest may run several
+# assertions in one process; caching avoids repeating the same corpus scan.
+# None means diagnostics have not been collected yet.
 _EXAMPLE_ERRORS = None
 
 
@@ -77,7 +71,7 @@ def collect_example_errors():
         .to_list()
     )
 
-    paths = corpus_iterator("records", corpus_root="data")
+    paths = list(corpus_iterator("records", corpus_root="data"))
     LOGGER.info("Checking example guarantee for %s records", len(paths))
 
     rows = []
@@ -123,6 +117,7 @@ def example_errors():
     """Return cached diagnostics as a stable Polars DataFrame."""
     global _EXAMPLE_ERRORS
 
+    # Run the expensive corpus scan only once; later calls reuse the cached diagnostics.
     if _EXAMPLE_ERRORS is None:
         df = pl.DataFrame(collect_example_errors(), schema=DIAGNOSTIC_SCHEMA)
         df = df.sort([column for column in SORT_COLUMNS if column in df.columns])
