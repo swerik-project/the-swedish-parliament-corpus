@@ -8,7 +8,6 @@ explain:
 * what corpus guarantee the test checks
 * why that guarantee matters
 * what input, gold-standard, or reference data the test uses
-* where fuller documentation lives, if there is separate test documentation
 
 Implementation conventions:
 
@@ -41,6 +40,7 @@ REFERENCE_PATH = Path("test/data/example-reference.csv")
 # legacy failures. Tighten it in later curation PRs as data quality improves.
 MAX_EXAMPLE_ERRORS = 0
 
+# Defining the test error output schema
 DIAGNOSTIC_SCHEMA = {
     "file": pl.Utf8,
     "error_type": pl.Utf8,
@@ -77,7 +77,7 @@ def collect_example_errors():
         .to_list()
     )
 
-    paths = sorted(corpus_iterator("records", corpus_root="data"))
+    paths = corpus_iterator("records", corpus_root="data")
     LOGGER.info("Checking example guarantee for %s records", len(paths))
 
     rows = []

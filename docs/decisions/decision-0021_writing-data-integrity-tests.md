@@ -1,4 +1,4 @@
-# Writing data integrity tests for corpus guarantees
+# How to write data integrity tests for corpus guarantees
 
 ## Context
 
@@ -14,16 +14,15 @@ SWERIK data integrity tests should be written as semantic, documented, CI-runnab
 
 Data integrity test files and test functions should have semantic names that describe what is checked. Names such as `test_speaker_mapping_integrity.py`, `test_docdate_sequence.py`, or `test_xml_id_references.py` are preferred. Names based only on issue numbers, such as `test_issue_46.py`, should be avoided.
 
-Before adding a new data integrity test, contributors should check whether a test for the same corpus guarantee already exists. If it does, the existing test should normally be extended instead of creating a duplicate test. If a new test is still added because the guarantee is distinct, the difference should be clear from the test name and documentation.
+Before adding a new data integrity test, it should be checked whether a test for the same corpus guarantee already exists. If it does, the existing test should normally be extended instead of creating a duplicate test. If a new test is still added because the guarantee is distinct, the difference should be clear from the test name and documentation.
 
 Each data integrity test file should include a docstring or header explaining:
 
-* what corpus guarantee the test checks
+* what general corpus guarantee the test checks
 * why that guarantee matters
 * what input data, gold-standard data, or reference data the test uses
-* where fuller documentation lives, when a separate test description exists
 
-Individual test functions should also have short docstrings when their purpose is not obvious from the function name.
+Individual test functions should also have docstrings when their purpose is not obvious from the function name where the individual test is described more in detail. This is to avoid the description of the test to drift from changes in the test. 
 
 Test failures should be readable and actionable. Assertion messages should explain what failed, how many failures were found when possible, and where detailed results can be inspected if the test writes result files.
 
@@ -37,7 +36,15 @@ Data integrity tests must be included in the relevant CI workflow. A data integr
 
 Pull requests for release-blocking data integrity tests should normally demonstrate that the test fails in CI by temporarily committing a minimal intentional data error and then reverting that commit before merge. Keeping both the failing-data commit and the revert commit in the PR branch gives reviewers an auditable red-then-green record.
 
-The central implementation template for new data integrity tests is [the data integrity test template](../templates/data-integrity-test-template.py) in the umbrella repository. Corpus repositories should use this template directly as the starting point for new data integrity tests. 
+The central implementation template for new data integrity tests is [the data integrity test template](../templates/data-integrity-test-template.py) in the Swedish parliamentary corpus repository. Indivisual data repositories should use this template as a starting point and checklist, but should remove scaffolding that is not needed for the specific guarantee.
+
+The preferred implementation is the smallest structured test that states the corpus guarantee directly: iterate over the relevant corpus files with `pyriksdagen`, parse the relevant structured data, collect the observations that violate the guarantee, and assert the accepted baseline. Extra layers such as custom caches, chunkers, worker pools, broad canonicalization pipelines, or multi-stage diagnostics should be avoided as much as possible, and only be added when they solve a concrete, documented problem.
+
+For narrow guarantees, a readable loop inside one or two test methods can be clearer than a large collection framework. For expensive full-corpus scans, tests that share a scan across several assertions, or tests that produce large review outputs, use module-level collection functions so the corpus is scanned once and diagnostics are written consistently. In both cases, reviewers should be able to identify the code that checks the guarantee without following unrelated helper layers.
+
+Data integrity tests should be written with human reviewers in mind, i.e. they should be kept short and easy to follow.
+
+Data integrity tests should run sequentially and deterministically. Do not parallelize corpus scans in tests with threads, processes, async workers, or environment-controlled worker pools unless the pull request documents a measured CI/runtime problem and explains why the sequential implementation is insufficient. 
 
 ### Implementation checklist
 
@@ -48,33 +55,40 @@ When adding or modifying a data integrity test, contributors should check that:
 * new tests check a distinct semantic corpus guarantee rather than duplicating existing structural validation
 * the file name describes the corpus guarantee being checked
 * the module has a docstring explaining the guarantee, motivation, input data, and documentation link when applicable
-* documentation links in module docstrings point to existing, current repository documentation or umbrella decisions
+* documentation links in module docstrings point to existing umbrella decisions
 * test functions have semantic names
+* the implementation starts from the simplest readable structured scan of the data, and only keeps template sections that the guarantee actually needs
 * test uses functionality from the `pyriksdagen` Python library if available
 * structured corpus formats are parsed with the project-standard parser; XML/TEI should be parsed with `pyriksdagen.io.parse_tei`, `lxml`, or another explicit XML parser, not with regular expressions, string splitting, or raw text scans of tags and attributes
-* regular expressions may be used on extracted text content, but not to parse XML tags, attributes, nesting, or element boundaries
+* XML traversal should prefer direct element traversal or XPath on the parsed tree; streaming parsers such as `lxml.iterparse` are used only when ordinary parsing is not practical for the corpus files being tested
+* regular expressions may be used on extracted text content, but not to parse XML tags, attributes, nesting, or element boundaries.
 * performance concerns do not justify bypassing XML parsing; use `pyriksdagen` iterators, `lxml.iterparse`, XPath or element traversal, narrower file selection, cached diagnostics, or CI partitioning instead
-* static data integrity tests do not invoke shell commands or depend on the repository being a Git checkout; avoid `subprocess`, `os.system`, `git grep`, `grep`, `rg`, `find`, and similar commands inside tests unless the test is explicitly validating an external command-line tool
+* tests are not parallelized by default; threads, processes, async workers, worker-count environment variables, and chunking for parallel execution need an explicit runtime justification in the pull request
+* static data integrity tests do not invoke shell commands or depend on the repository being a Git checkout; avoid `subprocess`, `os.system`, `git grep`, `grep`, `rg`, `find`, and similar commands inside tests
 * new CSV/TSV fixture and diagnostic tests use `polars` for reading and writing tabular data unless there is a good reason not to
 * libraries outside the central template's standard imports are added only when they remove real complexity, and the reason for each additional library is documented in the module docstring or near the import
-* if a test imports `polars`, tabular reading, null filtering, date parsing, joins, selections, sorting, and CSV output are normally handled with `polars` expressions rather than row-wise Python code
-* missing diagnostic values are represented as `None` or `polars` nulls, not as empty strings or other string sentinels
+* tabular reading, null filtering, date parsing, joins, selections, sorting, and CSV output are normally handled with `polars` expressions rather than row-wise Python code
+* missing diagnostic values are represented as `None` or `polars` nulls, not as empty strings or other string sentinels. Similarly, when `polars` is used to create a dataframe, `None` or `polars` nulls should be used.
+* missing values from source data remain missing values throughout the test; do not turn nulls into empty strings just to simplify formatting or sorting
 * dates remain typed as dates or datetimes until the final output boundary; repeated `strftime`/`strptime` calls inside corpus scan loops are avoided when `polars` or `pyriksdagen` can parse or format centrally
 * diagnostic tables have a stable nullable schema, or normalize optional columns before sorting/writing, so the test works when there are zero failures or only some error categories are present
 * test functions have docstrings when their purpose is not obvious from the name
-* unnecessary object-oriented boilerplate is avoided; prefer module-level helper functions and a single data-collection function unless the test framework genuinely requires shared test state
-* `unittest.TestCase` classes, when used for CI discovery, have semantic names and contain only the test assertions; corpus scanning and diagnostics should stay in module-level functions
-* helper functions do real domain work or remove meaningful repetition; helpers that only wrap one obvious library call are avoided
+* unnecessary object-oriented boilerplate is avoided; prefer module-level helper functions and a single data-collection function
+* `unittest.TestCase` classes, when used for CI discovery, have semantic names and should be assertion-focused; direct scan loops are acceptable for simple one-pass checks, while shared corpus scanning and diagnostic writing should stay in module-level functions
+* helper functions do real domain work or remove meaningful repetition; helpers that only wrap one obvious library call, split one attribute, copy a dictionary, or hide a short element traversal are avoided
+* test should never edit/write data outside test/results
 * data structures match the guarantee being checked; use sets for unordered membership, lists or tuples only when order matters, and avoid canonicalization helpers unless the comparison genuinely needs them
+* text normalization is narrow, comparison-specific, and documented close to the code that uses it; Swedish letters and accents are preserved unless the tested guarantee explicitly needs accent-insensitive matching
 * failures include actionable assertion messages
-* large failure sets are written to `test/results/`
+* large actionable failure sets are written to `test/results/`, while small failure sets stay in readable assertion messages
 * tests that collect several related error categories prefer one diagnostics table with an `error_type` column over multiple per-error CSV files
 * diagnostic tables are usually built with `polars` and sorted by stable review keys such as `file`, `error_type`, and relevant location columns before being written
 * magic constants and repeated formatting inside scan loops are avoided; use named thresholds such as `MAX_SPAN_DAYS = 7` and format output values in one place when possible
-* `trainerlog` is used for progress and diagnostics; progress bars and ad hoc printing are avoided in release-blocking CI tests unless there is a documented reason
+* `trainerlog` is used for progress and diagnostics; progress bars and ad hoc printing are avoided in release-blocking CI tests
 * known exceptions, baselines, and transition allowances are explicit, narrow, and documented close to the assertion that uses them unless they are shared by several tests
-* temporary or compatibility tests document what transition they protect and when the test, exception, or baseline can be removed or ratcheted down
-* tests are included in CI/Github Actions
+* current-data thresholds define the counted unit, such as rows, files, blocks, or unique ids; diagnostics, assertions, and follow-up issues should use the same unit
+* temporary or compatibility tests (e.g. when waiting for functionality to go into pyriksdagen) document what transition they protect and when the test, exception, or baseline can be removed or ratcheted down
+* tests are included in the existing relevant CI/Github Actions workflow unless a separate workflow has a distinct schedule, trigger, or dependency reason; the same release-blocking test should not be duplicated across workflows
 * the PR demonstrates, when practical, that the test fails in CI for a minimal intentional data error and passes again after that error is reverted
 
 ### Pre-review grep checklist
@@ -82,13 +96,14 @@ When adding or modifying a data integrity test, contributors should check that:
 Before requesting review, contributors should run a quick search for common implementation smells:
 
 ```bash
-rg 'import csv|csv\.DictReader|csv\.DictWriter|print\(|tqdm|strftime|strptime|FunctionTestCase|def load_tests|TestStringMethods' test
+rg 'import csv|print\(|tqdm|strftime|strptime|FunctionTestCase|def load_tests|TestStringMethods' test
 rg 'subprocess|Popen|os\.system|git grep|grep |rg |find |read_bytes|read_text' test
 rg 're\.compile|re\.search|re\.finditer|xml:id=|who=|<[^>]+>' test
 rg '= ""|: ""|return ""|get\([^,]+, ""\)' test
+rg 'ThreadPoolExecutor|ProcessPoolExecutor|multiprocessing|asyncio|WORKERS|unicodedata|casefold|normalize|TODO|pass$' test
 ```
 
-Matches are not automatically wrong. They should, however, be removed or justified before review. In particular, `csv.DictReader`, `csv.DictWriter`, repeated date string conversion, generic test class names, custom `load_tests` glue, empty-string sentinels, progress bars, ad hoc printing, shell commands, Git-dependent scans, raw XML file reads, and regular expressions that inspect XML markup are common signs that a data integrity test should be simplified or moved toward `pyriksdagen`, `polars`, `trainerlog`, and the shared template. The `re` module is not banned; regular expressions are acceptable for already-extracted text content when they do not replace structured parsing.
+Matches are not automatically wrong. They should, however, be removed or justified before review. In particular, repeated date string conversion, generic test class names, custom `load_tests` glue, empty-string sentinels, progress bars, ad hoc printing, shell commands, Git-dependent scans, raw XML file reads, parallel execution scaffolding, broad Unicode normalization, placeholder tests, and regular expressions that inspect XML markup are common signs that a data integrity test should be simplified or moved toward direct `pyriksdagen`, `polars`, `trainerlog`, and parsed-XML code. The `re` module is not banned; regular expressions are acceptable for already-extracted text content when they do not replace structured parsing.
 
 ## Consequences
 
@@ -111,3 +126,4 @@ Matches are not automatically wrong. They should, however, be removed or justifi
 * [Decision 0004: Handling manual corrections](decision-0004_handling-manual-corrections.md)
 * [Issue 134: Decide on how to write data integrity tests in the corpus](https://github.com/swerik-project/the-swedish-parliament-corpus/issues/134)
 * [riksdagen-records issue 46: Write defensive unit tests](https://github.com/swerik-project/riksdagen-records/issues/46)
+* [riksdagen-motions PR 109: motion signature integrity test review](https://github.com/swerik-project/riksdagen-motions/pull/109)
