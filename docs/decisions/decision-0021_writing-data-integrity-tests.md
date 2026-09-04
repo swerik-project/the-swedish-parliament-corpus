@@ -57,7 +57,7 @@ When a new data integrity test finds known current-data failures that are too la
 
 A thresholded data integrity test is still a release-blocking hard gate. It blocks regressions beyond the accepted baseline and should normally be ratcheted down as known failures are fixed. The threshold should define the counted unit, such as rows, files, blocks, or unique ids, and the logger output, assertion message, optional diagnostics, and follow-up issue should use the same unit.
 
-The `trainerlog` module should be used for logging progress, summaries, and diagnostic messages instead of ad hoc printing. Progress bars from known project dependencies such as `tqdm` may be used for long corpus scans. Standard `unittest` output is sufficient only for small tests with one or a few clear assertions.
+The `trainerlog` module should be used for start/end summaries and diagnostic messages instead of ad hoc printing. Long corpus scans should use progress bars from known project dependencies such as `tqdm`, unless the scan is small enough that a progress bar would add noise. Standard `unittest` output is sufficient only for small tests with one or a few clear assertions.
 
 Data integrity tests must be included in the relevant CI workflow. A data integrity test is release-blocking when a failure should prevent a corpus revision or release from being accepted.
 
@@ -77,12 +77,14 @@ Several implementation choices follow from this preferred shape:
 * Avoid shared `error_type` taxonomies for independent guarantees.
 * Use the natural counted unit for the guarantee, such as duplicate signer blocks counting blocks rather than diagnostic rows.
 * Helper functions are fine only for real domain logic, such as extracting a signature location, not for hiding a short scan or assertion.
+* Helper functions and variables should be scoped as close as possible to the tests that use them.
+* Variables should pay rent: they should significantly reduce repetition, name a meaningful domain value, or represent a value that should be changed centrally in the test.
 
 When a test only needs a count, use a simple integer counter and log each failure where it is detected. Do not build a diagnostic dataframe, shared error taxonomy, or generic row formatter unless the test actually needs tabular output for a motivated review workflow.
 
 Repeating small reference-data reads or corpus scans across test functions is acceptable when it keeps each guarantee self-contained. The preferred shape is close to the assertion: load the reference data needed by that guarantee, scan the relevant corpus files, log observed failures, and assert the guarantee's natural counted unit.
 
-For narrow guarantees, a readable loop inside the test method can be clearer than a large collection framework. Multiple simple scans are preferable to a shared collection framework when the shared framework makes the tests less independent. Module-level helper functions are acceptable when they remove meaningful repetition or express domain logic, but they should normally serve one guarantee rather than combining several independent assertions. Reviewers should be able to identify the code that checks the guarantee without following unrelated helper layers.
+For narrow guarantees, a readable loop inside the test method can be clearer than a large collection framework. Multiple simple scans are preferable to a shared collection framework when the shared framework makes the tests less independent. Helper functions should be nested close to the code that uses them: inside the test method when used by one test, on the test class when shared by multiple test methods in that class, and at module level only when shared across classes or when they express common domain logic used throughout the suite. Variables and constants should follow the same scoping rule. Abstraction for abstraction's sake should be avoided, because it reduces readability and increases code surface area. Reviewers should be able to identify the code that checks the guarantee without following unrelated helper layers.
 
 Data integrity tests should be written with human reviewers in mind, i.e. they should be kept short and easy to follow.
 
@@ -98,7 +100,7 @@ When a coding agent adds or modifies a data integrity test, it should normally:
 4. Use `pyriksdagen` for corpus iteration, TEI parsing, metadata, and corpus helpers when the library has suitable functionality.
 5. Parse XML/TEI with `pyriksdagen.io.parse_tei`, `lxml`, XPath, or direct element traversal, not with regular expressions or raw tag scans.
 6. Use `polars` for CSV/TSV fixtures, joins, filtering, sorting, and diagnostics unless a different library clearly simplifies the implementation.
-7. Log observed errors with `trainerlog`; add structured diagnostics to `test/results/` only when a separate file is motivated by review or follow-up curation needs, and keep written diagnostics scoped to one test or guarantee.
+7. Log summaries and observed errors with `trainerlog`; use a `tqdm` progress bar for long corpus scans; add structured diagnostics to `test/results/` only when a separate file is motivated by review or follow-up curation needs, and keep written diagnostics scoped to one test or guarantee.
 8. Keep scans sequential unless the pull request documents measured CI/runtime evidence for a more complex implementation.
 9. Add actionable assertion messages that report counts, say that details were logged, and include diagnostic file paths only when the test writes a motivated result file.
 10. Wire release-blocking tests into the relevant CI workflow.
@@ -131,7 +133,7 @@ When adding or modifying a data integrity test, contributors should check that:
 * tests are not parallelized by default; threads, processes, async workers, worker-count environment variables, and chunking for parallel execution need an explicit runtime justification in the pull request
 * static data integrity tests do not invoke shell commands or depend on the repository being a Git checkout; avoid `subprocess`, `os.system`, `git grep`, `grep`, `rg`, `find`, and similar commands inside tests
 * new CSV/TSV fixture and diagnostic tests use `polars` for reading and writing tabular data unless there is a good reason not to
-* libraries outside the central template's standard imports are added only when they remove real complexity, and the reason for each additional library is documented in the module docstring or near the import
+* libraries outside the central template's standard imports are added only when they remove real complexity, and the reason for each additional library is documented near the import
 * tabular reading, null checks, date parsing, joins, selections, and sorting are normally handled with `polars` expressions rather than row-wise Python code; CSV output should also use `polars` when a test writes an optional diagnostic file
 * missing diagnostic values are represented as `None` or `polars` nulls, not as empty strings or other string sentinels. Similarly, when `polars` is used to create a dataframe, `None` or `polars` nulls should be used.
 * missing values from source data remain missing values throughout the test; do not use options such as `null_values=[""]` to override source parsing, do not drop nulls by default, and do not turn nulls into empty strings just to simplify formatting or sorting
@@ -141,6 +143,9 @@ When adding or modifying a data integrity test, contributors should check that:
 * `unittest.TestCase` classes, when used for CI discovery, have semantic names and should be assertion-focused; direct scan loops are acceptable and often preferred for simple one-pass checks
 * `subTest`, shared collectors, shared caches, and shared threshold dictionaries are not used to combine independent guarantees into one test
 * helper functions do real domain work or remove meaningful repetition; helpers that only wrap one obvious library call, split one attribute, copy a dictionary, or hide a short element traversal are avoided
+* helper functions are scoped as close as possible to the tests that use them: inside one test method when used by one test, on the test class when shared by multiple methods in that class, and at module level only when shared across classes or across the suite
+* variables and constants are scoped as close as possible to the tests that use them
+* variables and constants pay rent by significantly reducing repetition, naming a meaningful domain value, or representing a value that should be changed centrally in the test
 * tests normally should not write data; if a test writes a motivated diagnostic file, it should not write outside `test/results`
 * data structures match the guarantee being checked; use sets for unordered membership, lists or tuples only when order matters, and avoid canonicalization helpers unless the comparison genuinely needs them
 * text normalization is narrow, comparison-specific, and documented close to the code that uses it; Swedish letters and accents are preserved unless the tested guarantee explicitly needs accent-insensitive matching
@@ -149,7 +154,7 @@ When adding or modifying a data integrity test, contributors should check that:
 * structured diagnostics in `test/results/` are added only when a separate file is motivated by review or follow-up curation needs
 * common diagnostic CSV/TSV files for several independent guarantees are avoided
 * magic constants and repeated formatting inside scan loops are avoided; use named thresholds such as `MAX_SPAN_DAYS = 7` and format output values in one place when possible
-* `trainerlog` is used for progress and diagnostics; progress bars from known project dependencies such as `tqdm` are allowed for long scans, while ad hoc printing is avoided in release-blocking CI tests
+* `trainerlog` is used for summaries and diagnostics, progress bars from known project dependencies such as `tqdm` are used for long scans, and ad hoc printing is avoided in release-blocking CI tests
 * known exceptions, baselines, and transition allowances are explicit, narrow, and documented close to the assertion that uses them
 * current-data thresholds define the counted unit, such as rows, files, blocks, or unique ids; logger output, assertions, optional diagnostics, and follow-up issues should use the same unit
 * temporary or compatibility tests (e.g. when waiting for functionality to go into pyriksdagen) document what transition they protect and when the test, exception, or baseline can be removed or ratcheted down
