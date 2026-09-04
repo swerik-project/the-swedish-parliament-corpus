@@ -8,7 +8,6 @@ This decision amends [Decision 0008](decision-0008_quality-dimensions.md) for da
 
 Data integrity tests are part of the quality control process for SWERIK corpus repositories. Decision 0008 already says that data integrity tests should live in the repository where they are used, should be named after what they check, and should include documentation describing the test and testing process.
 
-Although these checks may sometimes be discussed as "unit tests" in issues or pull requests, they are usually broader than ordinary code unit tests. 
 
 Recent review work has shown that we also need clearer guidance on how these tests should be written. In particular, a corpus release can contain mistakes if a curation step changes one part of the data but a derived or dependent annotation is not updated afterwards. For example, editing `note` or `seg` elements without rerunning speaker detection can leave speaker mappings stale even when the XML is still valid.
 
