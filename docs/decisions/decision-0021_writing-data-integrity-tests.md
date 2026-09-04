@@ -60,6 +60,8 @@ The `trainerlog` module should be used for start/end summaries and diagnostic me
 
 Data integrity tests must be included in the relevant CI workflow.
 
+Make the test fail locally by testing to change the data to prove that it works as expected.
+
 The intentional data error must be minimal, clearly described in the pull request, and absent from the final corpus state. This red-then-green demonstration validates the test implementation before merge; it is not permission to leave test data broken or to change corpus data during quality control.
 
 The central implementation template for new data integrity tests is [the data integrity test template](../templates/data-integrity-test-template.py) in the Swedish parliamentary corpus repository. Individual data repositories should use this template as a starting point and checklist, but should remove scaffolding that is not needed for the specific guarantee.
