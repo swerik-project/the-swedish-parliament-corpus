@@ -110,7 +110,6 @@ Data integrity tests should run sequentially and deterministically. Do not paral
 
 * Writing new tests takes more care, since naming, documentation, logging, and failure output need to be considered.
 * Some existing tests may need gradual cleanup to match this style.
-* CI workflows may need updates when a diagnostic test becomes a release-blocking guarantee.
 
 ## References
 
