@@ -60,8 +60,6 @@ The `trainerlog` module should be used for start/end summaries and diagnostic me
 
 Data integrity tests must be included in the relevant CI workflow.
 
-Pull requests for release-blocking data integrity tests should normally demonstrate that the test fails in CI by temporarily committing a minimal intentional data error and then reverting that commit before merge. Keeping both the failing-data commit and the revert commit in the PR branch gives reviewers an auditable red-then-green record.
-
 The intentional data error must be minimal, clearly described in the pull request, and absent from the final corpus state. This red-then-green demonstration validates the test implementation before merge; it is not permission to leave test data broken or to change corpus data during quality control.
 
 The central implementation template for new data integrity tests is [the data integrity test template](../templates/data-integrity-test-template.py) in the Swedish parliamentary corpus repository. Individual data repositories should use this template as a starting point and checklist, but should remove scaffolding that is not needed for the specific guarantee.
