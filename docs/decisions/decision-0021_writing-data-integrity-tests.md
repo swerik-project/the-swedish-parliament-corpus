@@ -27,7 +27,7 @@ Before adding a new data integrity test, it should be checked whether a test for
 
 Each data integrity test file should include a short docstring or header that identifies the family of checks in the file and any shared reference data. The authoritative documentation should live close to the individual test that uses it, in the same test file.
 
-Individual test functions should normally have short docstrings with stable field headings, so a corpus guarantee catalog can be built without importing or running expensive tests. Each test function docstring must start with `Guarantee:` and include `Why this matters:`. Optional headings such as `Data:` and `References:` may be added when they clarify the guarantee.
+Individual test functions should normally have short docstrings with stable field headings, so a corpus guarantee catalog can be built without importing or running expensive tests. Each test function docstring must start with `Guarantee:` and include. Optional headings such as `Why this matters:`, `Data:` and `References:` may be added when they clarify the guarantee.
 
 For example:
 
