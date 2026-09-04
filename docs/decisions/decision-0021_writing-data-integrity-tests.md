@@ -50,7 +50,7 @@ The module docstring should stay brief. Function-level documentation should desc
 
 Test failures should be readable and actionable. Assertion messages should explain what failed, how many failures were found when possible, and that detailed rows were logged with `trainerlog`. If a test also writes a motivated result file, the assertion message should include its path.
 
-Tests should start by logging observed errors with the `trainerlog` logger and reporting the failure clearly in the assertion message. A separate CSV or TSV diagnostic file should be added later only when logger output is not enough for a concrete review or follow-up curation use case. If a test writes structured diagnostic output to `test/results/`, the output should be scoped to that individual test or guarantee, rather than collected into a common file for several independent guarantees.
+Tests should start by logging observed errors with the `trainerlog` logger and reporting the failure clearly in the assertion message. A separate CSV or TSV diagnostic file should be added later only when logger output is not enough for a concrete review or follow-up curation use case.
 
 When a new data integrity test finds known current-data failures that are too large to fix in the same pull request, the test may use an explicit current-data threshold instead of failing immediately. This should only be done when the pull request or linked issue records the problem cases, a follow-up issue is open for fixing them, and later curation pull requests are expected to reduce the threshold.
 
