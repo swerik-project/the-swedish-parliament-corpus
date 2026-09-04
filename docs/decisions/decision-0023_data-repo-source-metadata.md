@@ -148,7 +148,7 @@ while infrastructure code can look for publication metadata in
 `docs`.
 
 DCAT work for dataportal.se can start from
-`docs/riksdagen-records.yml` and generate
+`docs/riksdagen-records-info.yml` and generate
 `docs/dcat/riksdagen-records.rdf` and `docs/dcat/riksdagen-records.ttl`. The
 same pattern can later be reused for `riksdagen-persons`, `riksdagen-motions`,
 and other SWERIK data repositories.
