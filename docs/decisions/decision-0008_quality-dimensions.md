@@ -10,9 +10,9 @@ Quality dimension estimation is commonly done by counting or by estimation based
 
 ## Decision
 
-All quality estimations and data-integrity tests should be included in the actual repository where they are used/analyzed. Each quality dimension estimation should be stored as `qe-[what-dimension-is-estimated].py/r` and should include a short docstring / header describing the estimation as well as a reference to or "inclusion" of the markdown file that contains more detailed descriptions of what is estimated and the estimation process. See the quality dimension template.
+All quality estimations and data-integrity tests should be included in the actual repository where they are used/analyzed. Each quality dimension estimation should be stored as `qe_[what-dimension-is-estimated].py/r` and should include a short docstring / header describing the estimation as well as a reference to or "inclusion" of the markdown file that contains more detailed descriptions of what is estimated and the estimation process. See the quality dimension template.
 
-Similarly each data-integrity test should be stored as `test-[what-is-checked-automatically].py/r` and should include a short docstring / header describing the test as well as a reference to or "inclusion" of the markdown file that contains more detailed descriptions of what is tested and the testing process. See the data-integrity-test template.
+Similarly each data-integrity test should be stored as `test_[what-is-checked-automatically].py/r` and should include a short docstring / header describing the test as well as a reference to or "inclusion" of the markdown file that contains more detailed descriptions of what is tested and the testing process. See the data-integrity-test template.
 
 Data-integrity tests and quality estimations serve different roles.
 
