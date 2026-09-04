@@ -28,13 +28,24 @@ Before adding a new data integrity test, it should be checked whether a test for
 
 Each data integrity test file should include a short docstring or header that identifies the family of checks in the file and any shared reference data. The authoritative documentation should live close to the individual test that uses it, in the same test file.
 
-Individual test functions should normally have short docstrings explaining:
+Individual test functions should normally have short docstrings with stable field headings, so a corpus guarantee catalog can be built without importing or running expensive tests. Each test function docstring must start with `Guarantee:` and include `Why this matters:`. Optional headings such as `Data:` and `References:` may be added when they clarify the guarantee.
 
-* what specific corpus guarantee the test checks
-* why that guarantee matters
-* what input data, gold-standard data, or reference data the test uses
-* what current-data threshold, logging behavior, or optional result file applies, when applicable
-* any relevant umbrella decision or external source that motivates the guarantee
+For example:
+
+```python
+def test_signature_who_values_are_unknown_or_known_person_ids(self):
+    """Guarantee: every signature item has a valid ``@who`` value.
+
+    Why this matters: mapped motion signatures should point to one known
+    person in ``riksdagen-persons``, while unmapped signatures should be
+    explicitly marked as ``unknown``.
+
+    Data: scans motion XML under ``data/`` and reads
+    ``../riksdagen-persons/data/person.csv``.
+    """
+```
+
+Catalog tooling should parse docstrings statically with Python `ast` rather than importing test modules. The docstring convention should remain plain text with field headings rather than YAML or frontmatter, so it stays readable in ordinary test files.
 
 The module docstring should stay brief. Function-level documentation should describe the concrete assertion made by that function, so documentation is less likely to drift when individual checks change.
 
@@ -105,7 +116,9 @@ When adding or modifying a data integrity test, contributors should check that:
 * Python test file names use importable underscore names such as `test_<semantic_guarantee>.py`
 * the file name describes the corpus guarantee being checked
 * the module has a brief docstring explaining the family of checks and any shared input data
-* test-function docstrings explain the specific guarantee, motivation, input data, current-data threshold, logging behavior, optional diagnostic output, and relevant decisions or external sources when applicable
+* test-function docstrings start with `Guarantee:` and include `Why this matters:`
+* optional test-function docstring headings such as `Data:` and `References:` are used when they clarify the guarantee
+* catalog tooling parses test-function docstrings statically with Python `ast` rather than importing or running test modules
 * data integrity test documentation is kept in the test file itself; do not create separate Markdown documentation under `test/docs/` for new data integrity tests
 * test functions have semantic names
 * the implementation starts from the simplest readable structured scan of the data, and only keeps template sections that the guarantee actually needs

@@ -7,9 +7,9 @@ underscores, not hyphens.
 
 Keep data integrity test documentation in this file. The module docstring can
 briefly describe the family of checks and shared reference data. Each test
-function should document its own guarantee, motivation, input data, accepted
-threshold, and logging or diagnostic output when applicable. Do not create a
-separate Markdown documentation file for the test.
+function docstring should start with ``Guarantee:`` and include
+``Why this matters:``. Use optional headings such as ``Data:`` and ``References:`` when they clarify the guarantee.
+Do not create a separate Markdown documentation file for the test.
 
 If another guarantee is added to this file, add another self-contained test
 function with its own threshold. Scanning the same corpus again is fine when it
@@ -40,11 +40,10 @@ class TestExampleGuaranteeIntegrity(unittest.TestCase):
         """Guarantee: the example reference fixture has no null reference ids.
 
         Why this matters: the reference fixture contains manually curated
-        identifiers used by later corpus checks. The test reads
-        ``test/data/example-reference.csv`` with Polars and lets unexpected null
-        values fail clearly rather than dropping or replacing them. The accepted
-        threshold is zero null values. Summary diagnostics are logged with
-        ``trainerlog``.
+        identifiers used by later corpus checks. Unexpected null values should
+        fail clearly rather than being dropped or replaced.
+
+        Data: reads ``test/data/example-reference.csv`` with Polars.
         """
         reference = pl.read_csv(REFERENCE_PATH, infer_schema_length=10000)
         null_reference_ids = reference.filter(pl.col("reference_id").is_null())
@@ -66,12 +65,10 @@ class TestExampleGuaranteeIntegrity(unittest.TestCase):
         """Guarantee: every XML document has a row in the example reference fixture.
 
         Why this matters: the reference fixture contains manually curated
-        information that must cover each accepted corpus file. The test reads
-        ``test/data/example-reference.csv`` with Polars and scans XML files under
-        ``data/`` with ``pyriksdagen``. The accepted threshold is zero missing
-        reference rows. Individual errors are logged with ``trainerlog``. A
-        structured result file can be added later if logger output is not enough
-        for review or follow-up curation work.
+        information that must cover each accepted corpus file.
+
+        Data: reads ``test/data/example-reference.csv`` with Polars and scans
+        XML files under ``data/`` with ``pyriksdagen``.
         """
         reference = pl.read_csv(REFERENCE_PATH, infer_schema_length=10000)
         known_reference_ids = set(reference.get_column("reference_id").to_list())
