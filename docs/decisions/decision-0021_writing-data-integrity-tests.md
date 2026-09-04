@@ -58,7 +58,7 @@ A thresholded data integrity test is still a release-blocking hard gate. It bloc
 
 The `trainerlog` module should be used for start/end summaries and diagnostic messages instead of ad hoc printing. Long corpus scans should use progress bars from known project dependencies such as `tqdm`, unless the scan is small enough that a progress bar would add noise. Standard `unittest` output is sufficient only for small tests with one or a few clear assertions.
 
-Data integrity tests must be included in the relevant CI workflow. A data integrity test is release-blocking when a failure should prevent a corpus revision or release from being accepted.
+Data integrity tests must be included in the relevant CI workflow.
 
 Pull requests for release-blocking data integrity tests should normally demonstrate that the test fails in CI by temporarily committing a minimal intentional data error and then reverting that commit before merge. Keeping both the failing-data commit and the revert commit in the PR branch gives reviewers an auditable red-then-green record.
 
