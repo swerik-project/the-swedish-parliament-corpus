@@ -4,6 +4,8 @@
 
 This decision amends [Decision 0008](decision-0008_quality-dimensions.md) for data integrity tests. Data integrity test documentation belongs in the test file itself. Do not create or maintain separate data integrity test documentation in `test/docs/` or elsewhere. Existing external data integrity test documentation should be treated as legacy material until the useful content is moved into the relevant test file and the separate documentation is removed. This does not change the separate documentation conventions for quality estimations, issue drafts, or manual review artifacts.
 
+Concrete coding-agent and contributor instructions and guidelines for applying this decision should live in the [Decision 0021 implementation guide](implementation-guides/decision-0021_writing-data-integrity-tests.md), so the formal decision can stay focused on the agreed policy.
+
 ## Context
 
 Data integrity tests are part of the quality control process for SWERIK corpus repositories. Decision 0008 already says that data integrity tests should live in the repository where they are used, should be named after what they check, and should include documentation describing the test and testing process.
@@ -18,6 +20,8 @@ The purpose of this decision is not to define every corpus guarantee that should
 SWERIK data integrity tests should be written as semantic, documented, CI-runnable checks of corpus guarantees. They should be easy to understand, easy to debug when they fail, and suitable for preventing known classes of mistakes from entering a release.
 
 A data integrity test may scan a whole corpus or compare corpus data with a fixture, but it should still have a narrow, named guarantee and a small, readable implementation.
+
+For example, a speech corpus may have a "no dead man talking" guarantee: a speech dated after a person's recorded date of death should not be attributed to that person. The exact implementation depends on the available date and person metadata, but the guarantee is narrow, semantic, and easy to understand.
 
 Each test function should check one corpus guarantee. Distinct guarantees should normally be separate test functions, even when they inspect the same files or reference data. It is acceptable for multiple tests to scan the same corpus separately when doing so makes each test smaller, more independent, and easier to review.
 
@@ -35,9 +39,9 @@ For example:
 def test_signature_who_values_are_unknown_or_known_person_ids(self):
     """Guarantee: every signature item has a valid ``@who`` value.
 
-    Why this matters: mapped motion signatures should point to one known
-    person in ``riksdagen-persons``, while unmapped signatures should be
-    explicitly marked as ``unknown``.
+    Why this matters: invalid signature mappings make author-level analyses
+    unreliable and can attribute motions to the wrong person or hide known
+    signers from downstream users.
 
     Data: scans motion XML under ``data/`` and reads
     ``../riksdagen-persons/data/person.csv``.
