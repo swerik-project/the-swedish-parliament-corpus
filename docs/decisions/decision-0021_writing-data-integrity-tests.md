@@ -27,7 +27,7 @@ Before adding a new data integrity test, it should be checked whether a test for
 
 Each data integrity test file should include a short docstring or header that identifies the family of checks in the file and any shared reference data. The authoritative documentation should live close to the individual test that uses it, in the same test file.
 
-Individual test functions should normally have short docstrings with stable field headings, so a corpus guarantee catalog can be built without importing or running expensive tests. Each test function docstring must start with `Guarantee:` and include. Optional headings such as `Why this matters:`, `Data:` and `References:` may be added when they clarify the guarantee.
+Individual test functions should normally have short docstrings with stable field headings, so a corpus guarantee catalog can be built without importing or running expensive tests. Each test function docstring must start with `Guarantee:`. Optional headings such as `Why this matters:`, `Data:` and `References:` may be added when they clarify the guarantee.
 
 For example:
 
@@ -44,7 +44,7 @@ def test_signature_who_values_are_unknown_or_known_person_ids(self):
     """
 ```
 
-Catalog tooling should parse docstrings statically with Python `ast` rather than importing test modules. The docstring convention should remain plain text with field headings rather than YAML or frontmatter, so it stays readable in ordinary test files.
+The docstring convention should remain plain text with field headings rather than YAML or frontmatter, so it stays readable in ordinary test files.
 
 The module docstring should stay brief. Function-level documentation should describe the concrete assertion made by that function, so documentation is less likely to drift when individual checks change.
 
