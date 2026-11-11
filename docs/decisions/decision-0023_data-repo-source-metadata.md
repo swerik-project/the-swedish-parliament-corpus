@@ -48,7 +48,7 @@ when metadata on the repo is copied, aggregated, validated, or used by the umbre
 repository.
 
 The repository info file should use a common set of top-level slots. For
-`riksdagen-records`, the initial file should contain a DCAT-ready core set of
+`riksdagen-records`, as an example, the initial file should contain a DCAT-ready core set of
 slots that can be expanded incrementally:
 
 ```yaml
@@ -83,10 +83,10 @@ dataset:
 
 publisher:
   name:
-    en: Uppsala University
-    sv: Uppsala universitet
+    en: SWERIK project
+    sv: SWERIK projektet
   identifier: ""
-  url: https://www.uu.se/
+  url: https://github.com/orgs/swerik-project/
 
 contact:
   name: SWERIK project
@@ -94,7 +94,7 @@ contact:
 
 documentation:
   readme_url: https://github.com/swerik-project/riksdagen-records#readme
-  docs_url: https://swerik-project.github.io/riksdagen-records/
+  docs_url: https://swerik-project.github.io/riksdagen-records/docs
   quality_documentation_url: https://swerik-project.github.io/riksdagen-records/riksdagen-records/quality
   test_documentation_url: https://swerik-project.github.io/riksdagen-records/riksdagen-records/test
 
@@ -143,7 +143,7 @@ practical. Possible generated or validated outputs include:
 
 Generated publication artifacts may be written to `docs/` when they are intended
 to be served by GitHub Pages or another documentation site. For DCAT, the
-required harvestable generated artifact is:
+required generated rdf dcat file is:
 
 ```text
 docs/dcat/[repo-name].rdf
