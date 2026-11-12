@@ -2,9 +2,9 @@
 
 ## Context
 
-The SWERIK project is distributed across several related repositories. Some repositories contain primary data, some contain metadata, some contain scripts or release coordination, and the umbrella repository points users to the wider corpus family. This makes documentation easy to duplicate and easy to let drift.
+The SWERIK project is distributed across several related repositories. Some repositories contain primary data, some contain scripts or release coordination, and the umbrella repository points users to the wider corpus family. This makes documentation easy to duplicate and easy to let drift.
 
-A data repository is a repository that contains data intended to be used as research data. The data may be primary corpus data or metadata. 
+A data repository is a repository that contains data intended to be used as research data. The data may be primary corpus data. 
 
 A data repository's README must explicitly state that it is a data repository and describe the data's scope, provenance, quality status, citation information, and reuse conditions.
 
@@ -74,7 +74,7 @@ Machine-readable metadata should accompany human documentation:
 - `CITATION.cff` is the canonical repository citation file.
 - DCAT metadata should describe released datasets that should be discoverable in catalogues such as dataportal.se and data.europa.eu.
 - CSV files that form part of the public data model should be documented with CSVW metadata.
-- Repository information should be maintained in each data repository according to the data repo source metadata decision.
+- Repository information should be maintained in each data repository according to the data repo source data decision.
 - Metadata intended for SND, DORIS, Dataverse, or similar repositories should be derived from the same canonical project metadata where possible.
 
 Documentation should follow these maintenance rules:
