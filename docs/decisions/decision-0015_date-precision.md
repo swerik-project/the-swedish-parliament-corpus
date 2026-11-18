@@ -1,5 +1,7 @@
 # Date precision for party affiliations
 
+Superseded by [decision-0023_date-format-and-precision.md](decision-0023_date-format-and-precision.md).
+
 ## Context
 
 Some dates related to party affiliation are only as precise as the year. In practice, this makes it difficult to test for historical accuracy in the party affiliation data.
